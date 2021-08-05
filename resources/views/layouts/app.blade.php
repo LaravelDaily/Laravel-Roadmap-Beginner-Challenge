@@ -32,5 +32,22 @@
                 {{ $slot }}
             </main>
         </div>
+
+        <div
+          x-data="{
+            isOpen: false,
+            route: '',
+            entity: '',
+            text: '',
+          }"
+          @open-delete-modal.window="
+            isOpen = true
+            route = $event.detail.route
+            entity = $event.detail.entity
+            subText = $event.detail.text
+          "
+        >
+          <x-confirm />
+        </div>
     </body>
 </html>

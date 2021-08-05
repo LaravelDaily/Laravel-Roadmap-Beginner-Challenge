@@ -13,6 +13,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $categories = \App\Models\Category::factory(2)->create();
+        $tags = \App\Models\Tag::factory(2)->create();
+
+        $user = \App\Models\User::factory()
+            ->hasArticles(52, [
+                'category_id' => null,
+            ])
+            ->create([
+                'name' => 'Bela Bloggor',
+                'email' => 'bela@blog.de',
+            ]);
+
+        $user->articles()->each(function ($article) use ($categories, $tags) {
+            $article->category()->associate($categories->random());
+            $article->tags()->attach($tags->random());
+        });
     }
 }

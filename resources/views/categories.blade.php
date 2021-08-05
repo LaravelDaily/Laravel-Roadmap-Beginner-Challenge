@@ -1,0 +1,1 @@
+<x-crud route="categories" entityName="Category" :entities="$categories" />
