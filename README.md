@@ -6,6 +6,20 @@ This repository is intentionally empty, with only a Readme file. Your task if to
 
 ## The Task: Simple Personal Blog
 
+### Usage
+- `clone the repo`
+- `composer install`
+- `npm install && npm run dev`
+- `copy .env.example .env`
+- `php artisan key:generate`
+- add database credentials
+- `php artisan migrate:fresh --seed`
+- `php artisan storage:link`
+
+Login credentials: `admin@admin.com`, `password`
+
+### Task Details
+
 You need to create a personal blog with just three pages:
 
 - Homepage: List of articles
