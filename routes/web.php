@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\TagController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CategoryController;
+use App\Models\Post;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,12 +16,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// callback
+Route::get('/', function(){
+    return view('home', ['posts' => Post::with('category')->get()]);
+})->name('home');
+
+// view
+Route::view('/about', 'about')->name('about');
+
+// resource
+Route::group(['middleware' => 'auth'], function() {
+    Route::resources([
+        'category' => CategoryController::class,
+        'post' => PostController::class,
+        'tag' => TagController::class,
+    ]);
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// post show is public
+Route::get('/post/{post}', [PostController::class, 'show'])->name('post.show');
 
+// auth except register
 require __DIR__.'/auth.php';
