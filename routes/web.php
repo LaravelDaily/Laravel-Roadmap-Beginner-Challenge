@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,11 +17,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::middleware('auth')->prefix('/dashboard')->group(function () {
+    Route::resource('/articles', ArticleController::class);
+    Route::resource('/categories', CategoryController::class);
+    Route::resource('/tags', TagController::class);
+});
+
+Route::get('/about', function () {
+    return view('about');
+});
 
 require __DIR__.'/auth.php';
