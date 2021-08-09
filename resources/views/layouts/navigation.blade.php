@@ -16,15 +16,15 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('articles')">
+                    <x-nav-link :href="route('articles.index')" :active="request()->routeIs('articles')">
                         {{ __('Articles') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('categories')">
+                    <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories')">
                         {{ __('Categories') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('tags')">
+                    <x-nav-link :href="route('tags.index')" :active="request()->routeIs('tags')">
                         {{ __('Tags') }}
                     </x-nav-link>
                 </div>
