@@ -89,7 +89,7 @@ class ArticleController extends Controller
 
         $tempFile = TemporaryFile::where('folder', $request->article_image)->first();
         if ($tempFile) {
-            Storage::disk('public')->putFileAs('/image', storage_path('app/public/image/tmp/' . $request->article_image . '/' . $tempFile->filename), $tempFile->filename);
+            Storage::disk('public_uploads')->putFileAs('/image', storage_path('app/public/image/tmp/' . $request->article_image . '/' . $tempFile->filename), $tempFile->filename);
 
             $article->update([
                 'image' => $tempFile->filename
