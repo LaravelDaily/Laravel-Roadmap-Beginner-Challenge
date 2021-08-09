@@ -18,7 +18,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles=Article::select(['title','created_at','fulltext'])->withCount('tags')->paginate(20);
+        $articles = Article::select(['id', 'title', 'created_at', 'fulltext'])->withCount('tags')->paginate(20);
         return view('articles.index', compact('articles'));
     }
 
@@ -46,12 +46,12 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Article $article
-     * @return Response
+     * @param $id
+     * @return Application|Factory|View
      */
-    public function show(Article $article)
+    public function show($id)
     {
-        //
+        return view('articles.show', ['article' => Article::findOrFail($id)]);
     }
 
     /**

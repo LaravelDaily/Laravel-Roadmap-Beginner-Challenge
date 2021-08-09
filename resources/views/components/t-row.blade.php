@@ -9,7 +9,10 @@
                      aria-hidden="true"></div>
             </div>
             <div>
-                <p class="font-semibold text-black">{{$article->title}}</p>
+                <p class="font-semibold text-black">
+                    <a class="hover:text-blue-700" href="{{route('article.show',$article->id)}}">
+                    {{$article->title}}</a>
+                </p>
                 <p class="text-xs text-gray-600">{{$article->tags_count}} {{Str::plural('tag',$article->tags_count)}}</p>
             </div>
         </div>
