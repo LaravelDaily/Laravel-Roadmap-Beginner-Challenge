@@ -22,7 +22,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::select(['id', 'title', 'created_at', 'fulltext'])->withCount('tags')->paginate(20);
+        $articles = Article::select(['id', 'title', 'created_at', 'fulltext','image'])->withCount('tags')->paginate(20);
         return view('articles.index', compact('articles'));
     }
 
