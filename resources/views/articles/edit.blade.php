@@ -7,9 +7,6 @@
                     {{ __($article->title) }}
                 </h2>
             </x-slot>
-            <!-- Validation Errors -->
-            <x-auth-validation-errors class="mb-4" :errors="$errors"/>
-
 
             <form enctype="multipart/form-data" method="POST" action="{{ route('article.update',$article->id) }}">
             @csrf

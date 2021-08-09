@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
@@ -22,7 +23,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::select(['id', 'title', 'created_at', 'fulltext','image'])->withCount('tags')->paginate(20);
+        $articles = Article::select(['id', 'title', 'created_at', 'fulltext', 'image'])->withCount('tags')->paginate(20);
         return view('articles.index', compact('articles'));
     }
 
@@ -83,16 +84,19 @@ class ArticleController extends Controller
             'title' => $request->title,
             'fulltext' => $request->fulltext,
         ]);
+        /* Debugbar css styles concatenating with $request->article_image :( */
         if (strpos($request->article_image, '<')) {
             $request->article_image = explode('<', $request->article_image)[0];
         }
 
         $tempFile = TemporaryFile::where('folder', $request->article_image)->first();
         if ($tempFile) {
-            Storage::disk('public_uploads')->putFileAs('/image', storage_path('app/public/image/tmp/' . $request->article_image . '/' . $tempFile->filename), $tempFile->filename);
+            Storage::disk('public_uploads')->putFileAs('/image',
+                    storage_path('app/public/image/tmp/' . $request->article_image . '/' . $tempFile->filename),
+                    Auth::id().'_'.$tempFile->filename);
 
             $article->update([
-                'image' => $tempFile->filename
+                'image' => Auth::id().'_'.$tempFile->filename
             ]);
             unlink(storage_path('app/public/image/tmp/' . $request->article_image . '/' . $tempFile->filename));
             rmdir(storage_path('app/public/image/tmp/' . $request->article_image));
