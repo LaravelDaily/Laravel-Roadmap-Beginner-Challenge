@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Article;
 use App\Models\Tag;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,8 +22,10 @@ class TagFactory extends Factory
      */
     public function definition()
     {
+       $articleIds= Article::pluck('id');
         return [
             'name' => $this->faker->word,
+            'article_id'=>$articleIds[rand(0,count($articleIds)-1)]
         ];
     }
 }
