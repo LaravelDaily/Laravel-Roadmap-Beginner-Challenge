@@ -18,7 +18,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return view('articles.index', ['articles' => Article::all()]);
+        $articles=Article::select(['title','created_at','fulltext'])->withCount('tags')->paginate(20);
+        return view('articles.index', compact('articles'));
     }
 
     /**
