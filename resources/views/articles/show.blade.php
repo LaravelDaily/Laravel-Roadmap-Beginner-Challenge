@@ -19,7 +19,7 @@
                         <div class="flex mt-4">
                             <a href="{{route('article.edit',$article->id)}}"
                                 class="w-auto px-4 py-2 my-2 text-base font-medium text-white transition duration-500 ease-in-out transform bg-blue-600 border-blue-600 rounded-md focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2 hover:bg-blue-800">
-                                Accept
+                                Edit
                             </a>
                         </div>
                     </div>

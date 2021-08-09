@@ -11,7 +11,7 @@
             <x-auth-validation-errors class="mb-4" :errors="$errors"/>
 
 
-            <form method="POST" action="{{ route('article.update',$article->id) }}">
+            <form enctype="multipart/form-data" method="POST" action="{{ route('article.update',$article->id) }}">
             @csrf
             @method('PUT')
             <!-- Title -->
@@ -34,9 +34,8 @@
                 </div>
                 <div class="mt-4">
                     <div>
-                        <x-label for="image" :value="__('URL')"/>
-                        <input id="image" class="block m-2 w-full" type="file" name="image"
-                               value="{{$article->image}}"/>
+                        <x-label for="article_image" :value="__('Article image')"></x-label>
+                        <input id="article_img" type="file" name="article_image">
                     </div>
                 </div>
 
@@ -52,7 +51,7 @@
     @section('scripts')
         <script>
             // Get a reference to the file input element
-            const inputElement = document.querySelector('input[id="image"]');
+            const inputElement = document.querySelector('input[type="file"]');
 
             // Create a FilePond instance
             const pond = FilePond.create(inputElement);

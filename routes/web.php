@@ -17,6 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/upload',[\App\Http\Controllers\ArticleController::class,'upload']);
 Route::middleware(['auth'])->group(function () {
     Route::view('/dashboard', 'dashboard')->name('dashboard');
     Route::view('/About', 'about')->name('about-me');
