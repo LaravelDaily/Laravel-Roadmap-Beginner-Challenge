@@ -11,7 +11,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -41,18 +40,46 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param StoreArticleRequest $request
      * @return RedirectResponse
      */
     public function store(StoreArticleRequest $request)
     {
-        $article =Article::create([
+        $article = Article::create([
             'title' => $request->title,
             'fulltext' => $request->fulltext,
         ]);
 
-        abort_if(!$this->storeImage($request,$article),500);
+        abort_if(!$this->storeImage($request, $article), 500);
         return redirect()->route('article.index')->with(['message' => 'Successfully created']);
+    }
+
+    /**
+     * @param Request $request
+     * @param $article
+     * @return bool
+     */
+    public function storeImage(Request $request, $article): bool
+    {
+        /* Debugbar css styles concatenating with $request->article_image :( */
+        if (strpos($request->article_image, '<')) {
+            $request->article_image = explode('<', $request->article_image)[0];
+        }
+
+        $tempFile = TemporaryFile::where('folder', $request->article_image)->first();
+        if ($tempFile) {
+            Storage::disk('public_uploads')->putFileAs('/image',
+                storage_path('app/public/image/tmp/' . $request->article_image . '/' . $tempFile->filename),
+                Auth::id() . '_' . $tempFile->filename);
+
+            $article->update([
+                'image' => Auth::id() . '_' . $tempFile->filename
+            ]);
+            unlink(storage_path('app/public/image/tmp/' . $request->article_image . '/' . $tempFile->filename));
+            rmdir(storage_path('app/public/image/tmp/' . $request->article_image));
+            $tempFile->delete();
+        }
+        return true;
     }
 
     /**
@@ -92,7 +119,7 @@ class ArticleController extends Controller
             'fulltext' => $request->fulltext,
         ]);
 
-        $this->storeImage($request,$article);
+        $this->storeImage($request, $article);
         return redirect()->route('article.index')->with(['message' => 'Successfully updated']);
     }
 
@@ -108,6 +135,10 @@ class ArticleController extends Controller
         return redirect()->route('article.index')->with(['message' => 'Successfully deleted']);
     }
 
+    /**
+     * @param Request $request
+     * @return string
+     */
     public function upload(Request $request): string
     {
         if ($request->hasFile('article_image')) {
@@ -124,28 +155,5 @@ class ArticleController extends Controller
             return $folder;
         }
         return '';
-    }
-
-    public function storeImage(Request $request,$article): bool
-    {
-        /* Debugbar css styles concatenating with $request->article_image :( */
-        if (strpos($request->article_image, '<')) {
-            $request->article_image = explode('<', $request->article_image)[0];
-        }
-
-        $tempFile = TemporaryFile::where('folder', $request->article_image)->first();
-        if ($tempFile) {
-            Storage::disk('public_uploads')->putFileAs('/image',
-                storage_path('app/public/image/tmp/' . $request->article_image . '/' . $tempFile->filename),
-                Auth::id().'_'.$tempFile->filename);
-
-            $article->update([
-                'image' => Auth::id().'_'.$tempFile->filename
-            ]);
-            unlink(storage_path('app/public/image/tmp/' . $request->article_image . '/' . $tempFile->filename));
-            rmdir(storage_path('app/public/image/tmp/' . $request->article_image));
-            $tempFile->delete();
-        }
-        return true;
     }
 }

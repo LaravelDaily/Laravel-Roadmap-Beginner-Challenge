@@ -2,84 +2,82 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TagRequest;
 use App\Models\Tag;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function index()
     {
-        //
+        return view('tags.index', ['tags' => Tag::paginate(16)]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function create()
     {
-        //
+        return view('tags.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param TagRequest $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(TagRequest $request): RedirectResponse
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Tag $tag)
-    {
-        //
+        Tag::create($request->all());
+        return redirect()->route('tag.index')->with(['message' => 'Successfully created']);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Tag  $tag
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return Application|Factory|View
      */
-    public function edit(Tag $tag)
+    public function edit($id)
     {
-        //
+        return view('tags.edit', ['tag' => Tag::findOrFail($id)]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Tag  $tag
-     * @return \Illuminate\Http\Response
+     * @param TagRequest $request
+     * @param int $id
+     * @return RedirectResponse
      */
-    public function update(Request $request, Tag $tag)
+    public function update(TagRequest $request, int $id)
     {
-        //
+        Tag::findOrFail($id)->update([$request->all()]);
+        return redirect()->route('tag.index')->with(['message' => 'Successfully updated']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Tag  $tag
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return RedirectResponse
      */
-    public function destroy(Tag $tag)
+    public function destroy(int $id)
     {
-        //
+        Tag::findOrFail($id)->delete();
+        return redirect()->route('tag.index')->with(['message' => 'Successfully deleted']);
     }
 }
