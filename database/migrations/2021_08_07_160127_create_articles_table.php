@@ -17,9 +17,10 @@ class CreateArticlesTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('title');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->string('img')->nullable();
             $table->text('content');
+            $table->foreignId('category_id');
             $table->timestamps();
         });
     }
