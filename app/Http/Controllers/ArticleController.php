@@ -14,7 +14,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return view('panel.article.index');
+        $articles = Article::with('user')->with('category')->paginate(10);
+        return view('panel.article.index', compact('articles'));
     }
 
     /**
@@ -80,6 +81,6 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+
     }
 }

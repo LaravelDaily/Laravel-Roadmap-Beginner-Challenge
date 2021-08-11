@@ -17,7 +17,7 @@
                                 Title
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Description
+                                Category
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Author
@@ -31,41 +31,47 @@
                         </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach($articles as $article)
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-3 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="ml-4">
                                         <div class="text-sm font-medium text-gray-900 hover:text-blue-600">
                                             <a href="">
-                                            Regional Paradigm Technician
+                                            {{$article->title}}
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">Regional Paradigm Technician</div>
+                            <td class="px-3 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">
+                                    {{ $article->category->name }}
+                                </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                Active
+                            <td class="px-3 text-sm text-gray-500 py-4 whitespace-nowrap">
+                                {{ $article->user->name }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                Admin
+                            <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {{ $article->created_at->diffForHumans() }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <td class="px-3 py-4 whitespace-nowrap text-right text-sm font-medium">
 
-                                <a href="#" class="hover:text-indigo-800">
+                                <a href="{{ route('articles.edit', $article->id) }}" class="hover:text-indigo-800">
                                     <i class="material-icons">edit</i>
                                 </a>
-                                <a href="#" class="hover:text-indigo-800">
+                                <a href="{{ route('articles.destroy', $article->id) }}" class="hover:text-indigo-800">
                                     <i class="material-icons">delete</i>
                                 </a>
                             </td>
                         </tr>
-
+                        @endforeach
                         <!-- More people... -->
                         </tbody>
                     </table>
+                    <div class="mt-4 mb-4 px-9">
+                        {{ $articles->links() }}
+                    </div>
                 </div>
             </div>
         </div>
