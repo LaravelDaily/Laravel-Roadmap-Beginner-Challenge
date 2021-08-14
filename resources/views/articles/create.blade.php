@@ -21,6 +21,17 @@
                     </div>
 
                 </div>
+                <div class="mt-4">
+                    <x-label for="Category" :value="__('Category')"></x-label>
+                    <select id="Category"
+                            class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            name="category_id" required>
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}">{{$category->name}}</option>
+                        @endforeach
+                    </select>
+
+                </div>
                 <!-- Text -->
                 <div class="mt-4">
                     <x-label for="fulltext" :value="__('Text')"></x-label>

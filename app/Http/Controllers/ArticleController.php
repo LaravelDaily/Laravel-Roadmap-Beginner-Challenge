@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateRequest;
 use App\Models\Article;
+use App\Models\Category;
 use App\Models\TemporaryFile;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -34,7 +35,8 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('articles.create');
+        $categories = Category::get(['name', 'id']);
+        return view('articles.create', ['categories' => $categories]);
     }
 
     /**
@@ -48,6 +50,7 @@ class ArticleController extends Controller
         $article = Article::create([
             'title' => $request->title,
             'fulltext' => $request->fulltext,
+            'category_id' => $request->category_id
         ]);
 
         abort_if(!$this->storeImage($request, $article), 500);
@@ -101,7 +104,8 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        return view('articles.edit', ['article' => Article::findOrFail($id)]);
+        $categories = Category::get(['name', 'id']);
+        return view('articles.edit', ['article' => Article::findOrFail($id),'categories'=>$categories]);
     }
 
     /**
@@ -117,6 +121,7 @@ class ArticleController extends Controller
         $article->update([
             'title' => $request->title,
             'fulltext' => $request->fulltext,
+            'category_id' => $request->category_id
         ]);
 
         $this->storeImage($request, $article);

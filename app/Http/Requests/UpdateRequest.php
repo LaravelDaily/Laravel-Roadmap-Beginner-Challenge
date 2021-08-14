@@ -26,6 +26,7 @@ class UpdateRequest extends FormRequest
         return [
             'title'=>['required','min:6'],
             'fulltext'=>['required','max:255'],
+            'category_id'=>['required','numeric'],
         ];
     }
 }
