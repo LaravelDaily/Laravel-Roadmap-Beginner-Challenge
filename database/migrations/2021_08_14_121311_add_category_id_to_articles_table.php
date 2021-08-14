@@ -14,7 +14,10 @@ class AddCategoryIdToArticlesTable extends Migration
     public function up()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->foreignId('category_id')->constrained();
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')
+                ->references('id')->on('categories')
+                ->onDelete('cascade');
         });
     }
 

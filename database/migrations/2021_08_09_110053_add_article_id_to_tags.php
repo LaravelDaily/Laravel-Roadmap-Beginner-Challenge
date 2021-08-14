@@ -14,7 +14,10 @@ class AddArticleIdToTags extends Migration
     public function up()
     {
         Schema::table('tags', function (Blueprint $table) {
-            $table->foreignId('article_id')->constrained();
+            $table->unsignedBigInteger('article_id');
+            $table->foreign('article_id')
+                ->references('id')->on('articles')
+                ->onDelete('cascade');
         });
     }
 
