@@ -105,7 +105,7 @@ class ArticleController extends Controller
     public function edit($id)
     {
         $categories = Category::get(['name', 'id']);
-        return view('articles.edit', ['article' => Article::findOrFail($id),'categories'=>$categories]);
+        return view('articles.edit', ['article' => Article::findOrFail($id), 'categories' => $categories]);
     }
 
     /**
