@@ -39,6 +39,9 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <x-dropdown-link :href="route('category.index')">
+                            {{ __('Categories') }}
+                        </x-dropdown-link>
                         <x-dropdown-link :href="route('tag.index')">
                             {{ __('Tags List') }}
                         </x-dropdown-link>
@@ -88,6 +91,9 @@
             </div>
 
             <div class="mt-3 space-y-1">
+                <x-responsive-nav-link :href="route('category.index')">
+                    {{ __('Categories') }}
+                </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('tag.index')">
                     {{ __('Tags List') }}
                 </x-responsive-nav-link>

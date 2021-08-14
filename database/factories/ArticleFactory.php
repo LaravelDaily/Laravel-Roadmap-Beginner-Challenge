@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ArticleFactory extends Factory
@@ -21,10 +22,12 @@ class ArticleFactory extends Factory
      */
     public function definition()
     {
+        $categoryIds=Category::pluck('id');
         return [
             'title' => $this->faker->sentence(3),
             'fulltext' => $this->faker->text,
-            'image' => $this->faker->imageUrl
+            'image' => $this->faker->imageUrl,
+            'category_id'=>$categoryIds[rand(0,count($categoryIds)-1)]
         ];
     }
 }
