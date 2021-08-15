@@ -2,84 +2,79 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
-use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Tag;
+use App\Traits\ImageUploadTrait;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    use ImageUploadTrait;
+
     public function index()
     {
-        //
+        $articles = Article::withCount('tags')->latest()->paginate(5);
+
+        return view('backend.articles.index', compact('articles'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $categories = Category::all();
+        $tags = Tag::all();
+
+        return view('backend.articles.create', compact('categories', 'tags'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(ArticleRequest $request)
     {
-        //
+        if ($request->has('thumbnail')) {
+            $validated = array_merge($request->validated(),['thumbnail' => $this->uploadImage($request->file('thumbnail'), 'article')]);
+        }
+
+        $article = Article::create($validated ?? $request->validated());
+
+        $article->tags()->sync($request->tag_id);
+
+        return redirect()->route('backend.articles.index')->with('success', 'Article created successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Article  $article
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Article $article)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Article  $article
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Article $article)
     {
-        //
+        $categories = Category::all();
+        $tags = Tag::all();
+
+        return view('backend.articles.edit', compact('article', 'categories', 'tags'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Article  $article
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Article $article)
+    public function update(ArticleRequest $request, Article $article)
     {
-        //
+        if ($request->has('thumbnail')) {
+            if ($article->thumbnail) {
+                Storage::disk('public')->delete('uploads/images/article/' . $article->thumbnail);
+            }
+            $validated = array_merge($request->validated(),['thumbnail' => $this->uploadImage($request->file('thumbnail'), 'article')]);
+        }
+
+        $article->update($validated ?? $request->validated());
+
+        $article->tags()->sync($request->tag_id);
+
+        return redirect()->route('backend.articles.index')->with('success', 'Article updated successfully!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Article  $article
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Article $article)
     {
-        //
+        if ($article->thumbnail) {
+            Storage::disk('public')->delete('uploads/images/article/' . $article->thumbnail);
+        }
+
+        $article->tags()->detach();
+
+        $article->delete();
+
+        return redirect()->route('backend.articles.index')->with('success', 'Article deleted successfully!');
     }
 }

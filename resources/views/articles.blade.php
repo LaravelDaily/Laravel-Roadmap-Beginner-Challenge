@@ -16,7 +16,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Latest Articles') }}</div>
+                    <div class="card-header">{{ __('All Articles') }}{{ $title ? ' in ' . $title : '' }}</div>
                     <div class="card-body">
                         @forelse($articles as $article)
                             <div class="card mb-3">
@@ -52,10 +52,9 @@
                                 {{ __('No article found!') }}
                             </div>
                         @endforelse
-                        @if($articles)
+                        @if ($articles->hasPages())
                             <div class="d-flex justify-content-center">
-                                <a class="btn btn-primary" href="{{ route('articles.index') }}"
-                                   role="button">{{ __('All Articles') }}</a>
+                                {{ $articles->links() }}
                             </div>
                         @endif
                     </div>

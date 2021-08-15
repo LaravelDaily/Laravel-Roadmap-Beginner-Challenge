@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @stack('css')
 </head>
 <body>
     <div id="app">
@@ -33,7 +34,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('articles.index') }}">{{ __('All Articles') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('about') }}">{{ __('About') }}</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -58,6 +64,19 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('home') }}">
+                                        {{ __('Dashboard') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('backend.articles.index') }}">
+                                        {{ __('Articles') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('backend.categories.index') }}">
+                                        {{ __('Categories') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('backend.tags.index') }}">
+                                        {{ __('Tags') }}
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -79,5 +98,6 @@
             @yield('content')
         </main>
     </div>
+    @stack('js')
 </body>
 </html>
