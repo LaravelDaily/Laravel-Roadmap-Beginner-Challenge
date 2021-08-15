@@ -76,12 +76,11 @@ Here's the [list of Roadmap features](https://github.com/LaravelDaily/Laravel-Ro
 
 ----- 
 
-## Example Solutions
+## Challenge Accepted
 
-If you need help, or you want to compare your version with our simple version, here are two public repositories with the solution:
+**Additional**
 
-- [Laravel Roadmap Beginner: Breeze](https://github.com/LaravelDaily/Laravel-Roadmap-Beginner-Roadmap-Breeze)
-- [Laravel Roadmap Beginner: UI](https://github.com/LaravelDaily/Laravel-Roadmap-Beginner-Blog-UI)
+- Used FilePond for image upload
+- No `show` routes in `Categories` and `Tags`
 
-
-**Notice**: please look at those repositories only AFTER you've accomplished the task yourself, or if you're confident about your Laravel beginner skills and you think you don't need to practice this task.
+## Thank You! Waiting for new Challenges
