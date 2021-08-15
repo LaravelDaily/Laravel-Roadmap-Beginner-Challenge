@@ -1,0 +1,42 @@
+@extends('layouts.app')
+
+@push('css')
+    <style>
+        .card-header-with-button {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+@endpush
+
+@section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-with-button">
+                        {{ __('Update Category') }}
+                        <a href="{{route('backend.categories.index')}}" class="btn btn-success">{{ __('Back') }}</a>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('backend.categories.update', $category) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <div class="form-group">
+                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                                       placeholder="Name" value="{{ old('name', $category->name) }}">
+                                @error('name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            <button type="submit" class="btn btn-primary float-right">{{ __('Update') }}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
