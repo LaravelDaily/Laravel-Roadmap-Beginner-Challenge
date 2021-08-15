@@ -25,4 +25,9 @@ class Article extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public function scopeUserPost($query)
+    {
+        return $query->where('user_id', auth()->user()->id);
+    }
+
 }

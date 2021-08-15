@@ -14,7 +14,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::with('user')->with('category')->paginate(10);
+        $articles = Article::UserPost()->with('user')->with('category')->paginate(10);
         return view('panel.article.index', compact('articles'));
     }
 
