@@ -8,14 +8,19 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <h1 class="p-4 text-2xl">Articles Management</h1>
+                <h1 class="inline-block p-4 text-2xl">Articles Management</h1>
+                <div class="float-right mt-4 mr-8">
+                    <a href="{{ route('articles.create') }}" class="py-2 px-4 bg-green-400 text-white rounded-lg inline-block hover:bg-green-600">
+                        Create New Article
+                    </a>
+                </div>
                 <div class="p-6 bg-white border-b border-gray-200">
                     @if(session('status'))
                         <div x-data="{ show: true }" x-show="show"
                              x-transition:enter.duration.500ms
                              x-transition:leave.duration.1000ms
                              x-init="setTimeout(() => show = false, 3000)"
-                             class="flex mb-3 justify-between items-center bg-green-500 relative text-white py-3 px-3 rounded-lg">
+                             class="flex mb-3 justify-between items-center bg-green-300 relative text-white py-3 px-3 rounded-lg">
                             <div>
                                 {{ session('status') }}
                             </div>

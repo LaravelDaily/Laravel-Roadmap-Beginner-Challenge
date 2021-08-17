@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit Article') }}
+            {{ __('Update Article') }}
         </h2>
     </x-slot>
 
@@ -9,8 +9,26 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-24">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="md:p-12 sm:p-6 bg-white">
+                    @if(session('status'))
+                        <div x-data="{ show: true }" x-show="show"
+                             x-transition:enter.duration.500ms
+                             x-transition:leave.duration.1000ms
+                             x-init="setTimeout(() => show = false, 3000)"
+                             class="flex mb-3 justify-between items-center bg-green-300 relative text-white py-3 px-3 rounded-lg">
+                            <div>
+                                {{ session('status') }}
+                            </div>
+                            <div>
+                                <button type="button" @click="show = false" class=" text-white">
+                                    <span class="text-2xl">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    @endif
                     <div class="mt-5 shadow md:mt-0 md:col-span-2">
-                        <form action="#" method="POST">
+                        <form action="{{ route('articles.update', $article->id) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PATCH')
                             <div class="shadow sm:rounded-md sm:overflow-hidden">
                                 <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
                                     <div class="grid grid-cols-3 gap-6">
@@ -19,7 +37,12 @@
                                                 Title
                                             </label>
                                             <div class="mt-1 flex rounded-md shadow-sm">
-                                                <input type="text" name="company-website" id="company-website" class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300" placeholder="www.example.com">
+                                                <input type="text" name="title" value="{{ $article->title }}" class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300" placeholder="Title...">
+                                            </div>
+                                            <div class="text-red-600 text-sm mt-1">
+                                                @error('title')
+                                                <span>{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -28,8 +51,21 @@
                                             <label for="about" class="block text-sm font-medium text-gray-700">
                                                 Category
                                             </label>
+
                                             <div class="mt-1 flex rounded-md shadow-sm">
-                                                <input type="text" name="company-website" id="company-website" class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300" placeholder="Programming">
+                                                <select type="text" name="category_id" class="category focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300" >
+                                                    @foreach($categories as $category)
+                                                        <option value="{{ $category->id }}"
+                                                            @if($category->id == $article->category_id) selected @endif
+                                                        >{{ $category->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="text-red-600 text-sm mt-1">
+                                                @error('category_id')
+                                                <span>{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -40,7 +76,12 @@
                                             Content
                                         </label>
                                         <div class="mt-1">
-                                            <textarea id="about" name="about" rows="6" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Type content here..."></textarea>
+                                            <textarea name="content" rows="6" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Type content here...">{{ $article->content }}</textarea>
+                                        </div>
+                                        <div class="text-red-600 text-sm mt-1">
+                                            @error('content')
+                                            <span>{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -51,7 +92,12 @@
                                                 Image
                                             </label>
                                             <div class="mt-1 flex rounded-md shadow-sm">
-                                                <input type="file" name="company-website" id="company-website" class="focus:ring-indigo-500 bg-gray-50 shadow p-4 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300" placeholder="Programming">
+                                                <input type="file" name="img" class="focus:ring-indigo-500 bg-gray-50 shadow p-4 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300" placeholder="Programming">
+                                            </div>
+                                            <div class="text-red-600 text-sm mt-1">
+                                                @error('img')
+                                                <span>{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -61,8 +107,26 @@
                                             <label for="about" class="block text-sm font-medium text-gray-700">
                                                 Tags
                                             </label>
+
                                             <div class="mt-1 flex rounded-md shadow-sm">
-                                                <input type="text" name="company-website" id="company-website" class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300" placeholder="Programming">
+                                                <select name="tags[]" class="tags focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300" name="states[]" multiple="multiple">
+                                                    @foreach($tags as $tag)
+                                                        <option
+                                                            @foreach($article->tags as $item)
+                                                                @if($tag->id == $item->id)
+                                                                    selected
+                                                                @endif
+                                                            @endforeach
+
+                                                            value="{{ $tag->id }}">{{ $tag->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="text-red-600 text-sm mt-1">
+                                                @error('tags[]')
+                                                <span>{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -79,4 +143,17 @@
             </div>
         </div>
     </div>
+
+    <x-slot name="script">
+        <script>
+            $(document).ready(function() {
+                $('.tags').select2();
+            });
+
+            $(document).ready(function() {
+                $('.category').select2();
+            });
+        </script>
+    </x-slot>
+
 </x-app-layout>
