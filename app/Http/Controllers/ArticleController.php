@@ -2,83 +2,77 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Panel\Article\CreateArticleRequest;
 use App\Models\Article;
+use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        $articles = Article::UserPost()->with('user')->with('category')->paginate(10);
+        $articles = Article::UserPost()
+            ->with('user')
+            ->with('category')
+            ->paginate(10);
+
         return view('panel.article.index', compact('articles'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        return view('panel.article.create');
+        $categories = Category::all();
+        $tags = Tag::all();
+        return view('panel.article.create', compact(['categories', 'tags']));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store(CreateArticleRequest $request)
     {
-        //
+        $tagsId = Tag::whereIn('id', $request->tags) //get tags id
+            ->get()
+            ->pluck('id')
+            ->toArray();
+
+        $img = $request->file('img');
+        $imgName =  time() . '_' . $img->getClientOriginalName(); // change img name to unique name.
+        $img->storeAs('images/articles', $imgName, 'public'); // store file
+
+        $data = $request->validated();
+
+        $data['img'] = $imgName;
+        $data['user_id'] = auth()->user()->id;
+
+        $article = Article::create(
+            $data
+        );
+        $article->tags()->sync($tagsId);
+        session()->flash('status', 'Article Created Successfully!');
+        return back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Article  $article
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Article $article)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Article  $article
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Article $article)
     {
         return view('panel.article.edit');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Article  $article
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Article $article)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Article  $article
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Article $article)
     {
 
