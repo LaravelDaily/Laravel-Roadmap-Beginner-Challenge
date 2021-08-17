@@ -10,6 +10,22 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <h1 class="p-4 text-2xl">Articles Management</h1>
                 <div class="p-6 bg-white border-b border-gray-200">
+                    @if(session('status'))
+                        <div x-data="{ show: true }" x-show="show"
+                             x-transition:enter.duration.500ms
+                             x-transition:leave.duration.1000ms
+                             x-init="setTimeout(() => show = false, 3000)"
+                             class="flex mb-3 justify-between items-center bg-green-500 relative text-white py-3 px-3 rounded-lg">
+                            <div>
+                                {{ session('status') }}
+                            </div>
+                            <div>
+                                <button type="button" @click="show = false" class=" text-white">
+                                    <span class="text-2xl">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    @endif
                     <table class="min-w-full divide-y shadow divide-gray-200">
                         <thead class="bg-gray-50">
                         <tr>
@@ -37,7 +53,7 @@
                                 <div class="flex items-center">
                                     <div class="ml-4">
                                         <div class="text-sm font-medium text-gray-900 hover:text-blue-600">
-                                            <a href="">
+                                            <a href="{{ route('articles.show', $article->id) }}">
                                             {{$article->title}}
                                             </a>
                                         </div>
@@ -60,9 +76,14 @@
                                 <a href="{{ route('articles.edit', $article->id) }}" class="hover:text-indigo-800">
                                     <i class="material-icons">edit</i>
                                 </a>
-                                <a href="{{ route('articles.destroy', $article->id) }}" class="hover:text-indigo-800">
+
+                                <a href="{{ route('articles.destroy', $article->id) }}" onclick="destroyPost(event, {{ $article->id }})" class="hover:text-indigo-800">
                                     <i class="material-icons">delete</i>
                                 </a>
+                                <form action="{{ route('articles.destroy', $article->id) }}" method="post" id="destroy-article-{{ $article->id }}">
+                                    @csrf
+                                    @method('delete')
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -76,4 +97,12 @@
             </div>
         </div>
     </div>
+    <x-slot name="script">
+        <script>
+            function destroyPost(event, id) {
+                event.preventDefault();
+                document.getElementById('destroy-article-' + id).submit();
+            }
+        </script>
+    </x-slot>
 </x-app-layout>

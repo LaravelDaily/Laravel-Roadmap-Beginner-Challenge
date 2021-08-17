@@ -57,7 +57,8 @@ class ArticleController extends Controller
 
     public function show(Article $article)
     {
-        //
+        //dd($article);
+        dd('nonono');
     }
 
 
@@ -75,6 +76,8 @@ class ArticleController extends Controller
 
     public function destroy(Article $article)
     {
-
+        $article->delete();
+        session()->flash('status', 'Article Deleted Successfully!');
+        return back();
     }
 }
