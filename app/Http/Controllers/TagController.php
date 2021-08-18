@@ -47,6 +47,8 @@ class TagController extends Controller
 
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+        session()->flash('status', 'Tag Deleted Successfully!');
+        return back();
     }
 }
