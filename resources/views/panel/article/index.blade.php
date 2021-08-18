@@ -82,7 +82,7 @@
                                     <i class="material-icons">edit</i>
                                 </a>
 
-                                <a href="{{ route('articles.destroy', $article->id) }}" onclick="destroyPost(event, {{ $article->id }})" class="hover:text-indigo-800">
+                                <a href="{{ route('articles.destroy', $article->id) }}" onclick="destroyArticle(event, {{ $article->id }})" class="hover:text-indigo-800">
                                     <i class="material-icons">delete</i>
                                 </a>
                                 <form action="{{ route('articles.destroy', $article->id) }}" method="post" id="destroy-article-{{ $article->id }}">
@@ -104,7 +104,7 @@
     </div>
     <x-slot name="script">
         <script>
-            function destroyPost(event, id) {
+            function destroyArticle(event, id) {
                 event.preventDefault();
                 document.getElementById('destroy-article-' + id).submit();
             }
