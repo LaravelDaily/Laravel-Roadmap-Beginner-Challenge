@@ -93,7 +93,7 @@
         <script>
             function destroyCategory(event, id) {
                 event.preventDefault();
-                document.getElementById('destroy-article-' + id).submit();
+                document.getElementById('destroy-category-' + id).submit();
             }
         </script>
     </x-slot>
