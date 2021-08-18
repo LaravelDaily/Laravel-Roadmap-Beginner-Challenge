@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Panel\Category\CreateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -16,12 +17,17 @@ class CategoryController extends Controller
 
     public function create()
     {
-        //
+        return view('panel.category.create');
     }
 
-    public function store(Request $request)
+    public function store(CreateCategoryRequest $request)
     {
-        //
+        $data = $request->validated();
+        $category = Category::create(
+            $data
+        );
+        session()->flash('status', 'Category Created Successfully!');
+        return back();
     }
 
     public function show(Category $category)
