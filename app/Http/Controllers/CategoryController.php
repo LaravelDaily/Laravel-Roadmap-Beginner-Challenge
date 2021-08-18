@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Panel\Category\CreateCategoryRequest;
+use App\Http\Requests\Panel\Category\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -37,12 +38,17 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        //
+        return view('panel.category.edit', compact('category'));
     }
 
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $data = $request->validated();
+        $category->update(
+            $data
+        );
+        session()->flash('status', 'Category Updated Successfully!');
+        return redirect(route('categories.index'));
     }
 
     public function destroy(Category $category)
