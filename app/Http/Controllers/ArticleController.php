@@ -91,7 +91,7 @@ class ArticleController extends Controller
         }
 
         $data['user_id'] = auth()->user()->id;
-
+        $article->slug = null; // for update slug
         $article->update(
             $data
         );

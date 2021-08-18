@@ -44,6 +44,7 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         $data = $request->validated();
+        $category->slug = null;
         $category->update(
             $data
         );
