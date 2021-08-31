@@ -13,6 +13,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call([
+            TagSeeder::class,
+            CategorySeeder::class,
+            ArticleSeeder::class,
+        ]);
+        \DB::table('users')->insert([
+            'name' => 'admin',
+            'email' => 'admin@admin.com',
+            'password' => \Hash::make('password'),
+        ]);        
     }
 }
