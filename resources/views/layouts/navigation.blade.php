@@ -42,6 +42,9 @@
                         </x-slot>
 
                         <x-slot name="content">
+                            <x-dropdown-link :href="route('admin.articles.index')">Articles</x-dropdown-link>                            
+                            <x-dropdown-link :href="route('admin.categories.index')">Categories</x-dropdown-link>
+                            <x-dropdown-link :href="route('admin.tags.index')">Tags</x-dropdown-link>
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf

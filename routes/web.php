@@ -18,7 +18,8 @@ use App\Http\Controllers\TagController;
 
 Route::get('/', function () {
     // if you don’t put with() here, you will have N+1 query performance problem
-    $articles = Article::with('category', 'tags')->take(5)->latest()->get();
+    //$articles = Article::with('category', 'tags')->take(5)->latest()->get();
+    $articles = Article::all()->take(5);
 
     return view('pages.home', compact('articles'));
 })->name('home');
