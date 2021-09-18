@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
+    public function show(Article $article)
+    {
+        return view('articles.show', compact('article'));
+    }
+
     public function store(Request $request)
     {
         $request->validate([
