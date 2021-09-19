@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
-use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -24,8 +24,8 @@ class ArticleController extends Controller
 
         $article = Article::create([
             'title' => $request->title,
-            'body' => $request->title,
-            'image' => ! $request->hasFile('image') ?: Storage::put('/', $request->image),
+            'body' => $request->body,
+            'image' => $request->hasFile('image') ? Storage::put('/', $request->image) : null,
         ]);
 
         $request->user()->articles()->save($article);
@@ -33,27 +33,25 @@ class ArticleController extends Controller
         return redirect()->back();
     }
 
-    public function edit(Request $request, Article $article)
+    public function update(UpdateArticleRequest $request, Article $article)
     {
-        $request->validate([
-            'title' => ['nullable'],
-        ]);
-
-        $article->update([
-            'title' => $request->title ?? $article->title,
-            'body' => $request->body ?? $article->body,
-            'image' => ! $request->hasFile('image') ?: Storage::put('/', $request->image),
-            'category_id' => $request->category ?? $article->category_id,
-        ]);
-
-        $tags = collect();
+        $request->has('image') ?
+            $article->update(array_merge(
+                $request->validated(),
+                ['image' => Storage::put('/', $request->image)]
+            )) :
+            $article->update($request->validated());
 
         if ($request->has('tags')) {
-            foreach ($request->tags as $tag) {
-                $tags->push(Tag::find($tag));
-            }
-            $article->tags()->saveMany($tags);
+            $article->tags()->attach($request->tags);
         }
+
+        return redirect()->back();
+    }
+
+    public function destroy(Article $article)
+    {
+        $article->delete();
 
         return redirect()->back();
     }

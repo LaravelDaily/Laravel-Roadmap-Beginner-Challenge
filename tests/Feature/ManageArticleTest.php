@@ -21,7 +21,7 @@ class EditArticleTest extends TestCase
             ->create([
                 'title' => 'Old title',
                 'body' => 'Old Lorem Ipsum',
-                'image' => $oldImage = UploadedFile::fake()->image('old.jpg')
+                'image' => UploadedFile::fake()->image('old.jpg')
             ]);
 
         $this->actingAs($article->user)
@@ -49,7 +49,7 @@ class EditArticleTest extends TestCase
 
         $this->actingAs($article->user)
             ->patch("articles/{$article->id}", [
-                'category' => $category->id
+                'category_id' => $category->id
             ])
             ->assertSessionHasNoErrors()
             ->assertRedirect();
@@ -60,7 +60,6 @@ class EditArticleTest extends TestCase
     /** @test */
     public function can_update_its_tags()
     {
-        $this->withoutExceptionHandling();
         $article = Article::factory()
             ->forUser()
             ->create();
@@ -76,5 +75,18 @@ class EditArticleTest extends TestCase
             ->assertRedirect();
 
         $tags->each(fn ($tag) => $tag->articles->contains($article));
+    }
+
+    /** @test */
+    public function can_delete_article()
+    {
+        $article = Article::factory()->create();
+
+        $this->actingAs($article->user)
+            ->delete("articles/{$article->id}")
+            ->assertSessionHasNoErrors()
+            ->assertRedirect();
+
+        $this->assertNotNull($article->fresh()->deleted_at);
     }
 }

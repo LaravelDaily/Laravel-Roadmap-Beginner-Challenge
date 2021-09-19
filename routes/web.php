@@ -20,4 +20,5 @@ Route::get('/', function () {
 
 Route::post('articles', [ArticleController::class, 'store']);
 Route::get('articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
-Route::patch('articles/{article}', [ArticleController::class, 'edit']);
+Route::patch('articles/{article}', [ArticleController::class, 'update']);
+Route::delete('articles/{article}', [ArticleController::class, 'destroy']);

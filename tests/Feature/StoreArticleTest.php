@@ -20,19 +20,18 @@ class StoreArticleTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->post('articles', [
+            ->post('articles', $attributes = [
                 'title' => 'Example Title',
                 'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
                 'image' => $image = UploadedFile::fake()->image('test.jpg'),
             ])
             ->assertSessionHasNoErrors()
             ->assertRedirect();
-        
             
-        tap(Article::firstOrFail(), function ($article) use ($image, $user) {
+        tap(Article::firstOrFail(), function ($article) use ($image, $user, $attributes) {
             $this->assertDatabaseHas('articles', [
-                'title' => $article->title,
-                'body' => $article->body,
+                'title' => $attributes['title'],
+                'body' => $attributes['body'],
                 'image' => $image->hashName()
             ]);
             $user->articles()->first()->is($article);
@@ -57,6 +56,7 @@ class StoreArticleTest extends TestCase
             $this->assertDatabaseHas('articles', [
                 'title' => $article->title,
                 'body' => $article->body,
+                'image' => null
             ]);
         });
     }
