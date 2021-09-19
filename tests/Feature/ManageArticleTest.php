@@ -89,4 +89,23 @@ class EditArticleTest extends TestCase
 
         $this->assertNotNull($article->fresh()->deleted_at);
     }
+
+    /** @test */
+    public function guests_cannot_manage_articles()
+    {
+        $article = Article::factory()->create();
+
+        $this->get(route('articles.show', $article))
+            ->assertRedirect();
+
+        $this->patch("articles/{$article->id}")
+            ->assertSessionHasNoErrors()
+            ->assertRedirect();
+
+        $this->delete("articles/{$article->id}")
+            ->assertSessionHasNoErrors()
+            ->assertRedirect();
+
+        $this->assertNull($article->fresh()->deleted_at);
+    }
 }

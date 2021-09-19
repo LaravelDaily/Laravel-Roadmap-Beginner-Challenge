@@ -108,4 +108,12 @@ class StoreArticleTest extends TestCase
             ])
             ->assertSessionHasErrors('image');
     }
+
+    /** @test */
+    public function guests_cannot_post_articles()
+    {
+        $this->post('articles')
+            ->assertSessionHasNoErrors()
+            ->assertRedirect();
+    }
 }
