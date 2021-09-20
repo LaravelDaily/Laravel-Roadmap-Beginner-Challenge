@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
     <div class="container-fluid mx-5">
-        <a class="navbar-brand" href="#">Blog</a>
+        <a class="navbar-brand" href="{{ route('guest.home') }}">Blog</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -22,9 +22,9 @@
                             Admin
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Categories</a></li>
-                            <li><a class="dropdown-item" href="#">Tags</a></li>
-                            <li><a class="dropdown-item" href="#">Articles</a></li>
+                            <li><a class="dropdown-item" href="{{ route('category.index') }}">Categories</a></li>
+                            <li><a class="dropdown-item" href="{{ route('tag.index') }}">Tags</a></li>
+                            <li><a class="dropdown-item" href="{{ route('article.index') }}">Articles</a></li>
                             <form action="{{ route('auth.logout') }}" method="POST">
                                 @csrf
                                 <button type="submit" class="dropdown-item">Logout</button>
