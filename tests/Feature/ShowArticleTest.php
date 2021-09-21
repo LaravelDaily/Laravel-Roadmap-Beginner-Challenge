@@ -14,6 +14,7 @@ class ShowArticleTest extends TestCase
     /** @test */
     public function can_view_single_article()
     {
+        $this->withoutExceptionHandling();
         $article = Article::factory()
             ->forCategory()
             ->hasTags(2)
@@ -22,7 +23,7 @@ class ShowArticleTest extends TestCase
             ]);
         $response = $this->actingAs($article->user)
             ->get(route('articles.show', $article))
-            ->assertViewIs('auth.articles.show')
+            ->assertViewIs('articles.show')
             ->assertOk();
 
         $response->assertSeeText($article->title);
