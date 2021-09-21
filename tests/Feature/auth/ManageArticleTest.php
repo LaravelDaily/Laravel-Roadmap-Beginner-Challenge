@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Auth;
 
 use App\Models\Article;
 use App\Models\Category;
@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
-class EditArticleTest extends TestCase
+class ManageArticleTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -25,7 +25,7 @@ class EditArticleTest extends TestCase
             ]);
 
         $this->actingAs($article->user)
-            ->patch("articles/{$article->id}", [
+            ->patch(route('auth.articles.update', $article), [
                 'title' => 'Updated Title',
                 'body' => 'Updated Lorem Ipsum',
                 'image' => $newImage = UploadedFile::Fake()->image('new.jpg'),
@@ -48,7 +48,7 @@ class EditArticleTest extends TestCase
         $category = Category::factory()->create();
 
         $this->actingAs($article->user)
-            ->patch("articles/{$article->id}", [
+            ->patch(route('auth.articles.update', $article), [
                 'category_id' => $category->id
             ])
             ->assertSessionHasNoErrors()
@@ -68,7 +68,7 @@ class EditArticleTest extends TestCase
             ->create();
 
         $this->actingAs($article->user)
-            ->patch("articles/{$article->id}", [
+            ->patch(route('auth.articles.update', $article), [
                 'tags' => $tags->pluck('id')->toArray()
             ])
             ->assertSessionHasNoErrors()
@@ -83,7 +83,7 @@ class EditArticleTest extends TestCase
         $article = Article::factory()->create();
 
         $this->actingAs($article->user)
-            ->delete("articles/{$article->id}")
+            ->delete(route('auth.articles.destroy', $article))
             ->assertSessionHasNoErrors()
             ->assertRedirect();
 
@@ -95,14 +95,14 @@ class EditArticleTest extends TestCase
     {
         $article = Article::factory()->create();
 
-        $this->get(route('articles.show', $article))
+        $this->get(route('auth.articles.show', $article))
             ->assertRedirect();
 
-        $this->patch("articles/{$article->id}")
+        $this->patch(route('auth.articles.update', $article))
             ->assertSessionHasNoErrors()
             ->assertRedirect();
 
-        $this->delete("articles/{$article->id}")
+        $this->delete(route('auth.articles.destroy', $article))
             ->assertSessionHasNoErrors()
             ->assertRedirect();
 

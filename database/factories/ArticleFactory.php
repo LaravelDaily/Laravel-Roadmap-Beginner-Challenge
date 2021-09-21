@@ -3,8 +3,10 @@
 namespace Database\Factories;
 
 use App\Models\Article;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Arr;
 
 class ArticleFactory extends Factory
 {
@@ -25,7 +27,12 @@ class ArticleFactory extends Factory
         return [
             'title' => $this->faker->sentence(),
             'body' => $this->faker->text(),
-            'user_id' => User::factory(),
+            'user_id' => User::first() ?? User::factory(),
+            'category_id' => Category::factory()->state([
+                'name' => Arr::random([
+                    'gaming', 'development', 'sports'
+                ])
+            ]),
         ];
     }
 }

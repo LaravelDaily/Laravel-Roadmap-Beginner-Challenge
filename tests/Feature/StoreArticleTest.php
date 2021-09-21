@@ -20,7 +20,7 @@ class StoreArticleTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->post('articles', $attributes = [
+            ->post(route('auth.articles.store'), $attributes = [
                 'title' => 'Example Title',
                 'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
                 'image' => $image = UploadedFile::fake()->image('test.jpg'),
@@ -45,7 +45,7 @@ class StoreArticleTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->post('articles', [
+            ->post(route('auth.articles.store'), [
                 'title' => 'Example Test',
                 'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
             ])
@@ -67,7 +67,7 @@ class StoreArticleTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->post('articles', [
+            ->post(route('auth.articles.store'), [
                 'title' => null,
             ])
             ->assertSessionHasErrors('title');
@@ -79,7 +79,7 @@ class StoreArticleTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->post('articles', [
+            ->post(route('auth.articles.store'), [
                 'title' => str_repeat('x',256),
             ])
             ->assertSessionHasErrors('title');
@@ -91,7 +91,7 @@ class StoreArticleTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->post('articles', [
+            ->post(route('auth.articles.store'), [
                 'body' => null,
             ])
             ->assertSessionHasErrors('body');
@@ -103,7 +103,7 @@ class StoreArticleTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->post('articles', [
+            ->post(route('auth.articles.store'), [
                 'image' => 'not-an-image'
             ])
             ->assertSessionHasErrors('image');
@@ -112,7 +112,7 @@ class StoreArticleTest extends TestCase
     /** @test */
     public function guests_cannot_post_articles()
     {
-        $this->post('articles')
+        $this->post(route('auth.articles.store'))
             ->assertSessionHasNoErrors()
             ->assertRedirect();
     }

@@ -13,6 +13,19 @@ class Article extends Model
 
     protected $guarded = [];
 
+    public function getExcerptAttribute()
+    {
+        return strlen($this->body) > 155 ?
+            substr($this->body, 0, 154).' ...' :
+            $this->body;
+    }
+
+    public function getUrlAttribute()
+    {
+        // this is bad
+        return route('auth.articles.show', $this);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

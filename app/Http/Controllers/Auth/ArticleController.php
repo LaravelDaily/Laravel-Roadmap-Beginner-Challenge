@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
@@ -11,7 +12,7 @@ class ArticleController extends Controller
 {
     public function show(Article $article)
     {
-        return view('articles.show', compact('article'));
+        return view('auth.articles.show', compact('article'));
     }
 
     public function store(Request $request)
@@ -31,6 +32,11 @@ class ArticleController extends Controller
         $request->user()->articles()->save($article);
 
         return redirect()->back();
+    }
+
+    public function edit(Article $article)
+    {
+        return view('auth.articles.edit', compact('article'));
     }
 
     public function update(UpdateArticleRequest $request, Article $article)
