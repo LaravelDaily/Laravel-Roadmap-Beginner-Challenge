@@ -5,13 +5,12 @@ use App\Http\Controllers\ArticleController as HomeArticleController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/articles/{article}', [HomeArticleController::class, 'show'])->name('articles.show');
-
-// display single views
-Route::get('/login', fn () => 'this must be the login form view')->name('login');
 
 Route::prefix('auth')->middleware(['auth'])->group(function () {
 
@@ -20,6 +19,10 @@ Route::prefix('auth')->middleware(['auth'])->group(function () {
     Route::get('articles/{article}/edit', [ArticleController::class, 'edit'])->name('auth.articles.edit');
     Route::patch('articles/{article}', [ArticleController::class, 'update'])->name('auth.articles.update');
     Route::delete('articles/{article}', [ArticleController::class, 'destroy'])->name('auth.articles.destroy');
-
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
