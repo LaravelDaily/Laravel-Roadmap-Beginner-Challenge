@@ -27,8 +27,8 @@ class ArticleStoreRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string'],
-            'category' => ['required', 'numeric'],
-            'image' => ['nullable', 'image', 'size:2048', Rule::dimensions()->minWidth(100)->minHeight(100)->maxWidth(1000)->maxHeight(1000)],
+            'category_id' => ['required', 'numeric'],
+            'image' => ['nullable', 'image', 'max:2048', Rule::dimensions()->minWidth(100)->minHeight(100)->maxWidth(3000)->maxHeight(3000)],
             'tags' => ['required', 'string', new TagExistsRule],
             'body' => ['required', 'string', 'min:5']
         ];
