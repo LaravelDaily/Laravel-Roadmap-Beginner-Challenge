@@ -26,4 +26,29 @@ class CategoryController extends Controller
 
         return redirect()->back()->with('category.created', '¡Categoría creada!');
     }
+
+    public function edit(Category $category)
+    {
+        return view('auth.categories.edit', compact('category'));
+    }
+
+    public function update(Request $request, Category $category)
+    {
+        $request->validate([
+            'name' => ['required' , 'max:50', 'unique:categories,name'],
+        ]);
+
+        $category->update([
+            'name' => $request->name
+        ]);
+
+        return redirect()->back()->with('category.updated', '¡Categoría actualizada!');
+    }
+
+    public function destroy(Category $category)
+    {
+        $category->delete();
+
+        return redirect()->back();
+    }
 }

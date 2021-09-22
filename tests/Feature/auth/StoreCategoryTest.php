@@ -14,7 +14,6 @@ class StoreCategoryTest extends TestCase
     /** @test */
     public function can_view_create_form()
     {
-        $this->withoutExceptionHandling();
         $user = User::factory()->create();
 
         $this->actingAs($user)

@@ -23,6 +23,9 @@ Route::prefix('auth')->middleware(['auth'])->group(function () {
 
     Route::get('categories', [CategoryController::class, 'create'])->name('auth.categories.create');
     Route::post('categories', [CategoryController::class, 'store'])->name('auth.categories.store');
+    Route::get('categories/{category}/edit', [CategoryController::class, 'edit'])->name('auth.categories.edit');
+    Route::patch('categories/{category}', [CategoryController::class, 'update'])->name('auth.categories.update');
+    Route::delete('categories/{category}', [CategoryController::class, 'destroy'])->name('auth.categories.destroy');
 });
 
 Route::get('/dashboard', function () {
