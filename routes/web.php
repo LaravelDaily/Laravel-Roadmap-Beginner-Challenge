@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\ArticleController;
 use App\Http\Controllers\ArticleController as HomeArticleController;
+use App\Http\Controllers\Auth\CategoryController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,9 @@ Route::prefix('auth')->middleware(['auth'])->group(function () {
     Route::get('articles/{article}/edit', [ArticleController::class, 'edit'])->name('auth.articles.edit');
     Route::patch('articles/{article}', [ArticleController::class, 'update'])->name('auth.articles.update');
     Route::delete('articles/{article}', [ArticleController::class, 'destroy'])->name('auth.articles.destroy');
+
+    Route::get('categories', [CategoryController::class, 'create'])->name('auth.categories.create');
+    Route::post('categories', [CategoryController::class, 'store'])->name('auth.categories.store');
 });
 
 Route::get('/dashboard', function () {
