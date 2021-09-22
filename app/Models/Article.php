@@ -22,7 +22,11 @@ class Article extends Model
 
     public function getUrlAttribute()
     {
-        // this is bad
+        return route('articles.show', $this);
+    }
+
+    public function getDashboardUrlAttribute()
+    {
         return route('auth.articles.show', $this);
     }
 

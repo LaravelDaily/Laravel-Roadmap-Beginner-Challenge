@@ -11,8 +11,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/articles/{article}', [HomeArticleController::class, 'show'])->name('articles.show');
 
 // display single views
-
-Route::get('/login', fn () => 'this must be the loging form view')->name('login');
+Route::get('/login', fn () => 'this must be the login form view')->name('login');
 
 Route::prefix('auth')->middleware(['auth'])->group(function () {
 

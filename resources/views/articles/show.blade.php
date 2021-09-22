@@ -1,9 +1,16 @@
-<h1>{{ $article->title }}</h1>
-@isset($article->category)
+<div>
+    <h1>{{ $article->title }}</h1>
+    @isset($article->category)
     <span>{{ $article->category->name }}</span>
-@endisset
+    @endisset
+</div>
 <textarea>{{ $article->body }}</textarea>
-<img src="{{ $article->image }}" alt="{{ $article->title }}">
-@foreach ($article->tags as $tag)
-    <span>{{ $tag->name }}</span>
-@endforeach
+<div>
+    <img src="{{ $article->image }}" alt="{{ $article->title }}">
+</div>
+@forelse($article->tags as $tag)
+    <div>
+        <span>{{ $tag->name }}</span>
+    </div>
+@empty
+@endforelse
