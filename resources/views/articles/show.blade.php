@@ -19,7 +19,7 @@
         <section class="container border rounded px-0">
             <h4 class="border-bottom px-4 py-2 bg-secondary bg-opacity-10">Show Article</h4>
             <div class="border-bottom mb-3 p-3">
-                <div>Title: {{ $article->title }}</div>
+                <div>Title: <b>{{ $article->title }}</b></div>
                 @if ($article->image != null)
                     <img src="{{ asset('storage/uploads/' . $article->image) }}" alt="">
                 @endif
