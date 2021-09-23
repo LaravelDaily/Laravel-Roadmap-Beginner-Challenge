@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Auth;
 
-use App\Models\Category;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class StoreCategoryTest extends TestCase
+class StoreTagTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -15,27 +15,26 @@ class StoreCategoryTest extends TestCase
     public function can_view_create_form()
     {
         $user = User::factory()->create();
-
+        
         $this->actingAs($user)
-            ->get(route('auth.categories.create'))
-            ->assertViewIs('auth.categories.create')
-            ->assertOk();
-    }
-
+            ->get(route('auth.tags.create'))
+                ->assertViewIs('auth.tags.create')
+                ->assertOk();
+        }
+        
     /** @test */
-    public function can_store_category()
+    public function can_store_tag()
     {
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->from(route('auth.categories.create'))
-            ->post(route('auth.categories.store'), [
+            ->post(route('auth.tags.store'), [
                 'name' => 'Example'
             ])
-            ->assertSessionHas('category.created')
-            ->assertRedirect(route('auth.categories.create'));
+            ->assertSessionHas('tag.created')
+            ->assertRedirect(route('auth.tags.create'));
 
-        $this->assertDatabaseHas('categories', [
+        $this->assertDatabaseHas('tags', [
             'name' => 'Example'
         ]);
     }
@@ -43,11 +42,12 @@ class StoreCategoryTest extends TestCase
     /** @test */
     public function name_is_required()
     {
+
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->from(route('auth.categories.create'))
-            ->post(route('auth.categories.store'), [
+            ->from(route('auth.tags.create'))
+            ->post(route('auth.tags.store'), [
                 'name' => null
             ])
             ->assertSessionHasErrors('name');
@@ -59,8 +59,8 @@ class StoreCategoryTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->from(route('auth.categories.create'))
-            ->post(route('auth.categories.store'), [
+            ->from(route('auth.tags.create'))
+            ->post(route('auth.tags.store'), [
                 'name' => str_repeat('x', 51)
             ])
             ->assertSessionHasErrors('name');
@@ -70,12 +70,12 @@ class StoreCategoryTest extends TestCase
     public function name_cannot_be_repeated()
     {
         $user = User::factory()->create();
-        $category = Category::factory()->create();
+        $tag = Tag::factory()->create();
 
         $this->actingAs($user)
-            ->from(route('auth.categories.create'))
-            ->post(route('auth.categories.store'), [
-                'name' => $category->name,
+            ->from(route('auth.tags.create'))
+            ->post(route('auth.tags.store'), [
+                'name' => $tag->name,
             ])
             ->assertSessionHasErrors('name');
     }

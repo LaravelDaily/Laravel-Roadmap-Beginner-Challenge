@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\ArticleController;
 use App\Http\Controllers\ArticleController as HomeArticleController;
 use App\Http\Controllers\Auth\CategoryController;
+use App\Http\Controllers\Auth\TagController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,12 @@ Route::prefix('auth')->middleware(['auth'])->group(function () {
     Route::get('categories/{category}/edit', [CategoryController::class, 'edit'])->name('auth.categories.edit');
     Route::patch('categories/{category}', [CategoryController::class, 'update'])->name('auth.categories.update');
     Route::delete('categories/{category}', [CategoryController::class, 'destroy'])->name('auth.categories.destroy');
+
+    Route::get('tags', [TagController::class, 'create'])->name('auth.tags.create');
+    Route::post('tags', [TagController::class, 'store'])->name('auth.tags.store');
+    Route::get('tags/{tag}/edit', [TagController::class, 'edit'])->name('auth.tags.edit');
+    Route::patch('tags/{tag}', [TagController::class, 'update'])->name('auth.tags.update');
+    Route::delete('tags/{tag}', [TagController::class, 'destroy'])->name('auth.tags.destroy');
 });
 
 Route::get('/dashboard', function () {
