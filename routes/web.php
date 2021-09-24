@@ -23,16 +23,19 @@ Route::get('/', [GuestController::class, 'home'])->name('guest.home');
 Route::get('/about', [GuestController::class, 'about'])->name('guest.about');
 Route::get('/articles/{article}', [GuestController::class, 'show'])->name('guest.show');
 
-Route::get('/login', [AuthController::class, 'index'])->name('auth.index');
-Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
-Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
-
-Route::prefix('admin')->group(function () {
-    Route::resource('articles', ArticleController::class);
-    Route::resource('tags', TagController::class)->except(['show']);
-    Route::resource('categories', CategoryController::class)->except(['show']);
-
-    Route::get('tags/{tag}/articles', [TagArticleController::class, 'index'])->name('tags.articles.index');
+Route::middleware(['already.loggedin'])->group(function () {
+    Route::get('/login', [AuthController::class, 'index'])->name('auth.index');
+    Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 });
 
-// TODO: Add middlewares to routes that should only be accesible to the logged in user
+Route::middleware(['loggedin'])->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+
+    Route::prefix('admin')->group(function () {
+        Route::resource('articles', ArticleController::class);
+        Route::resource('tags', TagController::class)->except(['show']);
+        Route::resource('categories', CategoryController::class)->except(['show']);
+
+        Route::get('tags/{tag}/articles', [TagArticleController::class, 'index'])->name('tags.articles.index');
+    });
+});
