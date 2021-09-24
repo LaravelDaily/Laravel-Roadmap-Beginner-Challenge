@@ -11,25 +11,25 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        return view('category.index')
-            ->with('categories', Category::all());
+        return view('categories.index')
+            ->with('categories', Category::orderBy('id', 'desc')->paginate(15));
     }
 
     public function create()
     {
-        return view('category.create');
+        return view('categories.create');
     }
 
     public function store(CategoryStoreRequest $request)
     {
         Category::create($request->validated());
 
-        return redirect()->route('category.index');
+        return redirect()->route('categories.index');
     }
 
     public function edit(Category $category)
     {
-        return view('category.edit')
+        return view('categories.edit')
             ->with('category', $category);
     }
 
@@ -37,7 +37,7 @@ class CategoryController extends Controller
     {
         $category->update($request->validated());
 
-        return redirect()->route('category.index');
+        return redirect()->route('categories.index');
     }
 
     public function destroy(Category $category)
@@ -48,6 +48,6 @@ class CategoryController extends Controller
 
         $category->delete();
 
-        return redirect()->route('category.index');
+        return redirect()->route('categories.index');
     }
 }
