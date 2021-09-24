@@ -8,10 +8,10 @@
         <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{ route('article.index') }}">Articles</a>
+                    <a class="nav-link active" href="{{ route('articles.index') }}">Articles</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About Us</a>
+                    <a class="nav-link" href="{{ route('guest.about') }}">About Us</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -22,9 +22,9 @@
                             Admin
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="{{ route('category.index') }}">Categories</a></li>
-                            <li><a class="dropdown-item" href="{{ route('tag.index') }}">Tags</a></li>
-                            <li><a class="dropdown-item" href="{{ route('article.index') }}">Articles</a></li>
+                            <li><a class="dropdown-item" href="{{ route('categories.index') }}">Categories</a></li>
+                            <li><a class="dropdown-item" href="{{ route('tags.index') }}">Tags</a></li>
+                            <li><a class="dropdown-item" href="{{ route('articles.index') }}">Articles</a></li>
                             <form action="{{ route('auth.logout') }}" method="POST">
                                 @csrf
                                 <button type="submit" class="dropdown-item">Logout</button>
