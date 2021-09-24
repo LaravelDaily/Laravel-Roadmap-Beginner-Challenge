@@ -29,6 +29,7 @@
                     </li>
                 @endforeach
             </ul>
+            {{ $tags->links() }}
         </section>
     </main>
 @endsection

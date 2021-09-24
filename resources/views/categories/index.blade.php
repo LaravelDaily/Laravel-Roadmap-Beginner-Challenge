@@ -30,6 +30,7 @@
                     </li>
                 @endforeach
             </ul>
+            {{ $categories->links() }}
         </section>
     </main>
 @endsection
