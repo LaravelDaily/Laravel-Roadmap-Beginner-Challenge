@@ -1,7 +1,6 @@
 @extends('layout.layout')
 
 @section('content')
-    @include('layout.navbar')
     <main class="container">
         <form action="{{ route('auth.login') }}" method="POST" class="border rounded col-8 mx-auto mt-5 p-4">
             @csrf
