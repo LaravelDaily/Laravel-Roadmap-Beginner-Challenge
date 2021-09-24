@@ -45,6 +45,6 @@ class TagExistsRule implements Rule
      */
     public function message()
     {
-        return  'There is no "' . $this->currentTag . '" tag. Please select a tag that exists.';
+        return  'There is no "' . $this->currentTag . '" tags. Please select a tag that exists.';
     }
 }
