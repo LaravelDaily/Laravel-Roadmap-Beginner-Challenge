@@ -18,7 +18,7 @@ class AuthController extends Controller
         if (Auth::attempt($request->validated())) {
             $request->session()->regenerate();
 
-            return redirect()->intended(route('article.index'));
+            return redirect()->intended(route('articles.index'));
         }
         return back()
             ->withInput()
@@ -31,6 +31,6 @@ class AuthController extends Controller
         request()->session()->invalidate();
         request()->session()->regenerateToken();
 
-        return redirect()->route('article.index');
+        return redirect()->route('articles.index');
     }
 }
