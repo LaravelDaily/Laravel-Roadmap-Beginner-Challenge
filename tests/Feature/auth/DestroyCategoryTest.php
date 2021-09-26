@@ -14,7 +14,6 @@ class DestroyCategoryTest extends TestCase
     /** @test */
     public function can_destroy_category()
     {
-        $this->withoutExceptionHandling();
         $user = User::factory()->create();
         $category = Category::factory()->create();
 

@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<x-app-layout>
     <article class="xl:divide-y xl:divide-gray-200">
         <header class="pt-6 xl:pb-10">
             <div class="space-y-1 text-center">
@@ -56,4 +54,4 @@
             </div>
         </div>
     </article>
-@endsection
+</x-app-layout>

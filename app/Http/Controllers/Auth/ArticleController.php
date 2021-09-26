@@ -6,13 +6,25 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+
 
 class ArticleController extends Controller
 {
+    public function index()
+    {
+        $articles = Article::latest()->paginate(10);
+
+        return view('auth.articles.index', compact('articles'));
+    }
+
     public function show(Article $article)
     {
         return view('auth.articles.show', compact('article'));
+    }
+
+    public function create()
+    {
+        return view('auth.articles.create');
     }
 
     public function store(Request $request)
@@ -26,12 +38,12 @@ class ArticleController extends Controller
         $article = Article::create([
             'title' => $request->title,
             'body' => $request->body,
-            'image' => $request->hasFile('image') ? Storage::put('/', $request->image) : null,
+            'image' => $request->hasFile('image') ? $request->file('image')->store('articles') : null,
         ]);
 
         $request->user()->articles()->save($article);
 
-        return redirect()->back();
+        return redirect(route('auth.articles.edit', $article))->with('article.created', 'Your article was created!');
     }
 
     public function edit(Article $article)
@@ -44,7 +56,7 @@ class ArticleController extends Controller
         $request->has('image') ?
             $article->update(array_merge(
                 $request->validated(),
-                ['image' => Storage::put('/', $request->image)]
+                ['image' => $request->file('image')->store('/')]
             )) :
             $article->update($request->validated());
 

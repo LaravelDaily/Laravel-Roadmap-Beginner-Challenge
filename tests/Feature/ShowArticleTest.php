@@ -14,7 +14,6 @@ class ShowArticleTest extends TestCase
     /** @test */
     public function can_view_single_article()
     {
-        $this->withoutExceptionHandling();
         $article = Article::factory()
             ->forCategory()
             ->hasTags(2)

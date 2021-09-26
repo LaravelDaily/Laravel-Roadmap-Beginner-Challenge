@@ -24,8 +24,8 @@ class UpdateArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['nullable', 'max:255'],
-            'body' => ['nullable'],
+            'title' => ['required', 'max:255'],
+            'body' => ['required'],
             'image' => ['nullable', 'image'],
             'category_id' => ['nullable'],
         ];

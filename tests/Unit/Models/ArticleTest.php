@@ -33,12 +33,4 @@ class ArticleTest extends TestCase
 
         $this->assertEquals(route('articles.show', $article), $article->url);
     }
-
-    /** @test */
-    public function it_has_an_dashboard_url_getter()
-    {
-        $article = Article::factory()->create();
-
-        $this->assertEquals(route('auth.articles.show', $article), $article->dashboardUrl);
-    }
 }

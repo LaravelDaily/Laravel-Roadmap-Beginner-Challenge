@@ -1,10 +1,9 @@
 <x-app-layout>
-    <x-form method="PATCH" action="{{ route('auth.articles.update', $article) }}" enctype="multipart/form-data">
-
+    <x-form method="POST" action="{{ route('auth.articles.store') }}" enctype="multipart/form-data">
 
         <div class="flex flex-col mb-4">
             <label class="mb-2 font-bold text-lg text-gray-900" for="title">Titlte</label>
-            <input class="border py-2 px-3 text-grey-800" type="text" name="title" id="title" value="{{ $article->title }}">
+            <input class="border py-2 px-3 text-grey-800" type="text" name="title" id="title">
             @error('title')
             <p class="text-red-500 text-xs mt-2">
                 {{ $message }}
@@ -24,22 +23,13 @@
                 id="body"
                 cols="30"
                 rows="10"
-            >{{ $article->body }}</textarea>
+            ></textarea>
             @error('body')
                 <p class="text-red-500 text-xs mt-2">
                     {{ $message }}
                 </p>
             @enderror
         </div>
-
-        @if ($article->image)
-            <img src="{{ asset($article->image) }}" alt="">
-            <img src="{{ url($article->image) }}" alt="">
-            <img src="{{ asset($article->image) }}" alt="">
-            <img src="{{  $article->image }}" alt="">
-            <img src="{{  asset('storage/' . $article->image) }}" alt="">
-            <p>entra aca ptm</p>
-        @endif
 
         <div class="flex flex-col mb-4">
             <label class="mb-2 font-bold text-lg text-gray-900" for="image">File</label>

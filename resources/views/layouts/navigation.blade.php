@@ -44,6 +44,14 @@
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
+                        <x-dropdown-link :href="route('dashboard')"
+                        >
+                            Dashboard
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('home')"
+                        >
+                            Home
+                        </x-dropdown-link>
                     </x-slot>
                 </x-dropdown>
             </div>

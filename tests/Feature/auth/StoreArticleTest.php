@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Auth;
 
 use App\Models\Article;
 use App\Models\User;
@@ -12,6 +12,17 @@ use Tests\TestCase;
 class StoreArticleTest extends TestCase
 {
     use RefreshDatabase;
+
+    /** @test */
+    public function can_view_create_form()
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->get(route('auth.articles.create'))
+            ->assertViewIs('auth.articles.create')
+            ->assertOk();
+    }
 
     /** @test */
     public function can_store_article()
@@ -26,21 +37,21 @@ class StoreArticleTest extends TestCase
                 'image' => $image = UploadedFile::fake()->image('test.jpg'),
             ])
             ->assertSessionHasNoErrors()
-            ->assertRedirect();
-            
-        tap(Article::firstOrFail(), function ($article) use ($image, $user, $attributes) {
-            $this->assertDatabaseHas('articles', [
-                'title' => $attributes['title'],
-                'body' => $attributes['body'],
-                'image' => $image->hashName()
-            ]);
-            $user->articles()->first()->is($article);
-        });
-        Storage::assertExists($image->hashName());
+            ->assertSessionHas('article.created')
+            ->assertRedirect(route('auth.articles.edit', $article = Article::firstOrFail()));
+
+        $this->assertDatabaseHas('articles', [
+            'title' => $attributes['title'],
+            'body' => $attributes['body'],
+            'image' => 'articles/'.$image->hashName()
+        ]);
+        $user->articles()->first()->is($article);
+
+        Storage::assertExists('articles/'.$image->hashName());
     }
 
     /** @test */
-    public function image_can_be_optional()
+    public function image_is_optional()
     {
         $user = User::factory()->create();
 
@@ -107,13 +118,5 @@ class StoreArticleTest extends TestCase
                 'image' => 'not-an-image'
             ])
             ->assertSessionHasErrors('image');
-    }
-
-    /** @test */
-    public function guests_cannot_post_articles()
-    {
-        $this->post(route('auth.articles.store'))
-            ->assertSessionHasNoErrors()
-            ->assertRedirect();
     }
 }

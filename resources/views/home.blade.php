@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<x-app-layout>
     <main>
         <div class="divide-y divide-gray-200">
             <div class="pt-6 pb-8 space-y-2 md:space-y-5">
@@ -25,7 +23,9 @@
                                     <h2 class="text-2xl font-bold tracking-tight">
                                         <a class="text-gray-900" href="{{ $article->url }}">{{ $article->title}}</a>
                                     </h2>
-                                    <span class="text-green-500"> {{ $article->category->name }}</span>
+                                    @if ($article->category)
+                                        <span class="text-green-500"> {{ $article->category->name }}</span>
+                                    @endif
                                     <div class="prose max-w-none text-gray-500">
                                         <div class="prose max-w-none">
                                             <p>
@@ -44,4 +44,4 @@
             {{ $articles->links() }}
         </div>
     </main>
-@endsection
+</x-app-layout>

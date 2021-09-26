@@ -14,7 +14,6 @@ class DestroyTagTest extends TestCase
     /** @test */
     public function can_destroy_tag()
     {
-        $this->withoutExceptionHandling();
         $user = User::factory()->create();
         $tag = Tag::factory()->create();
 

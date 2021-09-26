@@ -9,12 +9,32 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
-class ManageArticleTest extends TestCase
+class UpdateArticleTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    public function can_edit_article()
+    public function can_view_edit_article_form()
+    {
+        $article = Article::factory()
+            ->forCategory()
+            ->hasTags(2)
+            ->create([
+                'category_id' => null,
+            ]);
+
+        $response = $this->actingAs($article->user)
+            ->get(route('auth.articles.edit', $article))
+            ->assertViewIs('auth.articles.edit')
+            ->assertOk();
+
+        $response->assertSee(route('auth.articles.update', $article));
+        $response->assertSee($article->title);
+        $response->assertSee($article->body);
+    }
+
+    /** @test */
+    public function can_update_article()
     {
         $article = Article::factory()
             ->forUser()
@@ -49,6 +69,8 @@ class ManageArticleTest extends TestCase
 
         $this->actingAs($article->user)
             ->patch(route('auth.articles.update', $article), [
+                'title' => $article->title,
+                'body' => $article->body,
                 'category_id' => $category->id
             ])
             ->assertSessionHasNoErrors()
@@ -69,6 +91,8 @@ class ManageArticleTest extends TestCase
 
         $this->actingAs($article->user)
             ->patch(route('auth.articles.update', $article), [
+                'title' => $article->title,
+                'body' => $article->body,
                 'tags' => $tags->pluck('id')->toArray()
             ])
             ->assertSessionHasNoErrors()
@@ -77,35 +101,46 @@ class ManageArticleTest extends TestCase
         $tags->each(fn ($tag) => $tag->articles->contains($article));
     }
 
+
     /** @test */
-    public function can_delete_article()
+    public function title_cannot_be_updated_to_null()
     {
-        $article = Article::factory()->create();
+        $article = Article::factory()
+            ->forUser()
+            ->create();
 
         $this->actingAs($article->user)
-            ->delete(route('auth.articles.destroy', $article))
-            ->assertSessionHasNoErrors()
-            ->assertRedirect();
-
-        $this->assertNotNull($article->fresh()->deleted_at);
+            ->patch(route('auth.articles.update', $article), [
+                'title' => null,
+            ])
+            ->assertSessionHasErrors('title');
     }
 
     /** @test */
-    public function guests_cannot_manage_articles()
+    public function title_cant_be_updated_to_more_than_255_characters()
     {
-        $article = Article::factory()->create();
+        $article = Article::factory()
+            ->forUser()
+            ->create();
 
-        $this->get(route('auth.articles.show', $article))
-            ->assertRedirect();
+        $this->actingAs($article->user)
+            ->patch(route('auth.articles.update', $article), [
+                'title' => str_repeat('x',256),
+            ])
+            ->assertSessionHasErrors('title');
+    }
 
-        $this->patch(route('auth.articles.update', $article))
-            ->assertSessionHasNoErrors()
-            ->assertRedirect();
+    /** @test */
+    public function body_cannot_be_udpated_to_null()
+    {
+        $article = Article::factory()
+            ->forUser()
+            ->create();
 
-        $this->delete(route('auth.articles.destroy', $article))
-            ->assertSessionHasNoErrors()
-            ->assertRedirect();
-
-        $this->assertNull($article->fresh()->deleted_at);
+        $this->actingAs($article->user)
+            ->patch(route('auth.articles.update', $article), [
+                'body' => null,
+            ])
+            ->assertSessionHasErrors('body');
     }
 }

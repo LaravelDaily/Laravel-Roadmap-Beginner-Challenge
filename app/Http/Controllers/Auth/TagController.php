@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
+    public function index()
+    {
+        $tags = Tag::latest()->paginate(10);
+
+        return view('auth.tags.index', compact('tags'));
+    }
+
     public function create()
     {
         return view('auth.tags.create');

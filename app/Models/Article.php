@@ -25,11 +25,6 @@ class Article extends Model
         return route('articles.show', $this);
     }
 
-    public function getDashboardUrlAttribute()
-    {
-        return route('auth.articles.show', $this);
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class);
