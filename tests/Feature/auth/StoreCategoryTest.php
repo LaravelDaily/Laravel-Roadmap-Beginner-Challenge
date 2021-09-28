@@ -67,7 +67,7 @@ class StoreCategoryTest extends TestCase
     }
 
     /** @test */
-    public function name_cannot_be_repeated()
+    public function name_is_unique()
     {
         $user = User::factory()->create();
         $category = Category::factory()->create();
