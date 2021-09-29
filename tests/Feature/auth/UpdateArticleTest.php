@@ -56,7 +56,7 @@ class UpdateArticleTest extends TestCase
         $article->refresh();
         $this->assertEquals('Updated Title', $article->title);
         $this->assertEquals('Updated Lorem Ipsum', $article->body);
-        $this->assertEquals($newImage->hashName(), $article->image);
+        $this->assertEquals("articles/{$newImage->hashName()}", $article->image);
     }
 
     /** @test */

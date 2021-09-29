@@ -33,12 +33,9 @@
         </div>
 
         @if ($article->image)
-            <img src="{{ asset($article->image) }}" alt="">
-            <img src="{{ url($article->image) }}" alt="">
-            <img src="{{ asset($article->image) }}" alt="">
-            <img src="{{  $article->image }}" alt="">
-            <img src="{{  asset('storage/' . $article->image) }}" alt="">
-            <p>entra aca ptm</p>
+            <div class="mb-6">
+                <img  class="object-contain h-48 w-full" src="{{  asset('storage/' . $article->image) }}">
+            </div>
         @endif
 
         <div class="flex flex-col mb-4">

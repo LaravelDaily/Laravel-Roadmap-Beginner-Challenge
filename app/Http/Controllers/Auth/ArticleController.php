@@ -56,7 +56,7 @@ class ArticleController extends Controller
         $request->has('image') ?
             $article->update(array_merge(
                 $request->validated(),
-                ['image' => $request->file('image')->store('/')]
+                ['image' => $request->file('image')->store('articles')]
             )) :
             $article->update($request->validated());
 

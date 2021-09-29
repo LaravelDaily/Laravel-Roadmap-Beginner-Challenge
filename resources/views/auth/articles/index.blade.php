@@ -1,51 +1,48 @@
 <x-app-layout>
-    <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
-        <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
-            <div class="rounded-t mb-0 px-4 py-3 border-0">
+
+    <div class="w-full px-4 mx-auto mt-24 mb-12 xl:w-8/12 xl:mb-0">
+        <div class="relative flex flex-col w-full min-w-0 mb-6 break-words bg-white rounded shadow-lg ">
+            <div class="px-4 py-3 mb-0 border-0 rounded-t">
                 <div class="flex flex-wrap items-center">
-                    <div class="relative w-full px-4 max-w-full flex-grow flex-1">
-                        <h3 class="font-semibold text-base text-blueGray-700">Articles</h3>
+                    <div class="relative flex-1 flex-grow w-full max-w-full px-4">
+                        <h3 class="text-base font-semibold text-blueGray-700">Articles</h3>
                     </div>
-                    <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
+                    <div class="relative flex-1 flex-grow w-full max-w-full px-4 text-right">
                         <a href="{{ route('auth.articles.create') }}">
-                            <button class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">Create</button>
+                            <button class="px-3 py-1 mb-1 mr-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-indigo-500 rounded outline-none active:bg-indigo-600 focus:outline-none" type="button">Create</button>
                         </a>
                     </div>
                 </div>
             </div>
 
             <div class="block w-full overflow-x-auto">
-                <table class="items-center bg-transparent w-full border-collapse ">
+                <table class="items-center w-full bg-transparent border-collapse ">
                     <thead>
                         <tr>
-                            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                            <th class="px-6 py-3 text-xs font-semibold text-left uppercase align-middle border border-l-0 border-r-0 border-solid bg-blueGray-50 text-blueGray-500 border-blueGray-100 whitespace-nowrap">
                                 Title
                             </th>
-                            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                            <th class="px-6 py-3 text-xs font-semibold text-left uppercase align-middle border border-l-0 border-r-0 border-solid bg-blueGray-50 text-blueGray-500 border-blueGray-100 whitespace-nowrap">
                                 Created At
                             </th>
-                            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                Edit
-                            </th>
-                            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                Delete
-                            </th>
+                            <th class="px-6 py-3 text-xs font-semibold text-left uppercase align-middle border border-l-0 border-r-0 border-solid bg-blueGray-50 text-blueGray-500 border-blueGray-100 whitespace-nowrap"></th>
+                            <th class="px-6 py-3 text-xs font-semibold text-left uppercase align-middle border border-l-0 border-r-0 border-solid bg-blueGray-50 text-blueGray-500 border-blueGray-100 whitespace-nowrap"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($articles as $article)
                             <tr>
-                                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs wditespace-nowrap p-4 text-left text-blueGray-700 ">
+                                <td class="p-4 px-6 text-xs text-left align-middle border-t-0 border-l-0 border-r-0 wditespace-nowrap text-blueGray-700 ">
                                     <a href="{{ $article->url }}">{{ $article->title }}</a>
                                 </th>
-                                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
+                                <td class="p-4 px-6 text-xs align-middle border-t-0 border-l-0 border-r-0 whitespace-nowrap ">
                                     {{ $article->created_at }}
                                 </td>
-                                <td class="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                <td class="p-4 px-6 text-xs border-t-0 border-l-0 border-r-0 align-center whitespace-nowrap">
                                     <a href="{{ route('auth.articles.edit', $article) }}">edit</a>
                                 </td>
-                                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    <a href="{{ route('auth.articles.destroy', $article) }}">delete</a>
+                                <td class="p-4 px-6 text-xs align-middle border-t-0 border-l-0 border-r-0 whitespace-nowrap">
+                                    <a href="{{ route('auth.articles.destroy', $article) }}">delete</a> {{-- must be a form button to delete --}}
                                 </td>
                             </tr>
                         @empty

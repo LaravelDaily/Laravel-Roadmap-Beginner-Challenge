@@ -18,7 +18,7 @@
                             <div class="space-y-5 xl:col-span-3">
                                 <div class="space-y-6">
                                     <div class="bg-green-500">
-                                        <img class="object-cover h-48 w-full" src="{{ $article->image ?? "https://via.placeholder.com/500" }}">
+                                        <img class="object-contain h-48 w-full" @if ($article->image) src="{{ asset('storage/' . $article->image) }}" @endif>
                                     </div>
                                     <h2 class="text-2xl font-bold tracking-tight">
                                         <a class="text-gray-900" href="{{ $article->url }}">{{ $article->title}}</a>

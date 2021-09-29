@@ -28,11 +28,7 @@ class ArticleFactory extends Factory
             'title' => $this->faker->sentence(),
             'body' => $this->faker->text(),
             'user_id' => User::first() ?? User::factory(),
-            'category_id' => Category::factory()->state([
-                'name' => Arr::random([
-                    'gaming', 'development', 'sports'
-                ])
-            ]),
+            'category_id' => Category::first() ?? Category::factory(),
         ];
     }
 }

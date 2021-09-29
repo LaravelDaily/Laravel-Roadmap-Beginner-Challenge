@@ -11,11 +11,13 @@
                     </div>
                 </dl>
                 <div class="bg-green-500">
-                    <img class="object-cover h-48 w-full" src="{{ $article->image ?? "https://via.placeholder.com/500" }}">
+                    <img class="object-contain h-48 w-full" @if ($article->image) src="{{ asset('storage/' . $article->image) }}" @endif>
                 </div>
                 <div>
                     <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl md:text-5xl md:leading-[3.5rem]">{{ $article->title }}</h1>
-                    <span class="text-green-500"> {{ $article->category->name }}</span>
+                    @if ($article->category)
+                        <span class="text-green-500"> {{ $article->category->name }}</span>
+                    @endif
                 </div>
             </div>
         </header>

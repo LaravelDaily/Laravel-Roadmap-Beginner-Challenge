@@ -43,11 +43,11 @@ class StoreArticleTest extends TestCase
         $this->assertDatabaseHas('articles', [
             'title' => $attributes['title'],
             'body' => $attributes['body'],
-            'image' => 'articles/'.$image->hashName()
+            'image' => "articles/{$image->hashName()}"
         ]);
         $user->articles()->first()->is($article);
 
-        Storage::assertExists('articles/'.$image->hashName());
+        Storage::assertExists("articles/{$image->hashName()}");
     }
 
     /** @test */
