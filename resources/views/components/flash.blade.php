@@ -11,7 +11,5 @@
         <p>
             {{ $slot }}
         </p>
-
-        <button>&times;</button>
     </div>
 </section>

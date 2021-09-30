@@ -16,21 +16,28 @@ class UpdateArticleTest extends TestCase
     /** @test */
     public function can_view_edit_article_form()
     {
+        $this->withoutExceptionHandling();
         $article = Article::factory()
             ->forCategory()
             ->hasTags(2)
-            ->create([
-                'category_id' => null,
-            ]);
+            ->create();
+        $categories = Category::factory()->count(3)->create();
+        $tags = Tag::factory()->count(3)->create();
 
         $response = $this->actingAs($article->user)
             ->get(route('auth.articles.edit', $article))
             ->assertViewIs('auth.articles.edit')
+            ->assertViewHas('categories', fn ($retrieved) => $retrieved->pluck('id')->all() === $categories->pluck('id')->all())
+            ->assertViewHas('tags', fn ($retrieved) => $retrieved->pluck('id')->all() === $tags->pluck('id')->all())
             ->assertOk();
 
         $response->assertSee(route('auth.articles.update', $article));
         $response->assertSee($article->title);
         $response->assertSee($article->body);
+        $response->assertSee($article->category->name);
+        $response->assertSeeTextInOrder($article->tags->map->name->all());
+        $response->assertSeeTextInOrder($categories->map->name->all());
+        $response->assertSeeTextInOrder($tags->map->name->all());
     }
 
     /** @test */
@@ -57,6 +64,7 @@ class UpdateArticleTest extends TestCase
         $this->assertEquals('Updated Title', $article->title);
         $this->assertEquals('Updated Lorem Ipsum', $article->body);
         $this->assertEquals("articles/{$newImage->hashName()}", $article->image);
+
     }
 
     /** @test */

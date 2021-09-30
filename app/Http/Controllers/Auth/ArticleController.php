@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
+use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 
@@ -48,7 +50,10 @@ class ArticleController extends Controller
 
     public function edit(Article $article)
     {
-        return view('auth.articles.edit', compact('article'));
+        $categories = Category::get()->except(optional($article->category)->id);
+        $tags = Tag::get()->except($article->tags->pluck('id')->toArray());
+
+        return view('auth.articles.edit', compact('article', 'categories', 'tags'));
     }
 
     public function update(UpdateArticleRequest $request, Article $article)
@@ -71,6 +76,6 @@ class ArticleController extends Controller
     {
         $article->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('article.destroyed', "Article {$article->title} was deleted!");
     }
 }

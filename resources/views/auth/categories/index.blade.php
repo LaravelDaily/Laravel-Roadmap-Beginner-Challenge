@@ -1,5 +1,10 @@
 <x-app-layout>
     <div class="w-full px-4 mx-auto mt-24 mb-12 xl:w-8/12 xl:mb-0">
+        <div class="relative flex-1 flex-grow w-full max-w-full px-4 text-right">
+            <a href="{{ route('dashboard') }}">
+                <button class="px-3 py-1 mb-1 mr-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-indigo-500 rounded outline-none active:bg-indigo-600 focus:outline-none" type="button">Back to Dashboard index</button>
+            </a>
+        </div>
         <div class="relative flex flex-col w-full min-w-0 mb-6 break-words bg-white rounded shadow-lg ">
             <div class="px-4 py-3 mb-0 border-0 rounded-t">
                 <div class="flex flex-wrap items-center">

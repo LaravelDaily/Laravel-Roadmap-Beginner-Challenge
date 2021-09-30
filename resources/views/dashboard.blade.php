@@ -11,13 +11,13 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <ul>
                         <li>
-                            <a href="{{ route('auth.articles.index') }}">Artículos</a>
+                            <a href="{{ route('auth.articles.index') }}">Manage Articles</a>
                         </li>
                         <li>
-                            <a href="{{ route('auth.categories.index') }}">Categorías</a>
+                            <a href="{{ route('auth.categories.index') }}">Manage Categories</a>
                         </li>
                         <li>
-                            <a href="{{ route('auth.tags.index') }}">Tags</a>
+                            <a href="{{ route('auth.tags.index') }}">Manage Tags</a>
                         </li>
                     </ul>
                 </div>

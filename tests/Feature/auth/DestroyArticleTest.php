@@ -18,6 +18,7 @@ class DestroyArticleTest extends TestCase
         $this->actingAs($article->user)
             ->delete(route('auth.articles.destroy', $article))
             ->assertSessionHasNoErrors()
+            ->assertSessionHas('article.destroyed')
             ->assertRedirect();
 
         $this->assertNotNull($article->fresh()->deleted_at);
