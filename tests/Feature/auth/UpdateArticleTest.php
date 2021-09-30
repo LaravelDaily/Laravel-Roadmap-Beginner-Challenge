@@ -16,7 +16,6 @@ class UpdateArticleTest extends TestCase
     /** @test */
     public function can_view_edit_article_form()
     {
-        $this->withoutExceptionHandling();
         $article = Article::factory()
             ->forCategory()
             ->hasTags(2)
@@ -58,6 +57,7 @@ class UpdateArticleTest extends TestCase
                 'image' => $newImage = UploadedFile::Fake()->image('new.jpg'),
             ])
             ->assertSessionHasNoErrors()
+            ->assertSessionHas('article.updated')
             ->assertRedirect();
         
         $article->refresh();
@@ -88,25 +88,29 @@ class UpdateArticleTest extends TestCase
     }
 
     /** @test */
-    public function can_update_its_tags()
+    public function can_add_or_remove_tags()
     {
-        $article = Article::factory()
-            ->forUser()
-            ->create();
-        $tags = Tag::factory()
-            ->count(2)
-            ->create();
+        $article =  Article::factory()->create();
+        $toDetach =  Tag::factory()->create();
+        $toAttach =  Tag::factory()->create();
+        $article->tags()->attach($toDetach);
 
         $this->actingAs($article->user)
             ->patch(route('auth.articles.update', $article), [
                 'title' => $article->title,
                 'body' => $article->body,
-                'tags' => $tags->pluck('id')->toArray()
+                'added_tags' => [
+                    $toAttach->id => $toAttach->id,
+                ],
+                'removed_tags' => [
+                    $toDetach->id => $toDetach->id
+                ],
             ])
             ->assertSessionHasNoErrors()
             ->assertRedirect();
 
-        $tags->each(fn ($tag) => $tag->articles->contains($article));
+        $this->assertFalse($article->tags->contains($toDetach));
+        $this->assertTrue($article->tags->contains($toAttach));
     }
 
 

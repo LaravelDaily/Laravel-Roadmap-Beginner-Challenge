@@ -28,6 +28,8 @@ class UpdateArticleRequest extends FormRequest
             'body' => ['required'],
             'image' => ['nullable', 'image'],
             'category_id' => ['nullable'],
+            'added_tags' => ['nullable', 'array'],
+            'removed_tags' => ['nullable', 'array'],
         ];
     }
 }

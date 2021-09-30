@@ -60,16 +60,18 @@ class ArticleController extends Controller
     {
         $request->has('image') ?
             $article->update(array_merge(
-                $request->validated(),
+                $request->only(['title', 'body', 'category_id']),
                 ['image' => $request->file('image')->store('articles')]
             )) :
-            $article->update($request->validated());
+            $article->update($request->only(['title', 'body', 'category_id']));
 
-        if ($request->has('tags')) {
-            $article->tags()->attach($request->tags);
+        $article->tags()->syncWithoutDetaching($request->added_tags);
+
+        if ($request->removed_tags) {
+            $article->tags()->detach($request->removed_tags);
         }
 
-        return redirect()->back();
+        return redirect()->back()->with('article.updated', 'Article Updated!');
     }
 
     public function destroy(Article $article)
