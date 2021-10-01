@@ -43,7 +43,7 @@
                             <tr>
                                 <td class="p-4 px-6 text-xs text-left align-middle border-t-0 border-l-0 border-r-0 wditespace-nowrap text-blueGray-700 ">
                                     <a href="{{ $article->url }}">{{ $article->title }}</a>
-                                </th>
+                                </td>
                                 <td class="p-4 px-6 text-xs align-middle border-t-0 border-l-0 border-r-0 whitespace-nowrap ">
                                     {{ $article->created_at }}
                                 </td>
@@ -61,7 +61,7 @@
                                 </td>
                             </tr>
                         @empty
-                            There aren't any articles, create your first one! {{-- give it some style --}}
+                            There aren't any articles, create one!
                         @endforelse
                     </tbody>
                 </table>

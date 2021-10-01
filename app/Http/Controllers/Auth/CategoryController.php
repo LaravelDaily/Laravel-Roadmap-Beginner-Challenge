@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+
     public function index()
     {
         $categories = Category::latest()->paginate(10);
@@ -26,11 +27,11 @@ class CategoryController extends Controller
             'name' => ['required', 'max:50', 'unique:categories'],
         ]);
 
-        Category::create([
+        $category = Category::create([
             'name' => $request->name
         ]);
 
-        return redirect()->back()->with('category.created', '¡Categoría creada!');
+        return redirect()->route('auth.categories.edit', $category)->with('category.created', 'Category Created!');
     }
 
     public function edit(Category $category)
@@ -48,13 +49,13 @@ class CategoryController extends Controller
             'name' => $request->name
         ]);
 
-        return redirect()->back()->with('category.updated', '¡Categoría actualizada!');
+        return redirect()->back()->with('category.updated', 'Category Updated!');
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('category.destroyed', "Category {$category->name} was deleted!");
     }
 }

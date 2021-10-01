@@ -32,7 +32,7 @@ class StoreTagTest extends TestCase
                 'name' => 'Example'
             ])
             ->assertSessionHas('tag.created')
-            ->assertRedirect(route('auth.tags.create'));
+            ->assertRedirect(route('auth.tags.edit', Tag::firstOrFail()));
 
         $this->assertDatabaseHas('tags', [
             'name' => 'Example'

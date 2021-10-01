@@ -33,7 +33,7 @@ class StoreCategoryTest extends TestCase
                 'name' => 'Example'
             ])
             ->assertSessionHas('category.created')
-            ->assertRedirect(route('auth.categories.create'));
+            ->assertRedirect(route('auth.categories.edit', Category::firstOrFail()));
 
         $this->assertDatabaseHas('categories', [
             'name' => 'Example'

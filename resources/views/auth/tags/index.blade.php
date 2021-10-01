@@ -1,5 +1,11 @@
 <x-app-layout>
     <div class="w-full px-4 mx-auto mt-24 mb-12 xl:w-8/12 xl:mb-0">
+        @if (session()->has('tag.destroyed'))
+            <x-flash>
+                {{ session('tag.destroyed') }}
+            </x-flash>
+        @endif
+
         <div class="relative flex-1 flex-grow w-full max-w-full px-4 text-right">
             <a href="{{ route('dashboard') }}">
                 <button class="px-3 py-1 mb-1 mr-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-indigo-500 rounded outline-none active:bg-indigo-600 focus:outline-none" type="button">Back to Dashboard index</button>
@@ -50,10 +56,17 @@
                                     <a href="{{ route('auth.tags.edit', $tag) }}">edit</a>
                                 </td>
                                 <td class="p-4 px-6 text-xs align-middle border-t-0 border-l-0 border-r-0 whitespace-nowrap">
-                                    <a href="{{ route('auth.tags.destroy', $tag) }}">delete</a>
+                                    <x-form method="DELETE" action="{{ route('auth.tags.destroy', $tag) }}">
+                                        <div>
+                                            <button class="bg-indigo-400 text-white rounded py-2 px-4 hover:bg-indigo-500" type="submit">
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </x-form>
                                 </td>
                             </tr>
                         @empty
+                            There aren't any tags, create one!
                         @endforelse
                     </tbody>
                 </table>

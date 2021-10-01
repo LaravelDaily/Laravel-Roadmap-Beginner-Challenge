@@ -26,9 +26,9 @@ class TagController extends Controller
             'name' => ['required', 'max:50', 'unique:tags'],
         ]);
 
-        Tag::create($attributes);
+        $tag = Tag::create($attributes);
 
-        return redirect()->route('auth.tags.create')->with('tag.created', '¡Tag creado!');
+        return redirect()->route('auth.tags.edit', $tag)->with('tag.created', 'Tag Created!');
     }
 
     public function edit(Tag $tag)
@@ -44,13 +44,13 @@ class TagController extends Controller
 
         $tag->update($attributes);
 
-        return redirect()->back()->with('tag.updated', '¡Tag actualizado!');
+        return redirect()->back()->with('tag.updated', 'Tag Updated!');
     }
 
     public function destroy(Tag $tag)
     {
         $tag->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('tag.destroyed', "Tag {$tag->name} was deleted!");
     }
 }
