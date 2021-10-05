@@ -9,9 +9,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::get('/about-me', fn() => view('about'));
+
 Route::get('/articles/{article}', [HomeArticleController::class, 'show'])->name('articles.show');
 
-Route::prefix('auth')->middleware(['auth'])->group(function () {
+Route::prefix('dashboard')->middleware(['auth'])->group(function () {
 
     Route::get('articles', [ArticleController::class, 'index'])->name('auth.articles.index');
     Route::get('articles/create', [ArticleController::class, 'create'])->name('auth.articles.create');
@@ -34,7 +36,7 @@ Route::prefix('auth')->middleware(['auth'])->group(function () {
     Route::patch('tags/{tag}', [TagController::class, 'update'])->name('auth.tags.update');
     Route::delete('tags/{tag}', [TagController::class, 'destroy'])->name('auth.tags.destroy');
 
-    Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
+    Route::get('/', fn () => view('dashboard'))->name('dashboard');
 });
 
 require __DIR__.'/auth.php';
