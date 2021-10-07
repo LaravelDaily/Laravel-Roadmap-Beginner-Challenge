@@ -7,29 +7,33 @@ use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-
+use Illuminate\View\View;
 
 class ArticleController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $articles = Article::latest()->paginate(10);
 
         return view('auth.articles.index', compact('articles'));
     }
 
-    public function show(Article $article)
+    public function show(Article $article): View
     {
         return view('auth.articles.show', compact('article'));
     }
 
-    public function create()
+    public function create(): View
     {
         return view('auth.articles.create');
     }
 
-    public function store(Request $request)
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'title' => ['required', 'max:255'],
@@ -48,7 +52,7 @@ class ArticleController extends Controller
         return redirect(route('auth.articles.edit', $article))->with('article.created', 'Your article was created!');
     }
 
-    public function edit(Article $article)
+    public function edit(Article $article): View
     {
         $categories = Category::get()->except(optional($article->category)->id);
         $tags = Tag::get()->except($article->tags->pluck('id')->toArray());
@@ -56,7 +60,10 @@ class ArticleController extends Controller
         return view('auth.articles.edit', compact('article', 'categories', 'tags'));
     }
 
-    public function update(UpdateArticleRequest $request, Article $article)
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function update(UpdateArticleRequest $request, Article $article): RedirectResponse
     {
         $request->has('image') ?
             $article->update(array_merge(
@@ -74,7 +81,7 @@ class ArticleController extends Controller
         return redirect()->back()->with('article.updated', 'Article Updated!');
     }
 
-    public function destroy(Article $article)
+    public function destroy(Article $article): RedirectResponse
     {
         $article->delete();
 

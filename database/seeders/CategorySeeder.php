@@ -11,7 +11,10 @@ class CategorySeeder extends Seeder
         'gaming',
         'programming',
         'techonology',
-        'extensions'
+        'extensions',
+        'photography',
+        'cryptos',
+        'micro services',
     ];
 
     /**

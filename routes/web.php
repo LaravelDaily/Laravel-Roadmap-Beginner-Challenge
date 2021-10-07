@@ -15,6 +15,8 @@ Route::get('/articles/{article}', [HomeArticleController::class, 'show'])->name(
 
 Route::prefix('dashboard')->middleware(['auth'])->group(function () {
 
+    Route::get('/', fn () => view('dashboard'))->name('dashboard');
+
     Route::get('articles', [ArticleController::class, 'index'])->name('auth.articles.index');
     Route::get('articles/create', [ArticleController::class, 'create'])->name('auth.articles.create');
     Route::post('articles', [ArticleController::class, 'store'])->name('auth.articles.store');
@@ -35,8 +37,6 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     Route::get('tags/{tag}/edit', [TagController::class, 'edit'])->name('auth.tags.edit');
     Route::patch('tags/{tag}', [TagController::class, 'update'])->name('auth.tags.update');
     Route::delete('tags/{tag}', [TagController::class, 'destroy'])->name('auth.tags.destroy');
-
-    Route::get('/', fn () => view('dashboard'))->name('dashboard');
 });
 
 require __DIR__.'/auth.php';
