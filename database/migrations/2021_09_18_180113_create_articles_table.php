@@ -18,8 +18,8 @@ class CreateArticlesTable extends Migration
             $table->string('title');
             $table->text('body');
             $table->string('image')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('category_id')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignId('category_id')->nullable()->constrained();
             $table->timestamps();
             $table->softDeletes();
         });

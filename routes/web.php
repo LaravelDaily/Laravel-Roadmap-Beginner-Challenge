@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/about-me', fn() => view('about'));
+Route::get('/about-me', fn() => view('about'))->name('about');
 
 Route::get('/articles/{article}', [HomeArticleController::class, 'show'])->name('articles.show');
 
