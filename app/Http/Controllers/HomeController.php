@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function index(): View
     {
-        $articles = Article::latest()->paginate(10);
+        $articles = Article::with('category')->latest()->paginate(10);
 
         return view('home', compact('articles'));
     }

@@ -1,9 +1,9 @@
 <x-app-layout>
     <div class="divide-y divide-gray-200">
         <div class="pt-6 pb-8 space-y-2 md:space-y-5">
-            <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl md:text-[4rem] md:leading-[3.5rem]">Hallo
+            <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl md:text-[4rem] md:leading-[3.5rem]">Wassup!
             </h1>
-            <p class="text-lg text-gray-500">All news about Brave Quesadillas development.</p>
+            <p class="text-lg text-gray-500">All news about Brave Quesadillas Devs</p>
         </div>
         <ul class="divide-y divide-gray-200">
             @foreach ($articles as $article)
