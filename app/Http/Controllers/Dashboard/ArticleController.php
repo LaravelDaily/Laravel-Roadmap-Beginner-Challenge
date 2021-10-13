@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
@@ -17,17 +16,17 @@ class ArticleController extends Controller
     {
         $articles = Article::latest()->paginate(10);
 
-        return view('auth.articles.index', compact('articles'));
+        return view('dashboard.articles.index', compact('articles'));
     }
 
     public function show(Article $article): View
     {
-        return view('auth.articles.show', compact('article'));
+        return view('dashboard.articles.show', compact('article'));
     }
 
     public function create(): View
     {
-        return view('auth.articles.create');
+        return view('dashboard.articles.create');
     }
 
     /**
@@ -49,7 +48,7 @@ class ArticleController extends Controller
 
         $request->user()->articles()->save($article);
 
-        return redirect(route('auth.articles.edit', $article))->with('article.created', 'Your article was created!');
+        return redirect(route('dashboard.articles.edit', $article))->with('article.created', 'Your article was created!');
     }
 
     public function edit(Article $article): View
@@ -57,14 +56,23 @@ class ArticleController extends Controller
         $categories = Category::get()->except(optional($article->category)->id);
         $tags = Tag::get()->except($article->tags->pluck('id')->toArray());
 
-        return view('auth.articles.edit', compact('article', 'categories', 'tags'));
+        return view('dashboard.articles.edit', compact('article', 'categories', 'tags'));
     }
 
     /**
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(UpdateArticleRequest $request, Article $article): RedirectResponse
+    public function update(Request $request, Article $article): RedirectResponse
     {
+        $request->validate([
+            'title' => ['required', 'max:255'],
+            'body' => ['required'],
+            'image' => ['nullable', 'image'],
+            'category_id' => ['nullable'],
+            'added_tags' => ['nullable', 'array'],
+            'removed_tags' => ['nullable', 'array'],
+        ]);
+
         $request->has('image') ?
             $article->update(array_merge(
                 $request->only(['title', 'body', 'category_id']),
@@ -85,6 +93,6 @@ class ArticleController extends Controller
     {
         $article->delete();
 
-        return redirect()->back()->with('article.destroyed', "Article {$article->title} was deleted!");
+        return redirect()->back()->with('success', "Article {$article->title} was deleted!");
     }
 }

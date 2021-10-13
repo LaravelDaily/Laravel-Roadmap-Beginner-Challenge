@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Auth;
+namespace Tests\Feature;
 
 use App\Models\Article;
 use App\Models\User;
@@ -19,8 +19,8 @@ class StoreArticleTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->get(route('auth.articles.create'))
-            ->assertViewIs('auth.articles.create')
+            ->get(route('dashboard.articles.create'))
+            ->assertViewIs('dashboard.articles.create')
             ->assertOk();
     }
 
@@ -31,14 +31,14 @@ class StoreArticleTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->post(route('auth.articles.store'), $attributes = [
+            ->post(route('dashboard.articles.store'), $attributes = [
                 'title' => 'Example Title',
                 'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
                 'image' => $image = UploadedFile::fake()->image('test.jpg'),
             ])
             ->assertSessionHasNoErrors()
             ->assertSessionHas('article.created')
-            ->assertRedirect(route('auth.articles.edit', $article = Article::firstOrFail()));
+            ->assertRedirect(route('dashboard.articles.edit', $article = Article::firstOrFail()));
 
         $this->assertDatabaseHas('articles', [
             'title' => $attributes['title'],
@@ -56,7 +56,7 @@ class StoreArticleTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->post(route('auth.articles.store'), [
+            ->post(route('dashboard.articles.store'), [
                 'title' => 'Example Test',
                 'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
             ])
@@ -78,7 +78,7 @@ class StoreArticleTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->post(route('auth.articles.store'), [
+            ->post(route('dashboard.articles.store'), [
                 'title' => null,
             ])
             ->assertSessionHasErrors('title');
@@ -90,7 +90,7 @@ class StoreArticleTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->post(route('auth.articles.store'), [
+            ->post(route('dashboard.articles.store'), [
                 'title' => str_repeat('x',256),
             ])
             ->assertSessionHasErrors('title');
@@ -102,7 +102,7 @@ class StoreArticleTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->post(route('auth.articles.store'), [
+            ->post(route('dashboard.articles.store'), [
                 'body' => null,
             ])
             ->assertSessionHasErrors('body');
@@ -114,7 +114,7 @@ class StoreArticleTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->post(route('auth.articles.store'), [
+            ->post(route('dashboard.articles.store'), [
                 'image' => 'not-an-image'
             ])
             ->assertSessionHasErrors('image');

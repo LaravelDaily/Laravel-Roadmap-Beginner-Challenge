@@ -1,25 +1,26 @@
 <x-app-layout>
     <div class="w-full px-4 mx-auto mt-24 mb-12 xl:w-8/12 xl:mb-0">
-        @if (session()->has('tag.destroyed'))
-            <x-flash>
-                {{ session('tag.destroyed') }}
-            </x-flash>
-        @endif
+
+        <x-flash />
 
         <div class="relative flex-1 flex-grow w-full max-w-full px-4 text-right">
             <a href="{{ route('dashboard') }}">
-                <button class="px-3 py-1 mb-1 mr-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-indigo-500 rounded outline-none active:bg-indigo-600 focus:outline-none" type="button">Back to Dashboard index</button>
+                <x-button>
+                    Back to Dashboard index
+                </x-button>
             </a>
         </div>
         <div class="relative flex flex-col w-full min-w-0 mb-6 break-words bg-white rounded shadow-lg ">
             <div class="px-4 py-3 mb-0 border-0 rounded-t">
                 <div class="flex flex-wrap items-center">
                     <div class="relative flex-1 flex-grow w-full max-w-full px-4">
-                        <h3 class="text-base font-semibold text-blueGray-700">Tags</h3>
+                        <h3 class="text-base font-semibold text-blueGray-700">Categories</h3>
                     </div>
                     <div class="relative flex-1 flex-grow w-full max-w-full px-4 text-right">
-                        <a href="{{ route('auth.tags.create') }}">
-                            <button class="px-3 py-1 mb-1 mr-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-indigo-500 rounded outline-none active:bg-indigo-600 focus:outline-none" type="button">Create</button>
+                        <a href="{{ route('dashboard.categories.create') }}">
+                            <x-button class="px-3 py-1 mb-1 mr-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-indigo-500 rounded outline-none active:bg-indigo-600 focus:outline-none">
+                                Create
+                            </x-button>
                         </a>
                     </div>
                 </div>
@@ -44,34 +45,34 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($tags as $tag)
+                        @forelse ($categories as $category)
                             <tr>
                                 <td class="p-4 px-6 text-xs text-left align-middle border-t-0 border-l-0 border-r-0 wditespace-nowrap text-blueGray-700 ">
-                                    <p>{{ $tag->name }}</p>
+                                    <p>{{ $category->name }}</p>
                                 </th>
                                 <td class="p-4 px-6 text-xs align-middle border-t-0 border-l-0 border-r-0 whitespace-nowrap ">
-                                    {{ $tag->created_at }}
+                                    {{ $category->created_at }}
                                 </td>
                                 <td class="p-4 px-6 text-xs border-t-0 border-l-0 border-r-0 align-center whitespace-nowrap">
-                                    <a href="{{ route('auth.tags.edit', $tag) }}">edit</a>
+                                    <a href="{{ route('dashboard.categories.edit', $category) }}">edit</a>
                                 </td>
                                 <td class="p-4 px-6 text-xs align-middle border-t-0 border-l-0 border-r-0 whitespace-nowrap">
-                                    <x-form method="DELETE" action="{{ route('auth.tags.destroy', $tag) }}">
+                                    <x-form method="DELETE" action="{{ route('dashboard.categories.destroy', $category) }}">
                                         <div>
-                                            <button class="bg-indigo-400 text-white rounded py-2 px-4 hover:bg-indigo-500" type="submit">
+                                            <x-button>
                                                 Delete
-                                            </button>
+                                            </x-button>
                                         </div>
                                     </x-form>
                                 </td>
                             </tr>
                         @empty
-                            There aren't any tags, create one!
+                            There aren't any categories, create one!
                         @endforelse
                     </tbody>
                 </table>
             </div>
-            {{ $tags->links() }}
+            {{ $categories->links() }}
         </div>
     </div>
 </x-app-layout> 

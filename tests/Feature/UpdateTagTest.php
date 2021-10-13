@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Auth;
+namespace Tests\Feature;
 
 use App\Models\Tag;
 use App\Models\User;
@@ -18,12 +18,12 @@ class UpdateTagTest extends TestCase
         $tag = Tag::factory()->create();
 
         $response = $this->actingAs($user)
-            ->get(route('auth.tags.edit', $tag))
-            ->assertViewIs('auth.tags.edit')
+            ->get(route('dashboard.tags.edit', $tag))
+            ->assertViewIs('dashboard.tags.edit')
             ->assertOk();
 
         $response->assertSee($tag->name);
-        $response->assertSee(route('auth.tags.update', $tag));
+        $response->assertSee(route('dashboard.tags.update', $tag));
     }
 
     /** @test */
@@ -33,12 +33,12 @@ class UpdateTagTest extends TestCase
         $tag = Tag::factory()->create(['name' => 'Old']);
 
         $this->actingAs($user)
-            ->from(route('auth.tags.edit', $tag))
-            ->patch(route('auth.tags.update', $tag), [
+            ->from(route('dashboard.tags.edit', $tag))
+            ->patch(route('dashboard.tags.update', $tag), [
                 'name' => 'Updated',
             ])
-            ->assertSessionHas('tag.updated')
-            ->assertRedirect(route('auth.tags.edit', $tag));
+            ->assertSessionHas('success')
+            ->assertRedirect(route('dashboard.tags.edit', $tag));
 
         $this->assertEquals('Updated', $tag->fresh()->name);
     }
@@ -50,8 +50,8 @@ class UpdateTagTest extends TestCase
         $tag = Tag::factory()->create();
 
         $this->actingAs($user)
-            ->from(route('auth.tags.edit', $tag))
-            ->patch(route('auth.tags.update', $tag), [
+            ->from(route('dashboard.tags.edit', $tag))
+            ->patch(route('dashboard.tags.update', $tag), [
                 'name' => null,
             ])
             ->assertSessionHasErrors('name');
@@ -64,8 +64,8 @@ class UpdateTagTest extends TestCase
         $tag = Tag::factory()->create();
 
         $this->actingAs($user)
-            ->from(route('auth.tags.edit', $tag))
-            ->patch(route('auth.tags.update', $tag), [
+            ->from(route('dashboard.tags.edit', $tag))
+            ->patch(route('dashboard.tags.update', $tag), [
                 'name' => str_repeat('x', 51)
             ])
             ->assertSessionHasErrors('name');
@@ -79,8 +79,8 @@ class UpdateTagTest extends TestCase
         $tagB = Tag::factory()->create();
 
         $this->actingAs($user)
-            ->from(route('auth.tags.edit', $tagB))
-            ->patch(route('auth.tags.update', $tagB), [
+            ->from(route('dashboard.tags.edit', $tagB))
+            ->patch(route('dashboard.tags.update', $tagB), [
                 'name' => $tagA->name
             ])
             ->assertSessionHasErrors('name');

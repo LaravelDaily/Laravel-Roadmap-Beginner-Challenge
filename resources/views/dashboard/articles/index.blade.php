@@ -1,13 +1,13 @@
 <x-app-layout>
     <div class="w-full px-4 mx-auto mt-24 mb-12 xl:w-8/12 xl:mb-0">
-        @if (session()->has('article.destroyed'))
-        <x-flash>
-            {{ session('article.destroyed') }}
-        </x-flash>
-    @endif
+
+        <x-flash />
+
         <div class="relative flex-1 flex-grow w-full max-w-full px-4 text-right">
             <a href="{{ route('dashboard') }}">
-                <button class="px-3 py-1 mb-1 mr-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-indigo-500 rounded outline-none active:bg-indigo-600 focus:outline-none" type="button">Back to Dashboard index</button>
+                <x-button>
+                    Back to Dashboard index
+                </x-button>
             </a>
         </div>
         <div class="relative flex flex-col w-full min-w-0 mb-6 break-words bg-white rounded shadow-lg ">
@@ -17,8 +17,10 @@
                         <h3 class="text-base font-semibold text-blueGray-700">Articles</h3>
                     </div>
                     <div class="relative flex-1 flex-grow w-full max-w-full px-4 text-right">
-                        <a href="{{ route('auth.articles.create') }}">
-                            <button class="px-3 py-1 mb-1 mr-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-indigo-500 rounded outline-none active:bg-indigo-600 focus:outline-none" type="button">Create</button>
+                        <a href="{{ route('dashboard.articles.create') }}">
+                            <x-button class="px-3 py-1 mb-1 mr-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-indigo-500 rounded outline-none active:bg-indigo-600 focus:outline-none">
+                                Create
+                            </x-button>
                         </a>
                     </div>
                 </div>
@@ -48,14 +50,14 @@
                                     {{ $article->created_at }}
                                 </td>
                                 <td class="p-4 px-6 text-xs border-t-0 border-l-0 border-r-0 align-center whitespace-nowrap">
-                                    <a href="{{ route('auth.articles.edit', $article) }}">edit</a>
+                                    <a href="{{ route('dashboard.articles.edit', $article) }}">edit</a>
                                 </td>
                                 <td class="p-4 px-6 text-xs align-middle border-t-0 border-l-0 border-r-0 whitespace-nowrap">
-                                    <x-form method="DELETE" action="{{ route('auth.articles.destroy', $article) }}">
+                                    <x-form method="DELETE" action="{{ route('dashboard.articles.destroy', $article) }}">
                                         <div>
-                                            <button class="bg-indigo-400 text-white rounded py-2 px-4 hover:bg-indigo-500" type="submit">
+                                            <x-button>
                                                 Delete
-                                            </button>
+                                            </x-button>
                                         </div>
                                     </x-form>
                                 </td>

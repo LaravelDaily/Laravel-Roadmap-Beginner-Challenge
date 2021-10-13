@@ -6,10 +6,12 @@
         'warning' => 'bg-yellow-400',
     ]
 ])
-<section class="{{ $colors[$type] }} p-4" >
-    <div class="flex justify-between">
-        <p>
-            {{ $slot }}
-        </p>
-    </div>
-</section>
+@if (session()->has($type))
+    <section class="{{ $colors[$type] }} p-4" >
+        <div class="flex justify-between">
+            <p>
+                {{ session($type) ?? $slot }}
+            </p>
+        </div>
+    </section>
+@endif

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Auth;
+namespace Tests\Feature;
 
 use App\Models\Category;
 use App\Models\User;
@@ -18,12 +18,12 @@ class UpdateCategoryTest extends TestCase
         $category = Category::factory()->create();
 
         $response = $this->actingAs($user)
-            ->get(route('auth.categories.edit', $category))
-            ->assertViewIs('auth.categories.edit')
+            ->get(route('dashboard.categories.edit', $category))
+            ->assertViewIs('dashboard.categories.edit')
             ->assertOk();
 
         $response->assertSee($category->name);
-        $response->assertSee(route('auth.categories.update', $category));
+        $response->assertSee(route('dashboard.categories.update', $category));
     }
 
     /** @test */
@@ -33,12 +33,12 @@ class UpdateCategoryTest extends TestCase
         $category = Category::factory()->create(['name' => 'Old']);
 
         $this->actingAs($user)
-            ->from(route('auth.categories.edit', $category))
-            ->patch(route('auth.categories.update', $category), [
+            ->from(route('dashboard.categories.edit', $category))
+            ->patch(route('dashboard.categories.update', $category), [
                 'name' => 'Updated',
             ])
-            ->assertSessionHas('category.updated')
-            ->assertRedirect(route('auth.categories.edit', $category));
+            ->assertSessionHas('success')
+            ->assertRedirect(route('dashboard.categories.edit', $category));
 
         $this->assertEquals('Updated', $category->fresh()->name);
     }
@@ -50,8 +50,8 @@ class UpdateCategoryTest extends TestCase
         $category = Category::factory()->create();
 
         $this->actingAs($user)
-            ->from(route('auth.categories.edit', $category))
-            ->patch(route('auth.categories.update', $category), [
+            ->from(route('dashboard.categories.edit', $category))
+            ->patch(route('dashboard.categories.update', $category), [
                 'name' => null,
             ])
             ->assertSessionHasErrors('name');
@@ -64,8 +64,8 @@ class UpdateCategoryTest extends TestCase
         $category = Category::factory()->create();
 
         $this->actingAs($user)
-            ->from(route('auth.categories.edit', $category))
-            ->patch(route('auth.categories.update', $category), [
+            ->from(route('dashboard.categories.edit', $category))
+            ->patch(route('dashboard.categories.update', $category), [
                 'name' => str_repeat('x', 51)
             ])
             ->assertSessionHasErrors('name');
@@ -79,8 +79,8 @@ class UpdateCategoryTest extends TestCase
         $categoryB = Category::factory()->create();
 
         $this->actingAs($user)
-            ->from(route('auth.categories.edit', $categoryB))
-            ->patch(route('auth.categories.update', $categoryB), [
+            ->from(route('dashboard.categories.edit', $categoryB))
+            ->patch(route('dashboard.categories.update', $categoryB), [
                 'name' => $categoryA->name
             ])
             ->assertSessionHasErrors('name');

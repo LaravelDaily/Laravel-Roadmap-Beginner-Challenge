@@ -3,10 +3,14 @@
         Create Article
     </div>
 
-    <x-form method="POST" action="{{ route('auth.articles.store') }}" enctype="multipart/form-data">
+    <x-form method="POST" action="{{ route('dashboard.articles.store') }}" enctype="multipart/form-data">
         <div class="flex flex-col mb-4">
-            <label class="mb-2 font-bold text-lg text-gray-900" for="title">Title</label>
-            <input class="border py-2 px-3 text-grey-800" type="text" name="title" id="title" value="{{ old('title') }}">
+            <x-label for="title" :value="__('Title')"/>
+            <x-input id="title" class="border py-2 px-3 text-grey-800"
+                type="text"
+                name="title"
+                value="{{ old('title') }}"
+            />
             @error('title')
                 <p class="text-red-500 text-xs mt-2">
                     {{ $message }}
@@ -15,9 +19,7 @@
         </div>
 
         <div class="flex flex-col mb-4">
-            <label class="mb-2 font-bold text-lg text-gray-900" for="body">
-                Body
-            </label>
+            <x-label for="body" :value="__('Body')"/>
             <textarea class="border border-gray-400 p-2 w-full"
                 name="body"
                 id="body"
@@ -32,8 +34,10 @@
         </div>
 
         <div class="flex flex-col mb-4">
-            <label class="mb-2 font-bold text-lg text-gray-900" for="image">Upload Image</label>
-            <input class="border py-2 px-3 text-grey-800" type="file" name="image" id="image">
+            <x-label for="image" :value="__('Upload Image')" />
+            <x-input id="image" class="border py-2 px-3 text-grey-800"
+                type="file"
+                name="image"/>
             @error('image')
                 <p class="text-red-500 text-xs mt-2">
                     {{ $message }}
@@ -42,14 +46,17 @@
         </div>
 
         <div class="mb-6">
-            <button class="bg-indigo-400 text-white rounded py-2 px-4 hover:bg-indigo-500" type="submit">
+            <x-button>
                 Create
-            </button>
+            </x-button>
         </div>
     </x-form>
+
     <div class="mb-6">
-        <a href="{{ route('auth.articles.index') }}">
-            <button class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500" type="button">Back to Article's index</button>
+        <a href="{{ route('dashboard.articles.index') }}">
+            <x-button class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500">
+                Articles' Index
+            </x-button>
         </a>
     </div>
 </x-app-layout>

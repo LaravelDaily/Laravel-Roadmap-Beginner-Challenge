@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Auth;
+namespace Tests\Feature;
 
 use App\Models\Category;
 use App\Models\User;
@@ -19,16 +19,16 @@ class ViewCategoriesTest extends TestCase
         $categories = Category::factory()->count(9)->create();
 
         $response = $this->actingAs($user)
-            ->get(route('auth.categories.index'))
-            ->assertViewIs('auth.categories.index')
+            ->get(route('dashboard.categories.index'))
+            ->assertViewIs('dashboard.categories.index')
             ->assertViewHas(['categories' => fn ($retrieved) => $retrieved->pluck('id')->all() === $categories->pluck('id')->all()])
             ->assertOk();
 
-        $response->assertSee(route('auth.categories.create'));
+        $response->assertSee(route('dashboard.categories.create'));
         $response->assertSeeTextInOrder($categories->map->name->all());
         $response->assertSeeTextInOrder($categories->map->created_at->all());
-        $response->assertSeeInOrder($categories->map(fn ($article) => route('auth.categories.edit', $article))->flatten()->all());
-        $response->assertSeeInOrder($categories->map(fn ($article) => route('auth.categories.destroy', $article))->flatten()->all());
+        $response->assertSeeInOrder($categories->map(fn ($article) => route('dashboard.categories.edit', $article))->flatten()->all());
+        $response->assertSeeInOrder($categories->map(fn ($article) => route('dashboard.categories.destroy', $article))->flatten()->all());
     }
 
     /** @test */
@@ -39,7 +39,7 @@ class ViewCategoriesTest extends TestCase
         $oldCategory = Category::factory()->create(['created_at' => now()->subDay()]);
 
         $response = $this->actingAs($user)
-            ->get(route('auth.categories.index'))
+            ->get(route('dashboard.categories.index'))
             ->assertOk();
 
         $response->assertSeeInOrder($newCategories->map->name->all());

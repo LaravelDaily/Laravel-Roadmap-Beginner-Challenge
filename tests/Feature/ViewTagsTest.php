@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Auth;
+namespace Tests\Feature;
 
 use App\Models\Tag;
 use App\Models\User;
@@ -19,16 +19,16 @@ class ViewTagsTest extends TestCase
         $tags = Tag::factory()->count(9)->create();
 
         $response = $this->actingAs($user)
-            ->get(route('auth.tags.index'))
-            ->assertViewIs('auth.tags.index')
+            ->get(route('dashboard.tags.index'))
+            ->assertViewIs('dashboard.tags.index')
             ->assertViewHas(['tags' => fn ($retrieved) => $retrieved->pluck('id')->all() === $tags->pluck('id')->all()])
             ->assertOk();
 
-        $response->assertSee(route('auth.tags.create'));
+        $response->assertSee(route('dashboard.tags.create'));
         $response->assertSeeTextInOrder($tags->map->name->all());
         $response->assertSeeTextInOrder($tags->map->created_at->all());
-        $response->assertSeeInOrder($tags->map(fn ($article) => route('auth.tags.edit', $article))->flatten()->all());
-        $response->assertSeeInOrder($tags->map(fn ($article) => route('auth.tags.destroy', $article))->flatten()->all());
+        $response->assertSeeInOrder($tags->map(fn ($article) => route('dashboard.tags.edit', $article))->flatten()->all());
+        $response->assertSeeInOrder($tags->map(fn ($article) => route('dashboard.tags.destroy', $article))->flatten()->all());
     }
 
     /** @test */
@@ -39,7 +39,7 @@ class ViewTagsTest extends TestCase
         $oldTag = Tag::factory()->create(['created_at' => now()->subDay()]);
 
         $response = $this->actingAs($user)
-            ->get(route('auth.tags.index'))
+            ->get(route('dashboard.tags.index'))
             ->assertOk();
 
         $response->assertSeeInOrder($newtags->map->name->all());

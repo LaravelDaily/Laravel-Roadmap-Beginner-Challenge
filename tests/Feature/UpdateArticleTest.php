@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Auth;
+namespace Tests\Feature;
 
 use App\Models\Article;
 use App\Models\Category;
@@ -24,13 +24,13 @@ class UpdateArticleTest extends TestCase
         $tags = Tag::factory()->count(3)->create();
 
         $response = $this->actingAs($article->user)
-            ->get(route('auth.articles.edit', $article))
-            ->assertViewIs('auth.articles.edit')
+            ->get(route('dashboard.articles.edit', $article))
+            ->assertViewIs('dashboard.articles.edit')
             ->assertViewHas('categories', fn ($retrieved) => $retrieved->pluck('id')->all() === $categories->pluck('id')->all())
             ->assertViewHas('tags', fn ($retrieved) => $retrieved->pluck('id')->all() === $tags->pluck('id')->all())
             ->assertOk();
 
-        $response->assertSee(route('auth.articles.update', $article));
+        $response->assertSee(route('dashboard.articles.update', $article));
         $response->assertSee($article->title);
         $response->assertSee($article->body);
         $response->assertSee($article->category->name);
@@ -51,7 +51,7 @@ class UpdateArticleTest extends TestCase
             ]);
 
         $this->actingAs($article->user)
-            ->patch(route('auth.articles.update', $article), [
+            ->patch(route('dashboard.articles.update', $article), [
                 'title' => 'Updated Title',
                 'body' => 'Updated Lorem Ipsum',
                 'image' => $newImage = UploadedFile::Fake()->image('new.jpg'),
@@ -76,7 +76,7 @@ class UpdateArticleTest extends TestCase
         $category = Category::factory()->create();
 
         $this->actingAs($article->user)
-            ->patch(route('auth.articles.update', $article), [
+            ->patch(route('dashboard.articles.update', $article), [
                 'title' => $article->title,
                 'body' => $article->body,
                 'category_id' => $category->id
@@ -96,7 +96,7 @@ class UpdateArticleTest extends TestCase
         $article->tags()->attach($toDetach);
 
         $this->actingAs($article->user)
-            ->patch(route('auth.articles.update', $article), [
+            ->patch(route('dashboard.articles.update', $article), [
                 'title' => $article->title,
                 'body' => $article->body,
                 'added_tags' => [
@@ -122,7 +122,7 @@ class UpdateArticleTest extends TestCase
             ->create();
 
         $this->actingAs($article->user)
-            ->patch(route('auth.articles.update', $article), [
+            ->patch(route('dashboard.articles.update', $article), [
                 'title' => null,
             ])
             ->assertSessionHasErrors('title');
@@ -136,7 +136,7 @@ class UpdateArticleTest extends TestCase
             ->create();
 
         $this->actingAs($article->user)
-            ->patch(route('auth.articles.update', $article), [
+            ->patch(route('dashboard.articles.update', $article), [
                 'title' => str_repeat('x',256),
             ])
             ->assertSessionHasErrors('title');
@@ -150,7 +150,7 @@ class UpdateArticleTest extends TestCase
             ->create();
 
         $this->actingAs($article->user)
-            ->patch(route('auth.articles.update', $article), [
+            ->patch(route('dashboard.articles.update', $article), [
                 'body' => null,
             ])
             ->assertSessionHasErrors('body');

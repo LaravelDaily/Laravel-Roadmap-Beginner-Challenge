@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
@@ -14,12 +14,12 @@ class TagController extends Controller
     {
         $tags = Tag::latest()->paginate(10);
 
-        return view('auth.tags.index', compact('tags'));
+        return view('dashboard.tags.index', compact('tags'));
     }
 
     public function create(): View
     {
-        return view('auth.tags.create');
+        return view('dashboard.tags.create');
     }
 
     /**
@@ -33,12 +33,12 @@ class TagController extends Controller
 
         $tag = Tag::create($attributes);
 
-        return redirect()->route('auth.tags.edit', $tag)->with('tag.created', 'Tag Created!');
+        return redirect()->route('dashboard.tags.edit', $tag)->with('success', 'Tag Created!');
     }
 
     public function edit(Tag $tag): View
     {
-        return view('auth.tags.edit', compact('tag'));
+        return view('dashboard.tags.edit', compact('tag'));
     }
 
     /**
@@ -52,13 +52,13 @@ class TagController extends Controller
 
         $tag->update($attributes);
 
-        return redirect()->back()->with('tag.updated', 'Tag Updated!');
+        return redirect()->back()->with('success', 'Tag Updated!');
     }
 
     public function destroy(Tag $tag): RedirectResponse
     {
         $tag->delete();
 
-        return redirect()->back()->with('tag.destroyed', "Tag {$tag->name} was deleted!");
+        return redirect()->back()->with('success', "Tag {$tag->name} was deleted!");
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Auth;
+namespace Tests\Feature;
 
 use App\Models\Tag;
 use App\Models\User;
@@ -18,7 +18,7 @@ class DestroyTagTest extends TestCase
         $tag = Tag::factory()->create();
 
         $this->actingAs($user)
-            ->delete(route('auth.tags.destroy', $tag))
+            ->delete(route('dashboard.tags.destroy', $tag))
             ->assertSessionHasNoErrors()
             ->assertRedirect();
 

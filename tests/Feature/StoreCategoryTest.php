@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Feature\Auth;
+namespace Tests\Feature;
 
-use App\Models\Tag;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class StoreTagTest extends TestCase
+class StoreCategoryTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -15,26 +15,27 @@ class StoreTagTest extends TestCase
     public function can_view_create_form()
     {
         $user = User::factory()->create();
-        
+
         $this->actingAs($user)
-            ->get(route('auth.tags.create'))
-                ->assertViewIs('auth.tags.create')
-                ->assertOk();
-        }
-        
+            ->get(route('dashboard.categories.create'))
+            ->assertViewIs('dashboard.categories.create')
+            ->assertOk();
+    }
+
     /** @test */
-    public function can_store_tag()
+    public function can_store_category()
     {
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->post(route('auth.tags.store'), [
+            ->from(route('dashboard.categories.create'))
+            ->post(route('dashboard.categories.store'), [
                 'name' => 'Example'
             ])
-            ->assertSessionHas('tag.created')
-            ->assertRedirect(route('auth.tags.edit', Tag::firstOrFail()));
+            ->assertSessionHas('success')
+            ->assertRedirect(route('dashboard.categories.edit', Category::firstOrFail()));
 
-        $this->assertDatabaseHas('tags', [
+        $this->assertDatabaseHas('categories', [
             'name' => 'Example'
         ]);
     }
@@ -42,12 +43,11 @@ class StoreTagTest extends TestCase
     /** @test */
     public function name_is_required()
     {
-
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->from(route('auth.tags.create'))
-            ->post(route('auth.tags.store'), [
+            ->from(route('dashboard.categories.create'))
+            ->post(route('dashboard.categories.store'), [
                 'name' => null
             ])
             ->assertSessionHasErrors('name');
@@ -59,23 +59,23 @@ class StoreTagTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->from(route('auth.tags.create'))
-            ->post(route('auth.tags.store'), [
+            ->from(route('dashboard.categories.create'))
+            ->post(route('dashboard.categories.store'), [
                 'name' => str_repeat('x', 51)
             ])
             ->assertSessionHasErrors('name');
     }
 
     /** @test */
-    public function name_cannot_be_repeated()
+    public function name_is_unique()
     {
         $user = User::factory()->create();
-        $tag = Tag::factory()->create();
+        $category = Category::factory()->create();
 
         $this->actingAs($user)
-            ->from(route('auth.tags.create'))
-            ->post(route('auth.tags.store'), [
-                'name' => $tag->name,
+            ->from(route('dashboard.categories.create'))
+            ->post(route('dashboard.categories.store'), [
+                'name' => $category->name,
             ])
             ->assertSessionHasErrors('name');
     }

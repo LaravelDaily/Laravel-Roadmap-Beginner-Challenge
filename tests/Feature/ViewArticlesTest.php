@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Auth;
+namespace Tests\Feature;
 
 use App\Models\Article;
 use App\Models\User;
@@ -22,17 +22,17 @@ class ViewArticlesTest extends TestCase
             ->sortByDesc('created_at');
 
         $response = $this->actingAs($user)
-            ->get(route('auth.articles.index'))
-            ->assertViewIs('auth.articles.index')
+            ->get(route('dashboard.articles.index'))
+            ->assertViewIs('dashboard.articles.index')
             ->assertViewHas(['articles' => fn ($retrieved) => $retrieved->pluck('id')->all() === $articles->pluck('id')->all()])
             ->assertOk();
 
-        $response->assertSee(route('auth.articles.create'));
+        $response->assertSee(route('dashboard.articles.create'));
         $response->assertSeeTextInOrder($articles->map->title->all());
         $response->assertSeeTextInOrder($articles->map->created_at->all());
         $response->assertSeeInOrder($articles->map->url->all());
-        $response->assertSeeInOrder($articles->map(fn ($article) => route('auth.articles.edit', $article))->flatten()->all());
-        $response->assertSeeInOrder($articles->map(fn ($article) => route('auth.articles.destroy', $article))->flatten()->all());
+        $response->assertSeeInOrder($articles->map(fn ($article) => route('dashboard.articles.edit', $article))->flatten()->all());
+        $response->assertSeeInOrder($articles->map(fn ($article) => route('dashboard.articles.destroy', $article))->flatten()->all());
     }
 
     /** @test */
@@ -43,7 +43,7 @@ class ViewArticlesTest extends TestCase
         $oldArticle = Article::factory()->create(['created_at' => now()->subDay()]);
 
         $response = $this->actingAs($user)
-            ->get(route('auth.articles.index'))
+            ->get(route('dashboard.articles.index'))
             ->assertOk();
 
         $response->assertSeeInOrder($newArticles->map->title->all());

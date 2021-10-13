@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -15,12 +15,12 @@ class CategoryController extends Controller
     {
         $categories = Category::latest()->paginate(10);
 
-        return view('auth.categories.index', compact('categories'));
+        return view('dashboard.categories.index', compact('categories'));
     }
 
     public function create(): View
     {
-        return view('auth.categories.create');
+        return view('dashboard.categories.create');
     }
 
     /**
@@ -36,12 +36,12 @@ class CategoryController extends Controller
             'name' => $request->name
         ]);
 
-        return redirect()->route('auth.categories.edit', $category)->with('category.created', 'Category Created!');
+        return redirect()->route('dashboard.categories.edit', $category)->with('success', 'Category Created!');
     }
 
     public function edit(Category $category): View
     {
-        return view('auth.categories.edit', compact('category'));
+        return view('dashboard.categories.edit', compact('category'));
     }
 
     /**
@@ -57,13 +57,13 @@ class CategoryController extends Controller
             'name' => $request->name
         ]);
 
-        return redirect()->back()->with('category.updated', 'Category Updated!');
+        return redirect()->back()->with('success', 'Category Updated!');
     }
 
     public function destroy(Category $category): RedirectResponse
     {
         $category->delete();
 
-        return redirect()->back()->with('category.destroyed', "Category {$category->name} was deleted!");
+        return redirect()->back()->with('success', "Category {$category->name} was deleted!");
     }
 }

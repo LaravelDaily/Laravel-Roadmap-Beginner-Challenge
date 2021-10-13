@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Auth;
+namespace Tests\Feature;
 
 use App\Models\Article;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -16,9 +16,9 @@ class DestroyArticleTest extends TestCase
         $article = Article::factory()->create();
 
         $this->actingAs($article->user)
-            ->delete(route('auth.articles.destroy', $article))
+            ->delete(route('dashboard.articles.destroy', $article))
             ->assertSessionHasNoErrors()
-            ->assertSessionHas('article.destroyed')
+            ->assertSessionHas('success')
             ->assertRedirect();
 
         $this->assertNotNull($article->fresh()->deleted_at);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Auth;
+namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -17,11 +17,11 @@ class DashboardTest extends TestCase
 
         $response = $this->actingAs($user)
             ->get(route('dashboard'))
-            ->assertViewIs('dashboard')
+            ->assertViewIs('dashboard.home')
             ->assertOk();
 
-        $response->assertSee(route('auth.articles.index'));
-        $response->assertSee(route('auth.categories.index'));
-        $response->assertSee(route('auth.tags.index'));
+        $response->assertSee(route('dashboard.articles.index'));
+        $response->assertSee(route('dashboard.categories.index'));
+        $response->assertSee(route('dashboard.tags.index'));
     }
 }

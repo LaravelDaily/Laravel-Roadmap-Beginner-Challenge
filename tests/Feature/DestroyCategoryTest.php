@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Auth;
+namespace Tests\Feature;
 
 use App\Models\Category;
 use App\Models\User;
@@ -18,7 +18,7 @@ class DestroyCategoryTest extends TestCase
         $category = Category::factory()->create();
 
         $this->actingAs($user)
-            ->delete(route('auth.categories.destroy', $category))
+            ->delete(route('dashboard.categories.destroy', $category))
             ->assertSessionHasNoErrors()
             ->assertRedirect();
 

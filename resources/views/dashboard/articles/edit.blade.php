@@ -3,21 +3,16 @@
         Edit Article
     </div>
 
-    @if (session()->has('article.created'))
-        <x-flash>
-            {{ session('article.created') }}
-        </x-flash>
-    @endif
-    @if (session()->has('article.updated'))
-        <x-flash>
-            {{ session('article.updated') }}
-        </x-flash>
-    @endif
+    <x-flash />
 
-    <x-form method="PATCH" action="{{ route('auth.articles.update', $article) }}" enctype="multipart/form-data">
+    <x-form method="PATCH" action="{{ route('dashboard.articles.update', $article) }}" enctype="multipart/form-data">
         <div class="flex flex-col mb-4">
-            <label class="mb-2 font-bold text-lg text-gray-900" for="title">Title</label>
-            <input class="border py-2 px-3 text-grey-800" type="text" name="title" id="title" value="{{ old('title',$article->title) }}">
+            <x-label for="title" :value="__('Title')"/>
+            <x-input id="title" class="border py-2 px-3 text-grey-800"
+                type="text"
+                name="title"
+                value="{{ old('title', $article->title) }}"
+            />
             @error('title')
                 <p class="text-red-500 text-xs mt-2">
                     {{ $message }}
@@ -26,9 +21,7 @@
         </div>
 
         <div class="flex flex-col mb-4">
-            <label class="mb-2 font-bold text-lg text-gray-900" for="body">
-                Body
-            </label>
+            <x-label for="body" :value="__('Body')"/>
             <textarea class="border border-gray-400 p-2 w-full"
                 name="body"
                 id="body"
@@ -70,7 +63,7 @@
                     @foreach ($article->tags as $tag)
                         <div>
                             <label class="inline-flex items-center">
-                                <input type="checkbox" name="removed_tags[{{ $tag->id }}]" value="{{ $tag->id }}">
+                                <x-input type="checkbox" name="removed_tags[{{ $tag->id }}]" value="{{ $tag->id }}"/>
                                 <span class="ml-2">{{ $tag->name }}</span>
                             </label>
                         </div>
@@ -86,7 +79,7 @@
                     @foreach ($tags as $tag)
                         <div>
                             <label class="inline-flex items-center">
-                                <input type="checkbox" name="added_tags[{{ $tag->id }}]"    value="{{ $tag->id }}">
+                                <x-input type="checkbox" name="added_tags[{{ $tag->id }}]" value="{{ $tag->id }}"/>
                                 <span class="ml-2">{{ $tag->name }}</span>
                             </label>
                         </div>
@@ -102,9 +95,7 @@
         @endif
 
         <div class="flex flex-col mb-4">
-            <label class="mb-2 font-bold text-lg text-gray-900" for="image">
-                Update Image
-            </label>
+            <x-label for="image" :value=" __('Update Image')" />
             <input class="border py-2 px-3 text-grey-800" type="file" name="image" id="image">
             @error('image')
                 <p class="text-red-500 text-xs mt-2">
@@ -114,14 +105,16 @@
         </div>
 
         <div class="mb-6">
-            <button class="bg-indigo-400 text-white rounded py-2 px-4 hover:bg-indigo-500" type="submit">
+            <x-button>
                 Update
-            </button>
+            </x-button>
         </div>
     </x-form>
     <div class="mb-6">
-        <a href="{{ route('auth.articles.index') }}">
-            <button class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500" type="button">Back to Articles' index</button>
+        <a href="{{ route('dashboard.articles.index') }}">
+            <x-button class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500">
+                Back to Articles' index
+            </x-button>
         </a>
     </div>
 </x-app-layout>
