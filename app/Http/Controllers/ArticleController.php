@@ -24,7 +24,13 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        $tags = Tag::all();
+
+        return view('pages.dashboard.article.create', [
+            'categories' => $categories,
+            'tags' => $tags,
+        ]);
     }
 
     /**
