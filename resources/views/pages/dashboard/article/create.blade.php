@@ -23,18 +23,21 @@
                             <div class="p-1 bg-red-200 text-sm">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="flex justify-between flex-col mt-2">
-                        <label for="image">Choose an image for the article</label>
-                        <input type="file" name="image" id="image">
-                        @error('image')
-                            <div class="p-1 bg-red-200 text-sm">{{ $message }}</div>
-                        @enderror
-                    </div>
+                    <div>
+                        <div class="flex justify-between flex-col   mt-2">
+                            <label for="image">Choose an image for the article</label>
+                            @error('image')
+                                <div class="p-1 bg-red-200 text-sm">{{ $message }}</div>
+                            @enderror
+                            <input class="ml-2" class="" type="file" name="image" id="image">
+                        </div>
 
+                    </div>
                     @if (sizeof($categories) < 1)
-                        <p>You have no one category yet, <a class="text-blue-500" href="#">create new here</a></p>
+                        <p>You have no one category yet, <a class="text-blue-500"
+                                href="{{ route('category.create') }}">create new here</a></p>
                     @else
-                        <div>
+                        <div class="mt-2">
                             <label for="category">Select a Article Category</label>
                             <select name="category_id" id="category_id">
                                 @foreach ($categories as $category)
@@ -43,6 +46,31 @@
                             </select>
                         </div>
                     @endif
+                    @error('category_id')
+                        <div class="p-1 bg-red-200 text-sm">{{ $message }}</div>
+                    @enderror
+
+
+                    @if (sizeof($tags) < 1)
+                        <p>You have no one tags yet,
+                            <a class="text-blue-500" href="{{ route('tag.create') }}">create
+                                new
+                                here</a>
+                        </p>
+                    @else
+                        <div class="flex flex-col mt-2">
+                            <label for="tags">Tags available for the post</label>
+                            <small>you have to select one or more.</small>
+                            <select name="tags[]" id="tags" multiple>
+                                @foreach ($tags as $tag)
+                                    <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endif
+                    @error('tags')
+                        <div class="p-1 bg-red-200 text-sm">{{ $message }}</div>
+                    @enderror
                     <button class="border p-2 bg-green-500 rounded text-white mt-2">Create new Article</button>
                 </div>
             </form>
