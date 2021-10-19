@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('/')->group(function () {
+    Route::get('/', [ArticleController::class, 'index']);
+    Route::resource('/article', ArticleController::class);
 });
+
+
+Route::get('/about-me', function () {
+    return view('pages.about-me');
+})->name('about-me');
