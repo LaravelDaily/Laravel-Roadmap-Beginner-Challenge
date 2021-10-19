@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +35,14 @@ Route::prefix('/dashboard')->middleware(['auth'])->group(function () {
         Route::get('/', [ArticleController::class, 'article_manager'])->name('article_manager');
         Route::post('/', [ArticleController::class, 'store'])->name('article_manager.store');
         Route::get('/create', [ArticleController::class, 'create'])->name('article_manager.create');
+    });
+
+    Route::prefix('category')->name('category.')->group(function () {
+        Route::resource('/', CategoryController::class);
+    });
+
+    Route::prefix('tag')->name('tag.')->group(function () {
+        Route::resource('/', TagController::class);
     });
 });
 
