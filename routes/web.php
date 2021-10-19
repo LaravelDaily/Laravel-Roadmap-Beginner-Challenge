@@ -13,6 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', [ArticleController::class, 'index']);
+
+
+Route::get('/about-me', function () {
+    return view('pages.about-me');
+})->name('about-me');
+
+Route::prefix('/dashboard')->middleware(['auth'])->group(function () {
+
+    // show dashboard
 Route::get('/', function () {
     return view('welcome');
 });
