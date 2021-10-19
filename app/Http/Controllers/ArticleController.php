@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -14,7 +16,12 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.articles');
+    }
+
+    public function article_manager()
+    {
+        return view('pages.dashboard.article.articles-manage');
     }
 
     /**
