@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.dashboard.category.category-index');
     }
 
     /**
@@ -24,6 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        return view('pages.dashboard.category.category-create');
         //
     }
 
@@ -35,7 +36,21 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'category_name' => 'required|string|max:255',
+        ]);
+
+        $category = new Category();
+        $category->name = $request->category_name;
+        try {
+            $category->save();
+            return back();
+        } catch (\Throwable $th) {
+            if ($th->getCode() == '23000') {
+                return back()->withErrors(['category_name' => 'The category already exist.']);
+            }
+            return back()->withErrors(['category_name' => 'Some error occur while try store the category name.']);
+        }
     }
 
     /**
