@@ -48,7 +48,12 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $articleData = $request->validate([
+            'title' => 'required|string|max:255',
+            'full_text' => 'required|string',
+            'image' => 'required|image|file',
+            'category_id' => 'required'
+        ]);
     }
 
     /**
