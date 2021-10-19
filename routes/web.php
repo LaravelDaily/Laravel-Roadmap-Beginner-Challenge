@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,12 +24,17 @@ Route::get('/about-me', function () {
 Route::prefix('/dashboard')->middleware(['auth'])->group(function () {
 
     // show dashboard
-Route::get('/', function () {
-    return view('welcome');
+    Route::get('/', function () {
+        return view('pages.dashboard.dashboard');
+    })->name('dashboard');
+
+
+    Route::prefix('/article')->group(function () {
+        Route::get('/', [ArticleController::class, 'article_manager'])->name('article_manager');
+        Route::post('/', [ArticleController::class, 'store'])->name('article_manager.store');
+        Route::get('/create', [ArticleController::class, 'create'])->name('article_manager.create');
+    });
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
