@@ -24,7 +24,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.dashboard.tags.tags-create');
     }
 
     /**
@@ -35,7 +35,21 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'tag' => 'required|string|max:255',
+        ]);
+
+        $tag = new Tag();
+        $tag->name = $request->tag;
+        try {
+            $tag->save();
+            return back();
+        } catch (\Throwable $th) {
+            if ($th->getCode() == '23000') {
+                return back()->withErrors(['tag' => 'The tag already exist.']);
+            }
+            return back()->withErrors(['tag' => 'Some error occur while try store the tag name.']);
+        }
     }
 
     /**
