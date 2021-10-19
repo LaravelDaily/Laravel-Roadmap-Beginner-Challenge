@@ -2,7 +2,7 @@
 
 
 @section('site-title')
-    <title>About Me</title>
+    <title>{{ config('app.name', 'Laravel') }} - About Me</title>
 @endsection
 
 
