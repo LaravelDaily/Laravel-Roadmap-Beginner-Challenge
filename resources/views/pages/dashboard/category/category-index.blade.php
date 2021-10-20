@@ -21,8 +21,8 @@
                 @foreach ($categories as $category)
                     <li
                         class="py-6 pl-6 pr-14 bg-white border-b border-gray-200 rounded flex justify-between align-items-center">
-                        <a class="text-blue-500"
-                            href="{{ route('category.show', $category->id) }}">{{ $category->name }}</a>
+                        <a href="{{ route('category.show', $category->id) }}"
+                            class="text-blue-500">{{ $category->name }}</a>
 
                         <div class="flex ">
                             <a href="{{ route('category.edit', $category->id) }}"

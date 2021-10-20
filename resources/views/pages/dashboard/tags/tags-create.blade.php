@@ -27,7 +27,7 @@
             @foreach ($tags as $tag)
                 <li
                     class="py-6 pl-6 pr-14 bg-white border-b border-gray-200 rounded flex justify-between align-items-center">
-                    <a class="text-blue-500" href="{{ route('category.show', $tag->id) }}">{{ $tag->name }}</a>
+                    <a href="{{ route('tag-show', $tag->id) }}" class="text-blue-500">{{ $tag->name }}</a>
 
                     <div class="flex ">
                         <form action="{{ route('tag.destroy', $tag->id) }}" method="POST">
