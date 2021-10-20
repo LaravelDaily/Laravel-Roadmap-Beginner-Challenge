@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('pages.dashboard.category.category-index');
+        $categories = Category::orderBy('created_at', 'desc')->get();
+        return view('pages.dashboard.category.category-index', ['categories' => $categories]);
     }
 
     /**
@@ -25,7 +27,6 @@ class CategoryController extends Controller
     public function create()
     {
         return view('pages.dashboard.category.category-create');
-        //
     }
 
     /**
@@ -44,7 +45,7 @@ class CategoryController extends Controller
         $category->name = $request->category_name;
         try {
             $category->save();
-            return back();
+            return redirect(route('category.index'));
         } catch (\Throwable $th) {
             if ($th->getCode() == '23000') {
                 return back()->withErrors(['category_name' => 'The category already exist.']);
@@ -70,9 +71,13 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        if (!$category) {
+            throw new NotFoundHttpException();
+        }
+        return view('pages.dashboard.category.category-edit', ['category' => $category]);
     }
 
     /**
@@ -82,9 +87,26 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'category_name' => 'required|string|max:255',
+        ]);
+
+        $categoryName = Category::where('name', $request->category_name)->first();
+
+        if ($categoryName) {
+            return back()->withErrors(['category_name' => 'The category already exist.']);
+        }
+        $category = Category::find($id);
+        $category->name = $request->category_name;
+
+        try {
+            $category->save();
+            return redirect(route('category.index'));
+        } catch (\Throwable $th) {
+            return back()->withErrors(['category_name' => 'Some error occur while try store the category name.']);
+        }
     }
 
     /**
@@ -93,8 +115,15 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category, $id)
     {
-        //
+        $category = Category::find($id);
+
+        if (!$category) {
+            throw new NotFoundHttpException();
+        }
+
+        $category->delete();
+        return redirect(route('category.index'));
     }
 }
