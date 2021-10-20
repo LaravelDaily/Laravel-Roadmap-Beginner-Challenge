@@ -6,6 +6,9 @@ use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class ArticleController extends Controller
 {
@@ -25,7 +28,9 @@ class ArticleController extends Controller
 
     public function article_manager()
     {
-        return view('pages.dashboard.article.articles-manage');
+        $articles = Article::orderBy('created_at', 'desc')->get();
+
+        return view('pages.dashboard.article.articles-manage', ['articles' => $articles]);
     }
 
     /**
@@ -35,8 +40,8 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        $tags = Tag::all();
+        $categories = Category::orderBy('created_at', 'desc')->get();
+        $tags = Tag::orderBy('created_at', 'desc')->get();
 
         return view('pages.dashboard.article.create', [
             'categories' => $categories,
@@ -56,8 +61,44 @@ class ArticleController extends Controller
             'title' => 'required|string|max:255',
             'full_text' => 'required|string',
             'image' => 'required|image|file',
-            'category_id' => 'required'
+            'category_id' => 'required',
+            'tags' => 'array|required',
         ]);
+
+        $article = new Article();
+
+        // Check if the tags are on DB
+        $tags = [];
+        for ($i = 0; $i < sizeof($request['tags']); $i++) {
+            $tag = Tag::find($request['tags'][$i]);
+            if (empty($tag->id)) {
+                return back()->withErrors(['tags' => 'The given tags are not valid.']);
+            } else {
+                array_push($tags, $tag);
+            }
+        }
+
+
+        $category = Category::find($articleData['category_id']);
+
+        if (empty($category->id)) {
+            return back()->withErrors([
+                "category_id" => 'The given category is invalid.'
+            ]);
+        }
+
+        $article->category_id = $category->id;
+        $article->title = $request->title;
+        $article->full_text = $request->full_text;
+        $article->image = $request->image;
+        $article->save();
+
+        foreach ($tags as $tag) {
+            $article->tags()->attach($tag);
+        }
+        $article->save();
+
+        return redirect(route('article_manager'));
     }
 
     /**
@@ -66,10 +107,18 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show(Article $article, $id)
     {
-        //
+        $article = Article::find($id);
+        if (!$article) {
+            throw new NotFoundHttpException();
+        }
+
+        return view('pages.article', [
+            'article' => $article,
+        ]);
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -77,9 +126,17 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article)
+    public function edit($id)
     {
-        //
+        $article = Article::find($id);
+        $tags = Tag::orderBy('created_at', 'desc')->get();
+        $categories = Category::orderBy('created_at', 'desc')->get();
+
+        return view('pages.dashboard.article.articles-edit', [
+            'article' => $article,
+            'categories' => $categories,
+            'tags' => $tags,
+        ]);
     }
 
     /**
@@ -89,10 +146,56 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $article)
+    public function update(Request $request, Article $article, $id)
     {
-        //
+        $articleData = $request->validate([
+            'title' => 'required|string|max:255',
+            'full_text' => 'required|string',
+            'image' => 'required|image|file',
+            'category_id' => 'required',
+            'tags' => 'array|required',
+        ]);
+
+        $article = Article::find($id);
+        if (!$article) {
+            throw new NotFoundHttpException();
+        }
+        // Check if the tags are on DB
+        $tags = [];
+        for ($i = 0; $i < sizeof($request['tags']); $i++) {
+            $tag = Tag::find($request['tags'][$i]);
+            if (empty($tag->id)) {
+                return back()->withErrors(['tags' => 'The given tags are not valid.']);
+            } else {
+                array_push($tags, $tag);
+            }
+        }
+
+
+        $category = Category::find($articleData['category_id']);
+
+        if (empty($category->id)) {
+            return back()->withErrors([
+                "category_id" => 'The given category is invalid.'
+            ]);
+        }
+
+        $article->category_id = $category->id;
+        $article->title = $request->title;
+        $article->full_text = $request->full_text;
+        $article->image = $request->image;
+        $article->save();
+
+        foreach ($tags as $tag) {
+            $article->tags()->sync($tag);
+        }
+        $article->save();
+
+        return redirect(route('article_manager'));
     }
+
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -100,8 +203,15 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
+    public function destroy(Article $article, $id)
     {
-        //
+        $article = Article::find($id);
+
+        if (!$article) {
+            throw new NotFoundHttpException();
+        }
+
+        $article->delete();
+        return redirect(route('article_manager'));
     }
 }
