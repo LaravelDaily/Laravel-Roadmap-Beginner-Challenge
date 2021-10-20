@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
+use App\Services\StoreImageService;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+
+
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
@@ -60,7 +63,7 @@ class ArticleController extends Controller
         $articleData = $request->validate([
             'title' => 'required|string|max:255',
             'full_text' => 'required|string',
-            'image' => 'required|image|file',
+            'image' => 'image|file|nullable',
             'category_id' => 'required',
             'tags' => 'array|required',
         ]);
@@ -79,6 +82,7 @@ class ArticleController extends Controller
         }
 
 
+
         $category = Category::find($articleData['category_id']);
 
         if (empty($category->id)) {
@@ -87,10 +91,17 @@ class ArticleController extends Controller
             ]);
         }
 
+
+        $imagePath = 'placeholder-image.jpg';
+
+        if ($request->file('image')) {
+            $imagePath =  StoreImageService::store($request->file('image'), 'public');
+        }
+
         $article->category_id = $category->id;
         $article->title = $request->title;
         $article->full_text = $request->full_text;
-        $article->image = $request->image;
+        $article->image = $imagePath;
         $article->save();
 
         foreach ($tags as $tag) {
@@ -151,7 +162,7 @@ class ArticleController extends Controller
         $articleData = $request->validate([
             'title' => 'required|string|max:255',
             'full_text' => 'required|string',
-            'image' => 'required|image|file',
+            'image' => 'image|file|nullable',
             'category_id' => 'required',
             'tags' => 'array|required',
         ]);
@@ -178,6 +189,12 @@ class ArticleController extends Controller
             return back()->withErrors([
                 "category_id" => 'The given category is invalid.'
             ]);
+        }
+
+        $imagePath = $article->image;
+
+        if ($request->file('image')) {
+            $imagePath =  StoreImageService::store($request->file('image'), 'public');
         }
 
         $article->category_id = $category->id;
