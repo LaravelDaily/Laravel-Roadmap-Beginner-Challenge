@@ -15,7 +15,7 @@
                     <a href="{{ route('category.index') }}">Manage Categories</a>
                 </div>
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <a href="#">Manage Tags</a>
+                    <a href="{{ route('tag.create') }}">Manage Tags</a>
                 </div>
             </div>
         </div>
