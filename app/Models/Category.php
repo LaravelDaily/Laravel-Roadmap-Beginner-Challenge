@@ -16,12 +16,12 @@ class Category extends Model
 
 
     /**
-     * The articles that belong to the Category
+     * Get all of the articles for the Category
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function articles(): BelongsToMany
+    public function articles(): HasMany
     {
-        return $this->belongsToMany(Article::class);
+        return $this->hasMany(Article::class, 'category_id', 'id');
     }
 }
