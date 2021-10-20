@@ -178,7 +178,7 @@ class ArticleController extends Controller
             if (empty($tag->id)) {
                 return back()->withErrors(['tags' => 'The given tags are not valid.']);
             } else {
-                array_push($tags, $tag);
+                array_push($tags, $tag->id);
             }
         }
 
@@ -203,9 +203,7 @@ class ArticleController extends Controller
         $article->image = $request->image;
         $article->save();
 
-        foreach ($tags as $tag) {
-            $article->tags()->sync($tag);
-        }
+        $article->tags()->sync($tags);
         $article->save();
 
         return redirect(route('article_manager'));
