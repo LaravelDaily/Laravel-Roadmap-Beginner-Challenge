@@ -16,7 +16,11 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return view('pages.articles');
+
+        $articles = Article::orderBy('created_at', 'desc')->get();
+        return view('pages.articles', [
+            'articles' => $articles
+        ]);
     }
 
     public function article_manager()
