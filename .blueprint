@@ -1,0 +1,42 @@
+created:
+    - app/Http/Controllers/TagController.php
+    - app/Http/Controllers/CategoryController.php
+    - app/Http/Controllers/ArticleController.php
+    - database/factories/TagFactory.php
+    - database/factories/CategoryFactory.php
+    - database/factories/ArticleFactory.php
+    - database/migrations/2021_10_15_151901_create_tags_table.php
+    - database/migrations/2021_10_15_151902_create_categories_table.php
+    - database/migrations/2021_10_15_151903_create_articles_table.php
+    - database/migrations/2021_10_15_151904_create_article_tag_table.php
+    - app/Models/Tag.php
+    - app/Models/Category.php
+    - app/Models/Article.php
+    - tests/Feature/Http/Controllers/TagControllerTest.php
+    - tests/Feature/Http/Controllers/CategoryControllerTest.php
+    - tests/Feature/Http/Controllers/ArticleControllerTest.php
+    - app/Http/Requests/TagStoreRequest.php
+    - app/Http/Requests/TagUpdateRequest.php
+    - app/Http/Requests/CategoryStoreRequest.php
+    - app/Http/Requests/CategoryUpdateRequest.php
+    - app/Http/Requests/ArticleStoreRequest.php
+    - app/Http/Requests/ArticleUpdateRequest.php
+    - resources/views/tag/index.blade.php
+    - resources/views/tag/create.blade.php
+    - resources/views/tag/show.blade.php
+    - resources/views/tag/edit.blade.php
+    - resources/views/category/index.blade.php
+    - resources/views/category/create.blade.php
+    - resources/views/category/show.blade.php
+    - resources/views/category/edit.blade.php
+    - resources/views/article/index.blade.php
+    - resources/views/article/create.blade.php
+    - resources/views/article/show.blade.php
+    - resources/views/article/edit.blade.php
+updated:
+    - routes/web.php
+models:
+    User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string:100 nullable' }
+    Tag: { title: string, relationships: { belongsToMany: Article } }
+    Category: { title: string, relationships: { hasMany: Article } }
+    Article: { title: string, body: longText, image: 'string nullable', category_id: id, relationships: { belongsToMany: Tag } }

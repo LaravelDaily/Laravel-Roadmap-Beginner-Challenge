@@ -1,0 +1,26 @@
+require('./bootstrap');
+
+import { createApp, h } from 'vue';
+import { createInertiaApp } from '@inertiajs/inertia-vue3';
+import { InertiaProgress } from '@inertiajs/progress';
+import Antd from 'ant-design-vue';
+import CKEditor from '@ckeditor/ckeditor5-vue';
+import VueSnip from 'vue-snip'
+
+const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
+
+createInertiaApp({
+    title: (title) => `${title} - ${appName}`,
+    resolve: (name) => require(`./Pages/${name}.vue`),
+    setup({ el, app, props, plugin }) {
+        return createApp({ render: () => h(app, props) })
+            .use(plugin)
+            .use(Antd)
+            .use(CKEditor)
+            .use(VueSnip)
+            .mixin({ methods: { route } })
+            .mount(el);
+    },
+});
+
+InertiaProgress.init({ color: '#4B5563' });

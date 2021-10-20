@@ -1,0 +1,28 @@
+models:
+  Tag:
+    title: string
+    relationships:
+      belongsToMany: Article
+
+  Category:
+    title: string
+    relationships:
+      hasMany: Article
+
+  Article:
+    title: string
+    body: longText
+    image: string nullable
+    category_id: id
+    relationships:
+      belongsToMany: Tag
+
+controllers:
+  Tag:
+    resource
+
+  Category:
+    resource
+
+  Article:
+    resource
