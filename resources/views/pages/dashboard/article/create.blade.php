@@ -1,7 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('New Article') }}
+            <a href="{{ route('dashboard') }}">{{ __('Dashboard ') }}</a>
+            <span>\</span>
+            <a href="{{ route('article_manager') }}">{{ __('Manage Articles ') }}</a>
+            <span>\</span>
+            <a href="{{ route('article_manager.create') }}">{{ __('New Article ') }}</a>
         </h2>
     </x-slot>
 
