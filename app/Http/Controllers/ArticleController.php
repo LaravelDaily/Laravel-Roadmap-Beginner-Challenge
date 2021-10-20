@@ -200,12 +200,11 @@ class ArticleController extends Controller
         $article->category_id = $category->id;
         $article->title = $request->title;
         $article->full_text = $request->full_text;
-        $article->image = $request->image;
+        $article->image = $imagePath;
         $article->save();
 
         $article->tags()->sync($tags);
         $article->save();
-
         return redirect(route('article_manager'));
     }
 
