@@ -15,13 +15,14 @@
                 {{ $article->full_text }}
             </p>
             <p>
-                Category: <a href="#"> {{ $article->category->name }}</a>
+                Category: <a href="{{ route('category.show', $article->category->id) }}">
+                    {{ $article->category->name }}</a>
             </p>
             <div>
                 <p>Tags</p>
                 <ul>
                     @foreach ($article->tags as $tag)
-                        <a href="#">{{ $tag->name }}</a>
+                        <a href="{{ route('tag-show', $tag->id) }}">{{ $tag->name }};</a>
                     @endforeach
                 </ul>
             </div>
