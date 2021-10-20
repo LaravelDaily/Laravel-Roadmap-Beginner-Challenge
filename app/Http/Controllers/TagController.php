@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TagController extends Controller
 {
@@ -24,7 +25,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view('pages.dashboard.tags.tags-create');
+        return view('pages.dashboard.tags.tags-create', ['tags' => Tag::orderBy('created_at', 'desc')->get()]);
     }
 
     /**
@@ -92,8 +93,15 @@ class TagController extends Controller
      * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tag $tag)
+    public function destroy(Tag $tag, $id)
     {
-        //
+        $tag = Tag::find($id);
+
+        if (!$tag) {
+            throw new NotFoundHttpException();
+        }
+
+        $tag->delete();
+        return redirect(route('tag.create'));
     }
 }
