@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TagController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,3 +57,5 @@ require __DIR__ . '/auth.php';
 
 Route::get('/', [ArticleController::class, 'index'])->name('article-index');
 Route::get('/{id}', [ArticleController::class, 'show'])->name('article-show');
+Route::get('/tags/{id}', [TagController::class, 'show'])->name('tag-show');
+Route::get('/category/{id}', [CategoryController::class, 'show'])->name('category.show');
