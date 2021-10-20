@@ -28,6 +28,11 @@
                     <hr>
                 @endforeach
             </ul>
+            <div class="">
+                <div class="d-flex justify-content-center">
+                    {!! $articles->links() !!}
+                </div>
+            </div>
         </section>
     </div>
 @endsection
