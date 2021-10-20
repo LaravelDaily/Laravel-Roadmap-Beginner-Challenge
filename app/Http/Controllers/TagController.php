@@ -59,9 +59,10 @@ class TagController extends Controller
      * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function show(Tag $tag)
+    public function show(Tag $tag, $id)
     {
-        //
+        $tag = Tag::find($id);
+        return view('pages.tags', ['tag' => $tag, 'articles' => $tag->articles]);
     }
 
     /**
