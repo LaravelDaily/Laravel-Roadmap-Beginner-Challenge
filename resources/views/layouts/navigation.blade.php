@@ -16,7 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link :href="url('/')">
-                        {{ __('Access Blog') }}
+                        {{ __('Blog') }}
                     </x-nav-link>
                 </div>
             </div>
