@@ -18,7 +18,7 @@ use App\Http\Controllers\PageController;
 */
 
 Route::get('/', function (){
-    $articles = Article::paginate(10);
+    $articles = Article::paginate(9);
     return view('index', compact('articles'));
 })->name('index');
 
