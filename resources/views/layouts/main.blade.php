@@ -39,13 +39,10 @@
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('articles.index') }}">{{ __('Articles') }}</a>
+                        <a class="nav-link" href="{{ route('index') }}">{{ __('Articles') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('categories.index') }}">{{ __('Categories') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('tags.index') }}">{{ __('Tags') }}</a>
+                        <a class="nav-link" href="{{ route('about') }}">{{ __('About') }}</a>
                     </li>
                     <!-- Authentication Links -->
                     @guest
