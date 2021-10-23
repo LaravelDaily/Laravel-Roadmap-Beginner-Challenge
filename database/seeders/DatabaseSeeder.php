@@ -24,9 +24,5 @@ class DatabaseSeeder extends Seeder
             TagSeeder::class,
             ArticleSeeder::class
         ]);
-
-        foreach (Article::all() as $article){
-            $article->tags()->attach(array_rand(range(1, 10), rand(1,5)));
-        }
     }
 }
