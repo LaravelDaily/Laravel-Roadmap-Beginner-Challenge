@@ -19,9 +19,9 @@
             <div class="card-body">
                 @include('admin.includes.alerts')
 
-                @if(!empty($article->img_url))<img src="{{ asset('storage/images/' . $article->img_url) }}" alt="alternative text">@endif
+                @isset($article->image)<img class="card-img" src="{{ asset('storage/images/' . $article->image) }}" alt="alternative text">@endisset
                 <h1>{{ $article->title }}</h1>
-                @if(!empty($article->category->name))<p>Category: <span class="badge badge-primary">{{ $article->category->name }}</span></p>@endif
+                @isset($article->category->name)<p>Category: <span class="badge badge-primary">{{ $article->category->name }}</span></p>@endisset
                 @if(count($article->tags) > 0)
                     <p>Tags:
                         @foreach($article->tags as $tag)

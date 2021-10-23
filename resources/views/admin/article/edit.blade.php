@@ -22,7 +22,7 @@
                     </div>
                     <div class="form-group">
                         <label for="image">Article Image</label>
-                        <input type="file" class="form-control @error('image') border-danger @enderror" name="image" id="image" value="{{ old('image', $article->img_url) }}">
+                        <input type="file" class="form-control @error('image') border-danger @enderror" name="image" id="image" value="{{ old('image', $article->image) }}">
                         @error('image') <small class="text-danger">{{ $message }}</small>@enderror
                     </div>
                     <div class="form-group">

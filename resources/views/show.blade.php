@@ -4,13 +4,13 @@
     <div class="container">
         <div class="card">
             <div class="card-body">
-                @if($article)
-                    @if(!empty($article->img_url))<img width="50%" src="{{ asset('storage/images/' . $article->img_url) }}" alt="alternative text">@endif
+                @isset($article)
+                    @isset($article->image)<img width="50%" src="{{ asset('storage/images/' . $article->image) }}" alt="alternative text">@endisset
                     <h2>{{ $article->title }}</h2>
                     {{--                <p>created: {{ $article->created_at->format('Y') }}</p>--}}
-                    @if(!empty($article->category))
+                    @isset($article->category)
                         <p>Category: <span class="badge badge-secondary">{{ $article->category->name }}</span></p>
-                    @endif
+                    @endisset
                     @if(count($article->tags) > 0)
                         <p>Tags:
                             @foreach($article->tags->pluck('name') as $name)
@@ -21,7 +21,7 @@
                     <p>{{ $article->text }}</p>
                 @else
                     <p>No data from article</p>
-                @endif
+                @endisset
             </div>
         </div>
     </div>

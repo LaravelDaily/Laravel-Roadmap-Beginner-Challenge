@@ -8,9 +8,9 @@
             @foreach($articless as $article)
                 <div class="col-md-4">
                     <div class="card" style="width: 18rem;">
-                        @if(!empty($article->img_url))
-                            <img class="card-img-top" src="{{ asset('storage/images/' . $article->img_url) }}" alt="Card image cap">
-                        @endif
+                        @isset($article->image)
+                            <img class="card-img-top" src="{{ asset('storage/images/' . $article->image) }}" alt="Card image cap">
+                        @endisset
                         <div class="card-body">
                             <h5 class="card-title">{{ $article->title }}</h5>
                             <p class="card-text">{{ Str::words($article->text, 20, '...') }}</p>
