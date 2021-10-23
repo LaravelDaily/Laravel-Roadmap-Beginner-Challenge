@@ -42,18 +42,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\category  $category
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function show(Category $category)
-    {
-        // we don't actually need it, we have the index that can display them
-        // return view('admin.category.show', compact('category'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\category  $category

@@ -43,18 +43,6 @@ class TagController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\tag  $tag
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function show(Tag $tag)
-    {
-        // we don't actually need it, we have the index that can display them
-        // return view('admin.tag.show', compact('tag'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\tag  $tag
