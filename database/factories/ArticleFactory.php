@@ -22,13 +22,9 @@ class ArticleFactory extends Factory
      */
     public function definition()
     {
-//        $category = Category::factory()->count(1)->create()->first();
-
         return [
             "title" => $this->faker->paragraph(1),
             "text" => $this->faker->text(10000),
-//            "img_url" => $this->faker->imageUrl,
-//            "category_id" => $category->id
             "category_id" => Category::all()->random(1)->first()->id
         ];
     }
