@@ -10,7 +10,7 @@ class Article extends Model
     use HasFactory;
 
     protected $with = ['category', 'tags'];
-    protected $fillable = ['title', 'text', 'img_url', 'category_id'];
+    protected $fillable = ['title', 'text', 'image', 'category_id'];
 
     public function category(){
         return $this->belongsTo(Category::class);

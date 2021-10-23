@@ -48,7 +48,7 @@ class ArticleController extends Controller
         if ($request->hasFile('image')){
             $image = Random::generate(10) . '-' . $request->file('image')->getClientOriginalName();
             $request->file('image')->storeAs('images', $image);
-            $article->update(['img_url' => $image]);
+            $article->update(['image' => $image]);
         }
 
         return redirect()->route('articles.show', $article)->with('status', 'Article created successfully!');
@@ -93,7 +93,7 @@ class ArticleController extends Controller
         if ($request->hasFile('image')){
             $image = Random::generate(10) . '-' . $request->file('image')->getClientOriginalName();
             $request->file('image')->storeAs('images', $image);
-            $article->update(['img_url' => $image]);
+            $article->update(['image' => $image]);
         }
 
         return redirect()->route('articles.show', $article)->with('status', 'Article updated successfully!');
