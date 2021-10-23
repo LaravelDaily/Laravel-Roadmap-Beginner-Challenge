@@ -17,13 +17,8 @@ use App\Http\Controllers\PageController;
 |
 */
 
-Route::get('/', function (){
-    $articles = Article::paginate(9);
-    return view('index', compact('articles'));
-})->name('index');
-
-Route::get('/article/{id}', [PageController::class, 'show'])->name('article.show');
-
+Route::get('/', [PageController::class, 'index'])->name('index');
+Route::get('/article/{article}', [PageController::class, 'show'])->name('article.show');
 Route::view('about', 'about')->name('about');
 
 Route::middleware('auth')->prefix('admin')->group(function(){
