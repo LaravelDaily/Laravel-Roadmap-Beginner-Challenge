@@ -8,12 +8,11 @@ use Illuminate\Http\Request;
 class PageController extends Controller
 {
     public function index(){
-        $articles = Article::all();
+        $articles = Article::paginate(9);
         return view('index', compact('articles'));
     }
 
-    public function show(int $id){
-        $article = Article::with(['category', 'tags'])->findOrFail($id);
+    public function show(Article $article){
         return view('show', compact('article'));
     }
 }
