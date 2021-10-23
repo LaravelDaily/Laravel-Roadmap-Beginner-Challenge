@@ -17,8 +17,8 @@ class CreateArticlesTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('text');
-            $table->string('img_url')->nullable(); // or blob?
-            $table->unsignedBigInteger('category_id')->nullable();
+            $table->string('image')->nullable(); // or blob?
+            $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }
