@@ -2,7 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Tag;
 use Illuminate\Database\Seeder;
+use \App\Models\User;
+use \App\Models\Article;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +17,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+         User::factory()->create([
+             'name' => 'Admin',
+             'email' => 'admin@gmail.com',
+             'password' => Hash::make('123123'),
+         ]);
+
+         Article::factory(10)
+             ->has(Tag::factory()->count(2))
+             ->create();
+
     }
 }

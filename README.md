@@ -24,8 +24,7 @@ Also, there should be a Login mechanism (but no Register) for the author to writ
 **DB Structure:**
 
 - Article has title (required), full text (required) and image to upload (optional)
-- Article may have only one category, but may have multiple tags
-
+- Article may have only one category, but may have multiple tag
 
 -----
 
