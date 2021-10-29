@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\SessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,9 @@ use App\Http\Controllers\ArticleController;
 |
 */
 
-Route::get('/', [ArticleController::Class, 'index'])->name('article.index')->middleware('guest');
-Route::get('/article/{article}', [ArticleController::Class, 'show'])->name('article.show')->middleware('guest');
+Route::get('/', [ArticleController::Class, 'index'])->name('article.index');
+Route::get('/article/{article}', [ArticleController::Class, 'show'])->name('article.show');
+
+Route::get('/login', [SessionController::class, 'create'])->name('session.create')->middleware('guest');
+Route::post('/login', [SessionController::class, 'store'])->name('session.store')->middleware('guest');
+Route::delete('/logout', [SessionController::class, 'destroy'])->name('session.destroy')->middleware('auth');
