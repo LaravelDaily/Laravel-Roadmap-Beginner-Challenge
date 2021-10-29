@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,4 +14,5 @@ use App\Http\Controllers\ArticleController;
 |
 */
 
-Route::get('/', [ArticleController::Class, 'index'])->middleware('guest');
+Route::get('/', [ArticleController::Class, 'index'])->name('article.index')->middleware('guest');
+Route::get('/article/{article}', [ArticleController::Class, 'show'])->name('article.show')->middleware('guest');
