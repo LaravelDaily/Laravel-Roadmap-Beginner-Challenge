@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\ManageController;
+use App\Http\Controllers\ManageTagController;
+use App\Http\Controllers\ManageCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +24,9 @@ Route::get('/article/{article}', [ArticleController::Class, 'show'])->name('arti
 Route::get('/login', [SessionController::class, 'create'])->name('session.create')->middleware('guest');
 Route::post('/login', [SessionController::class, 'store'])->name('session.store')->middleware('guest');
 Route::delete('/logout', [SessionController::class, 'destroy'])->name('session.destroy')->middleware('auth');
+
+Route::prefix('manage')->middleware(['auth', 'can:admin'])->group(function () {
+    Route::get('/', [ManageController::class, 'index'])->name('manage.index');
+    Route::resource('/tag', ManageTagController::class)->except('show');
+    Route::resource('/category', ManageCategoryController::class)->except('show');
+});

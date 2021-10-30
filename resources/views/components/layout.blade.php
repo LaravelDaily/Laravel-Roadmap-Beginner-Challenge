@@ -10,18 +10,18 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
 
-    <style >
+    <style>
         body {
             font-family: 'Nunito', sans-serif;
         }
     </style>
 </head>
 <body class="border-box m-0 p-0" style="background: #f5f5f5">
-    <x-main-nav />
-    <main class="max-w-screen-sm mx-auto">
-        {{ $slot }}
-    </main>
+<x-main-nav/>
+
+{{ $slot }}
+
 </body>
 </html>

@@ -7,10 +7,11 @@
 
     <nav class="space-x-1">
         <a href="{{ route('article.index') }}"
-           class="border-b-2 border-transparent font-bold hover:border-white text-sm text-white uppercase">Articles</a>
+           class="border-b-2 border-transparent font-bold hover:border-white text-sm text-white uppercase {{ request()->is('/') ? 'border-white' : '' }}">Articles</a>
 
         @admin
-        <a href="#" class="border-b-2 border-transparent font-bold hover:border-white text-sm text-white uppercase">Manage</a>
+        <a href="{{ route('manage.index') }}"
+           class="border-b-2 border-transparent font-bold hover:border-white text-sm text-white uppercase {{ request()->is('manage*') ? 'border-white' : '' }}">Manage</a>
         @endadmin
 
         @auth
@@ -25,7 +26,8 @@
             </form>
         @else
             <a href="{{ route('session.create') }}"
-               class="border-b-2 border-transparent font-bold hover:border-white text-sm text-white uppercase">Log In
+               class="border-b-2 border-transparent font-bold hover:border-white text-sm text-white uppercase {{ request()->is('login') ? 'border-white' : '' }}">Log
+                In
             </a>
         @endauth
 
