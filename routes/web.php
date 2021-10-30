@@ -6,6 +6,7 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\ManageController;
 use App\Http\Controllers\ManageTagController;
 use App\Http\Controllers\ManageCategoryController;
+use App\Http\Controllers\ManageArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,4 +30,5 @@ Route::prefix('manage')->middleware(['auth', 'can:admin'])->group(function () {
     Route::get('/', [ManageController::class, 'index'])->name('manage.index');
     Route::resource('/tag', ManageTagController::class)->except('show');
     Route::resource('/category', ManageCategoryController::class)->except('show');
+    Route::resource('/article', ManageArticleController::class, ['as' => 'manage'])->except('show');
 });
