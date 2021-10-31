@@ -3,8 +3,6 @@ name: Laravel
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   laravel-tests:
@@ -30,3 +28,7 @@ jobs:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
       run: vendor/bin/phpunit
+    - name: Run migrations
+      run: php artisan migrate
+    - name: Run seeders
+      run: php artisan db:seed
