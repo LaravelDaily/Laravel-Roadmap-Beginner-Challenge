@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use Faker\Generator as Faker;
@@ -19,7 +20,8 @@ class ManageArticleController extends Controller
     public function create()
     {
         return view('manage.article.create', [
-            'categories' => Category::all()
+            'categories' => Category::all(),
+            'tags' => Tag::all()
         ]);
     }
 
@@ -30,9 +32,10 @@ class ManageArticleController extends Controller
             'text' => ['required', 'string', 'max:1000'],
             'image' => ['image'],
             'category_id' => ['required', 'numeric'],
+            'tags' => ['array', 'max:3']
         ]);
 
-        Article::create(
+        $article = Article::create(
             array_merge($attributes, [
                 "image" => $request->file("image")
                     ? $request->file("image")->store("images")
@@ -40,27 +43,40 @@ class ManageArticleController extends Controller
             ])
         );
 
+        $article->tags()->sync($attributes["tags"]);
+
         return redirect()
             ->back()
             ->with("success", "Article Created!");
     }
 
-    public function edit(Category $category)
+    public function edit(Article $article)
     {
-        return view('manage.category.edit', [
-            'category' => $category
+        return view('manage.article.edit', [
+            'categories' => Category::all(),
+            'article' => $article,
+            'tags' => Tag::all()
         ]);
     }
 
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Article $article)
     {
         $attributes = $request->validate([
-            'name' => ['required', 'string', 'max:15']
+            'title' => ['required', 'string'],
+            'text' => ['required', 'string', 'max:1000'],
+            'image' => ['image'],
+            'category_id' => ['required', 'numeric'],
+            'tags' => ['array', 'max:3']
         ]);
 
-        $category->update($attributes);
+        if ($attributes["image"] ?? false) {
+            $attributes["image"] = $request->file("image")->store("images");
+        }
 
-        return back()->with('success', 'Category Updated!');
+        $article->update($attributes);
+        $article->tags()->sync($attributes["tags"]);
+
+        return back()->with('success', 'Article Updated!');
     }
 
     public function destroy(Article $article)

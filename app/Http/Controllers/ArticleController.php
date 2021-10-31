@@ -11,7 +11,7 @@ class ArticleController extends Controller
     {
 
         return view('article.index', [
-            'articles' => Article::latest()->with('category', 'tags')->paginate(3)
+            'articles' => Article::latest()->paginate(3)
         ]);
     }
 

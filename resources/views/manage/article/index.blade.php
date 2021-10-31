@@ -25,7 +25,7 @@
             <td>
                 <x-button class="mt-4">
                     <a href="{{ route('manage.article.create') }}">
-                        Create New Tag
+                        Create New Article
                     </a>
                 </x-button>
             </td>
