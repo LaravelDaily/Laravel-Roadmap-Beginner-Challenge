@@ -32,3 +32,5 @@ jobs:
       run: php artisan migrate
     - name: Run seeders
       run: php artisan db:seed
+    - name: Make database readwritable
+      run: chmod 664 database/database.sqlite
