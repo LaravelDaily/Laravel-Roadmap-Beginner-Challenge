@@ -6,7 +6,6 @@ use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Models\Article;
-use Faker\Generator as Faker;
 
 class ManageArticleController extends Controller
 {
@@ -25,7 +24,7 @@ class ManageArticleController extends Controller
         ]);
     }
 
-    public function store(Request $request, Faker $faker)
+    public function store(Request $request)
     {
         $attributes = $request->validate([
             'title' => ['required', 'string'],
@@ -39,7 +38,7 @@ class ManageArticleController extends Controller
             array_merge($attributes, [
                 "image" => $request->file("image")
                     ? $request->file("image")->store("images")
-                    : $faker->imageUrl(),
+                    : "https://via.placeholder.com/640x480.png/0088bb?text=nam",
             ])
         );
 
