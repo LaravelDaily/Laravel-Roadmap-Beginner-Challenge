@@ -33,4 +33,4 @@ jobs:
     - name: Run seeders
       run: php artisan db:seed
     - name: Make database readwritable
-      run: chmod 664 database/database.sqlite
+      run: sudo chmod 664 database/database.sqlite
