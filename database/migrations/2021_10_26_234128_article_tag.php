@@ -14,8 +14,8 @@ class ArticleTag extends Migration
     public function up()
     {
         Schema::create('article_tag', function (Blueprint $table) {
-            $table->unsignedBigInteger('article_id');
-            $table->unsignedBigInteger('tag_id');
+            $table->foreignId('article_id');
+            $table->foreignId('tag_id');
         });
     }
 

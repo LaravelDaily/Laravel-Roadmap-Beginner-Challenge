@@ -53,10 +53,7 @@
         </fieldset>
 
         <figure>
-            <img src="{{ str_starts_with($article->image, 'https')
-                            ? $article->image
-                            : asset('storage/' . $article->image)
-                            }}"
+            <img src="{{ $article->image }}"
                  alt="Article Image" class="w-48 h-48 mb-4">
         </figure>
 

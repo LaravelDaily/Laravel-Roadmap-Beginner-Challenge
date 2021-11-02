@@ -24,7 +24,7 @@ class ArticleFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(),
-            'text' => collect($this->faker->paragraphs(1))->map(fn($item) => "{$item}")->implode(''),
+            'text' => $this->faker->text(255),
             'image' => $this->faker->imageUrl(),
             'category_id' => Category::factory(),
         ];

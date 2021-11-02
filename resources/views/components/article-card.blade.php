@@ -2,10 +2,7 @@
 
 <article class="space-y-2 my-4">
     <figure>
-        <img src="{{ str_starts_with($article->image, 'https')
-                            ? $article->image
-                            : asset('storage/' . $article->image)
-                            }}"
+        <img src="{{ $article->image }}"
              alt="Article Image">
     </figure>
 

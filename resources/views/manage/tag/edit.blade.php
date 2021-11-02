@@ -7,7 +7,7 @@
 
         <fieldset class="mb-4">
             <label for="name">Name:</label>
-            <input type="text" name="name" id="name" value="{{ old('name') ?? $tag->name }}"
+            <input type="text" name="name" id="name" value="{{ old('name', $tag->name) }}"
                    class="block font-medium outline-none px-4 py-1 ring-1 ring-blue-500 text-gray-500 w-full">
         </fieldset>
         <x-button type="submit">Update</x-button>

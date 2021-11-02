@@ -13,6 +13,13 @@ class Article extends Model
 
     protected $with = ['category', 'tags'];
 
+    public function getImageAttribute($image)
+    {
+        return str_starts_with($image, 'https')
+            ? $image
+            : asset('storage/' . $image);
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
