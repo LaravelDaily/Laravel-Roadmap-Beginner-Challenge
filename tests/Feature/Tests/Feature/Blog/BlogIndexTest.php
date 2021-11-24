@@ -4,35 +4,41 @@ namespace Tests\Feature\Blog;
 
 use App\Models\Article;
 use App\Models\Tag;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class BlogIndexTest extends TestCase
 {
-    use RefreshDatabase;
 
-    public function test_index_sees_posts()
+    public function test_index_sees_post()
     {
         $this->withoutExceptionHandling();
 
-        $article1 = Article::factory()
+        Article::factory()
             ->has(Tag::factory()->count(3))
-            ->create();
-
-        $article2 = Article::factory()
-            ->has(Tag::factory()->count(3))
-            ->create();
-
-        $article3 = Article::factory()
-            ->has(Tag::factory()->count(3))
+            ->sequence(fn($sequence) => ['title' => 'Post ' . $sequence->index])
             ->create();
 
         $this->get('/')
             ->assertSuccessful()
-            ->assertSee($article1->title)
+            ->assertSee('Post 0');
+    }
+
+    public function test_index_sees_posts_in_order()
+    {
+        $this->withoutExceptionHandling();
+
+        Article::factory()
+            ->count(3)
+            ->has(Tag::factory()->count(3))
+            ->sequence(fn($sequence) => ['title' => 'Post ' . $sequence->index])
+            ->create();
+
+        $this->get('/')
+            ->assertSuccessful()
             ->assertSeeInOrder([
-                $article2->title,
-                $article3->title,
+                'Post 0',
+                'Post 1',
+                'Post 2',
             ]);
     }
 }
