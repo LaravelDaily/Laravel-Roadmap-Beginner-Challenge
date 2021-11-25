@@ -7,7 +7,7 @@
         @method('PUT')
 
         <fieldset class="mb-4">
-            <label for="name">Title:</label>
+            <label for="title">Title:</label>
             <input type="text" name="title" id="title"
                    class="block font-medium outline-none px-4 py-1 ring-1 ring-blue-500 text-gray-500 w-full"
                    value="{{ old('title') ?? $article->title }}"
@@ -15,7 +15,7 @@
         </fieldset>
 
         <fieldset class="mb-4">
-            <label for="name">Full Text:</label>
+            <label for="text">Full Text:</label>
             <textarea name="text" id="text" cols="30" rows="3"
                       class="block font-medium outline-none px-4 py-1 ring-1 ring-blue-500 text-gray-500 w-full"
             >{{ old('text') ?? $article->text }}</textarea>
