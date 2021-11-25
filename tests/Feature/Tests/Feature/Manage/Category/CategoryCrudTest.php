@@ -4,7 +4,6 @@ namespace Tests\Feature\Manage\Category;
 
 use App\Http\Controllers\ManageCategoryController;
 use App\Models\Category;
-use App\Models\User;
 use Tests\TestCase;
 
 class CategoryCrudTest extends TestCase
