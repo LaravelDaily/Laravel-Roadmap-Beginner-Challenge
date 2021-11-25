@@ -12,17 +12,21 @@ class CategoryCrudTest extends TestCase
     public function test_admin_can_create_category()
     {
         $this->withoutExceptionHandling();
+        $this->expectException('Illuminate\Auth\AuthenticationException');
 
-        $user = User::factory()->create();
+        $sendRequest = fn() => $this->post(action([ManageCategoryController::class, 'store']), [
+            'name' => 'Category 0',
+        ]);
 
-        $this->actingAs($user);
+        $sendRequest()
+            ->assertRedirect(route('article.index'));
+
+        $this->login();
 
         $this->get(action([ManageCategoryController::class, 'create']))
             ->assertSuccessful();
 
-        $this->post(action([ManageCategoryController::class, 'store']), [
-            'name' => 'Category 0',
-        ])
+        $sendRequest()
             ->assertRedirect(action([ManageCategoryController::class, 'create']))
             ->assertSessionHas('success');
 
