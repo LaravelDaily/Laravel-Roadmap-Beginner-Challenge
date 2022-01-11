@@ -8,9 +8,9 @@ This repository is intentionally empty, with only a Readme file. Your task if to
 
 You need to create a personal blog with just three pages:
 
-- [ ] Homepage: List of articles
+- [x] Homepage: List of articles
 - [ ] Article page
-- [ ] Some static text page like "About me"
+- [x] Some static text page like "About me"
 
 
 Also, there should be a Login mechanism (but no Register) for the author to write articles:
