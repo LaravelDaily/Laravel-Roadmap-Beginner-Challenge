@@ -10,4 +10,9 @@ class Post extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function path()
+    {
+        return route('posts.show', $this);
+    }
 }

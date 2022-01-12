@@ -32,6 +32,7 @@ class PostTableTest extends TestCase
             'title' => 'this is title',
             'body' => 'this is body',
             'slug' => 'this-is-slug',
+            'user_id' => 1
         ]);
 
     }
