@@ -28,7 +28,10 @@ class StorePostResquest extends FormRequest
         return [
             'title' => ['required', 'max:255'],
             'body' => ['required', 'max:255'],
-            'slug' => ['required', Rule::unique('posts', 'slug'), 'alpha_dash']
+            'slug' => ['required', Rule::unique('posts', 'slug'), 'alpha_dash'],
+            'category_id' => ['required', Rule::exists('categories', 'id')],
+            'tags' => ['required'],
+            'image' => ['nullable', 'image'],
         ];
     }
 

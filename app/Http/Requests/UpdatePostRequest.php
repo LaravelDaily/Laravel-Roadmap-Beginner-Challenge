@@ -32,9 +32,12 @@ class UpdatePostRequest extends FormRequest
             'slug' =>
                 [
                     'required',
-                    Rule::unique('posts', 'slug')->ignore($this->route('post')->id),
+                    Rule::unique('posts', 'slug')->ignore($this->route('post')),
                     'alpha_dash'
                 ],
+            'category_id' => ['required', Rule::exists('categories', 'id')],
+            'tags' => ['required'],
+            'image' => ['nullable', 'image'],
         ];
     }
 }

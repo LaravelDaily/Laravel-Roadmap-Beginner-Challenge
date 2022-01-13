@@ -2,10 +2,12 @@
 
 namespace Tests\Feature\Post;
 
+use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Session;
 use Tests\TestCase;
 
 class PostTest extends TestCase
@@ -70,23 +72,31 @@ class PostTest extends TestCase
     public function test_store_post()
     {
 
+        Session::start();
         $response = $this->post(route('posts.store'), [
             'title' => 'this is title',
             'body' => 'this is body',
-            'slug' => 'this-is-slug'
+            'slug' => 'this-is-slug',
+            'tags' => ['laravel', 'java', 'spring'],
+            'category_id' => 1,
+            '_token' => csrf_token(),
         ]);
 
-        $response->assertForbidden();
+        $this->assertEquals(302, $response->getStatusCode());
+        $response->assertRedirect(route('login'));
 
 
         $user = User::factory()->create([
             'email' => 'admin@admin.com'
         ]);
-
+        Category::factory()->create();
         $response = $this->actingAs($user)->post(route('posts.store'), [
             'title' => 'this is title',
             'body' => 'this is body',
-            'slug' => 'this-is-slug'
+            'slug' => 'this-is-slug',
+            'tags' => ['laravel', 'java', 'spring'],
+            'category_id' => 1,
+            '_token' => csrf_token()
         ]);
 
         $response->assertRedirect();
@@ -117,33 +127,66 @@ class PostTest extends TestCase
 
     public function test_assert_post_is_updated()
     {
-
         $post = Post::factory()->create(['title' => 'this is title']);
 
         $response = $this->post("admin/posts/$post->id", [
-            'title' => 'this is post',
+            '_method' => 'put',
+            'title' => 'this is unauthorized',
             'body' => 'this is body',
-            'slug' => 'this-is-slug'
+            'slug' => 'this-is-slug',
+            'tags' => ['laravel', 'java', 'spring'],
+            'category_id' => 1,
+            '_token' => csrf_token()
         ]);
 
-        $response->assertForbidden();
+        $response->assertRedirect(route('login'));
 
         $user = User::factory()->create([
             'email' => 'admin@admin.com'
         ]);
 
         $response = $this->actingAs($user)->post("admin/posts/$post->id", [
+            '_method' => 'put',
             'title' => 'this is post',
             'body' => 'this is body',
-            'slug' => 'this-is-slug'
+            'slug' => 'this-is-slug',
+            'tags' => ['laravel', 'java', 'spring'],
+            'category_id' => 1,
+            '_token' => csrf_token()
         ]);
 
-        $response->assertRedirect();
+        $response->assertRedirect(route('posts.index'));
 
         $this->assertDatabaseHas('posts', [
             'title' => 'this is post',
             'body' => 'this is body'
         ]);
+
+        $this->assertDatabaseMissing('posts', [
+            'title' => 'this is title',
+        ]);
+    }
+
+    public function test_post_has_been_deleted()
+    {
+
+        $post = Post::factory()->create(['title' => 'this is title']);
+
+        $response = $this->post(route('posts.destroy', $post), [
+            '_method' => 'delete',
+        ]);
+
+        $response->assertRedirect(route('login'));
+
+        $user = User::factory()->create([
+            'email' => 'admin@admin.com'
+        ]);
+
+        $response = $this->actingAs($user)->post(route('posts.destroy', $post), [
+            '_method' => 'delete',
+        ]);
+
+        $response->assertRedirect(route('posts.index'));
 
         $this->assertDatabaseMissing('posts', [
             'title' => 'this is title',

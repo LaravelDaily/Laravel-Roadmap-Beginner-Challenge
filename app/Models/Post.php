@@ -16,6 +16,10 @@ class Post extends Model
         return route('posts.show', $this);
     }
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
     public function tags()
     {
