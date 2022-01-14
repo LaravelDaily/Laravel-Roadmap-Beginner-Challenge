@@ -16,7 +16,7 @@ You need to create a personal blog with just three pages:
 Also, there should be a Login mechanism (but no Register) for the author to write articles:
 
 - [x] Manage (meaning, create/update/delete) categories
-- [ ] Manage tags
+- [x] Manage tags
 - [x] Manage articles
 - For Auth Starter Kit, use [Laravel Breeze](https://github.com/laravel/breeze) (Tailwind)
   or [Laravel UI](https://github.com/laravel/ui) (Bootstrap) - that starter kit will have some design, which is enough:
@@ -45,9 +45,9 @@ Here's the [list of Roadmap features](https://github.com/LaravelDaily/Laravel-Ro
 
 **Blade Basics**
 
-- [ ] Displaying Variables in Blade
-- [ ] Blade If-Else and Loop Structures
-- [ ] Blade Loops
+- [x] Displaying Variables in Blade
+- [x] Blade If-Else and Loop Structures
+- [x] Blade Loops
 - [ ] Layout: @include, @extends, @section, @yield
 - [ ] Blade Components
 
@@ -56,7 +56,7 @@ Here's the [list of Roadmap features](https://github.com/LaravelDaily/Laravel-Ro
 
 - [ ] Default Auth Model and Access its Fields from Anywhere
 - [ ] Check Auth in Controller / Blade
-- [ ] Auth Middleware
+- [x] Auth Middleware
 
 
 **Database Basics**	
@@ -69,10 +69,10 @@ Here's the [list of Roadmap features](https://github.com/LaravelDaily/Laravel-Ro
 
 **Full Simple CRUD**	
 
-- [ ] Route Resource and Resourceful Controllers
-- [ ] Forms, Validation and Form Requests
+- [x] Route Resource and Resourceful Controllers
+- [x] Forms, Validation and Form Requests
 - [ ] File Uploads and Storage Folder Basics
-- [ ] Table Pagination
+- [x] Table Pagination
 
 
 ----- 
