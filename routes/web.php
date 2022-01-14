@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\PostController;
 use App\Models\Post;
@@ -32,6 +33,7 @@ Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show')
 Route::group(['middleware' => ['auth', 'can:admin'], 'prefix' => 'admin'], function () {
 
     Route::resource('posts', AdminPostController::class);
+    Route::resource('categories', AdminCategoryController::class);
 
 });
 

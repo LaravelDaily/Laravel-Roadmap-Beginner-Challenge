@@ -32,12 +32,10 @@ class AdminPostController extends Controller
     {
         $post = Post::create($request->except('tags') + ['user_id' => \Auth::id()]);
 
-        $tags = [];
         foreach ($request['tags'] as $tag) {
             $tag = Tag::firstOrCreate(['name' => $tag, 'slug' => $tag]);
-            array_push($tags, $tag->id);
+            $post->tags()->attach($tag);
         }
-        $post->tags()->sync($tags);
 
         return redirect()->route('posts.index')->with('success', 'Post has been created');
     }
@@ -53,12 +51,12 @@ class AdminPostController extends Controller
     {
         $post->update($request->except('tags'));
 
-        $post->tags()->detach();
-
+        $tags = [];
         foreach ($request['tags'] as $tag) {
             $tag = Tag::firstOrCreate(['name' => $tag, 'slug' => $tag]);
-            $post->tags()->attach($tag);
+            array_push($tags, $tag->id);
         }
+        $post->tags()->sync($tags);
 
         return redirect()->route('posts.index')->with('success', 'Post has been updated');
     }
@@ -66,6 +64,7 @@ class AdminPostController extends Controller
 
     public function destroy(Post $post)
     {
+        $post->tags()->detach();
         $post->delete();
 
         return redirect()->route('posts.index')->with('success', 'Post has been deleted.');

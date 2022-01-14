@@ -99,6 +99,8 @@ class PostTest extends TestCase
             '_token' => csrf_token()
         ]);
 
+        $response->assertValid();
+
         $response->assertRedirect();
 
         $this->assertDatabaseHas('posts', [
@@ -154,6 +156,8 @@ class PostTest extends TestCase
             'category_id' => 1,
             '_token' => csrf_token()
         ]);
+
+        $response->assertValid();
 
         $response->assertRedirect(route('posts.index'));
 
