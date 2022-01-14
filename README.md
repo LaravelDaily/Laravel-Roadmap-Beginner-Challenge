@@ -15,9 +15,9 @@ You need to create a personal blog with just three pages:
 
 Also, there should be a Login mechanism (but no Register) for the author to write articles:
 
-- [ ] Manage (meaning, create/update/delete) categories
+- [x] Manage (meaning, create/update/delete) categories
 - [ ] Manage tags
-- [ ] Manage articles
+- [x] Manage articles
 - For Auth Starter Kit, use [Laravel Breeze](https://github.com/laravel/breeze) (Tailwind)
   or [Laravel UI](https://github.com/laravel/ui) (Bootstrap) - that starter kit will have some design, which is enough:
   the design is irrelevant for accomplishing the task
@@ -37,11 +37,11 @@ Here's the [list of Roadmap features](https://github.com/LaravelDaily/Laravel-Ro
 
 **Routing and Controllers: Basics**	
 
-- [ ] Callback Functions and Route::view()
-- [ ] Routing to a Single Controller Method
-- [ ] Route Parameters
-- [ ] Route Naming
-- [ ] Route Groups
+- [x] Callback Functions and Route::view()
+- [x] Routing to a Single Controller Method
+- [x] Route Parameters
+- [x] Route Naming
+- [x] Route Groups
 
 **Blade Basics**
 
@@ -61,10 +61,10 @@ Here's the [list of Roadmap features](https://github.com/LaravelDaily/Laravel-Ro
 
 **Database Basics**	
 
-- [ ] Database Migrations
-- [ ] Basic Eloquent Model and MVC: Controller -> Model -> View
-- [ ] Eloquent Relationships: belongsTo / hasMany / belongsToMany
-- [ ] Eager Loading and N+1 Query Problem
+- [x] Database Migrations
+- [x] Basic Eloquent Model and MVC: Controller -> Model -> View
+- [x] Eloquent Relationships: belongsTo / hasMany / belongsToMany
+- [x] Eager Loading and N+1 Query Problem
 
 
 **Full Simple CRUD**	
