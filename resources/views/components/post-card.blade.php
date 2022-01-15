@@ -18,13 +18,13 @@
             <div class="flex">
                 <div class="mt-2 flex-1">
                     @foreach($post->tags as $tag)
-                        <a href="/tags/{{ $tag->id }}"> #{{ $tag->name }}</a>
+                        <a href="/?tag={{ $tag->slug }}"> #{{ $tag->name }}</a>
                     @endforeach
                 </div>
 
                 <div class="mt-2 flex">
                     <small class="text-sm text-gray-700 ml-2"> <a
-                            href="/categories/{{ $post->category->id }}">{{ $post->category->name }}</a> </small>
+                            href="/?category={{ $post->category->slug }}">{{ $post->category->name }}</a> </small>
                 </div>
 
             </div>

@@ -9,7 +9,7 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::with('tags', 'category')->simplePaginate(10);
+        $posts = Post::with('tags', 'category')->filter(request(['category', 'tag', 'search']))->simplePaginate(5)->withQueryString();
 
         return view('posts.index', compact('posts'));
     }
