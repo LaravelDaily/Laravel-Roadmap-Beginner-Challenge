@@ -14,6 +14,7 @@ class AddColumnsToPostsTable extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
+            $table->text('excerpt')->after('title');
             $table->string('image')->nullable()->after('body');
             $table->foreignId('category_id')->after('user_id');
         });
