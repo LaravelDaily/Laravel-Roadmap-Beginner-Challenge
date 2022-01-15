@@ -7,14 +7,15 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    @forelse($posts as $post)
-                        <p>{{ $post->title }}</p>
-                    @empty
-                        <p>No posts yet.</p>
-                    @endforelse
+            <div class=" overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 border-b border-gray-200 bg-white">
 
+                    @forelse ($posts as $post)
+                        <x-post-card :post="$post"/>
+                    @empty
+                        <p>No Post Yet</p>
+                    @endforelse
+                    {{ $posts->links() }}
                 </div>
             </div>
         </div>
