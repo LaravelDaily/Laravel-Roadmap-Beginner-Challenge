@@ -9,7 +9,7 @@ This repository is intentionally empty, with only a Readme file. Your task if to
 You need to create a personal blog with just three pages:
 
 - [x] Homepage: List of articles
-- [ ] Article page
+- [x] Article page
 - [x] Some static text page like "About me"
 
 
@@ -31,58 +31,19 @@ Also, there should be a Login mechanism (but no Register) for the author to writ
 
 -----
 
-## Features to implement
+## Future Features to implement
 
-Here's the [list of Roadmap features](https://github.com/LaravelDaily/Laravel-Roadmap-Learning-Path#beginner-level) you need to try to implement in your code:
+- [ ] Add a status column to the posts table to allow for posts that are still in a "draft" state. Only when this status
+  is changed to "published" should they show up in the blog feed.
+- [ ] Update the "Edit Post" page in the admin section to allow for changing the author of a post.
+- [ ] Add an RSS feed that lists all posts in chronological order.
+- [ ] Record/Track and display the "views_count" for each post.
+- [ ] Convert for personnel Bolg to Normal Blog, Allow anyone to Register.
+- [ ] Allow many users to create their posts Not only admin.
+- [ ] Add newsletters service
+- [ ] Allow registered users to "follow" certain authors. When they publish a new post, an email should be delivered to
+  all followers.
+- [ ] Allow registered users to "bookmark" certain posts that they enjoyed. Then display their bookmarks in a
+  corresponding settings page.
+- [ ] Add an account page to update your username and upload an avatar for your profile.
 
-**Routing and Controllers: Basics**	
-
-- [x] Callback Functions and Route::view()
-- [x] Routing to a Single Controller Method
-- [x] Route Parameters
-- [x] Route Naming
-- [x] Route Groups
-
-**Blade Basics**
-
-- [x] Displaying Variables in Blade
-- [x] Blade If-Else and Loop Structures
-- [x] Blade Loops
-- [ ] Layout: @include, @extends, @section, @yield
-- [ ] Blade Components
-
-
-**Auth Basics**	
-
-- [ ] Default Auth Model and Access its Fields from Anywhere
-- [ ] Check Auth in Controller / Blade
-- [x] Auth Middleware
-
-
-**Database Basics**	
-
-- [x] Database Migrations
-- [x] Basic Eloquent Model and MVC: Controller -> Model -> View
-- [x] Eloquent Relationships: belongsTo / hasMany / belongsToMany
-- [x] Eager Loading and N+1 Query Problem
-
-
-**Full Simple CRUD**	
-
-- [x] Route Resource and Resourceful Controllers
-- [x] Forms, Validation and Form Requests
-- [ ] File Uploads and Storage Folder Basics
-- [x] Table Pagination
-
-
------ 
-
-## Example Solutions
-
-If you need help, or you want to compare your version with our simple version, here are two public repositories with the solution:
-
-- [Laravel Roadmap Beginner: Breeze](https://github.com/LaravelDaily/Laravel-Roadmap-Beginner-Roadmap-Breeze)
-- [Laravel Roadmap Beginner: UI](https://github.com/LaravelDaily/Laravel-Roadmap-Beginner-Blog-UI)
-
-
-**Notice**: please look at those repositories only AFTER you've accomplished the task yourself, or if you're confident about your Laravel beginner skills and you think you don't need to practice this task.
