@@ -12,7 +12,7 @@
 
                     <div class="w-1/2 mx-auto">
                         <x-auth-validation-errors/>
-                        <form method="POST" action="{{ route('posts.store') }}">
+                        <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
                             @csrf
 
                             <div>
@@ -28,6 +28,18 @@
 
                                 <x-input id="slug" class="block mt-1 w-full" type="text" name="slug"
                                          :value="old('slug')" required
+                                         autofocus/>
+                            </div>
+
+                            <div>
+                                <x-label for="image" :value="__('Image')"/>
+
+                                <x-input type="file"
+                                         id="image"
+                                         class="block mt-1 w-full"
+                                         name="image"
+                                         :value="old('image')"
+                                         required
                                          autofocus/>
                             </div>
 

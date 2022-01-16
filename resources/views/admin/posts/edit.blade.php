@@ -13,7 +13,7 @@
 
                     <div class="w-1/2 mx-auto">
                         <x-auth-validation-errors/>
-                        <form method="POST" action="{{ route('posts.update', $post) }}">
+                        <form method="POST" action="{{ route('posts.update', $post) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -32,6 +32,24 @@
                                          :value="old('slug', $post->slug)" required
                                          autofocus/>
                             </div>
+
+                            <div>
+                                <x-label for="image" :value="__('Image')"/>
+
+                                <div class="items-center flex">
+                                    <x-input type="file"
+                                             id="image"
+                                             class="block mt-1 w-full flex-1"
+                                             name="image"
+                                             :value="old('image', $post->image)"
+                                             autofocus/>
+
+                                    <img src="{{asset('storage/' . $post->image)}}" alt="" class="sm:rounded-lg"
+                                         width="100">
+                                </div>
+
+                            </div>
+
 
                             <div>
                                 <x-label for="excerpt" :value="__('Excerpt')"/>

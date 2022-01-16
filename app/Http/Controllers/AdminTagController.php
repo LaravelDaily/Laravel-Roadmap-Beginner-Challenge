@@ -11,7 +11,7 @@ class AdminTagController extends Controller
 
     public function index()
     {
-        $tags = Tag::with('posts')->latest()->simplePaginate(20);
+        $tags = Tag::with('posts')->latest()->simplePaginate(5);
 
         return view('admin.tags.index', compact(['tags']));
     }

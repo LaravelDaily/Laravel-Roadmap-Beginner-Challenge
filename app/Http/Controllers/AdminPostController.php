@@ -30,10 +30,16 @@ class AdminPostController extends Controller
 
     public function store(StorePostResquest $request)
     {
-        $post = Post::create($request->except('tags') + ['user_id' => \Auth::id()]);
+        if ($request->has('image')) {
+            $image = $request->file('image')->store('images');
+        }
+
+        $post = Post::create($request->except('tags', 'image') + ['user_id' => \Auth::id(), 'image' => $image]);
 
         foreach ($request['tags'] as $tag) {
-            $tag = Tag::firstOrCreate(['name' => $tag, 'slug' => $tag]);
+            $tag = Tag::firstOrNew(['name' => $tag]);
+            $tag->slug = $tag->name;
+            $tag->save();
             $post->tags()->attach($tag);
         }
 

@@ -37,7 +37,7 @@ class UpdatePostRequest extends FormRequest
                 ],
             'category_id' => ['required', Rule::exists('categories', 'id')],
             'tags' => ['required'],
-            'image' => ['nullable', 'image'],
+            'image' => ['sometimes', 'image'],
         ];
     }
 }
