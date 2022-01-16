@@ -9,7 +9,7 @@ This repository is intentionally empty, with only a Readme file. Your task if to
 You need to create a personal blog with just three pages:
 
 - [x] Homepage: List of articles
-- [ ] Article page
+- [x] Article page
 - [x] Some static text page like "About me"
 
 
@@ -48,14 +48,14 @@ Here's the [list of Roadmap features](https://github.com/LaravelDaily/Laravel-Ro
 - [x] Displaying Variables in Blade
 - [x] Blade If-Else and Loop Structures
 - [x] Blade Loops
-- [ ] Layout: @include, @extends, @section, @yield
-- [ ] Blade Components
+- [x] Layout: @include, @extends, @section, @yield
+- [x] Blade Components
 
 
 **Auth Basics**	
 
-- [ ] Default Auth Model and Access its Fields from Anywhere
-- [ ] Check Auth in Controller / Blade
+- [x] Default Auth Model and Access its Fields from Anywhere
+- [x] Check Auth in Controller / Blade
 - [x] Auth Middleware
 
 
@@ -71,7 +71,7 @@ Here's the [list of Roadmap features](https://github.com/LaravelDaily/Laravel-Ro
 
 - [x] Route Resource and Resourceful Controllers
 - [x] Forms, Validation and Form Requests
-- [ ] File Uploads and Storage Folder Basics
+- [x] File Uploads and Storage Folder Basics
 - [x] Table Pagination
 
 
