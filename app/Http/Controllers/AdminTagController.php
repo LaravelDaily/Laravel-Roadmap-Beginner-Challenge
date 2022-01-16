@@ -11,7 +11,7 @@ class AdminTagController extends Controller
 
     public function index()
     {
-        $tags = Tag::with('posts')->simplePaginate(20);
+        $tags = Tag::with('posts')->latest()->simplePaginate(20);
 
         return view('admin.tags.index', compact(['tags']));
     }
@@ -53,8 +53,7 @@ class AdminTagController extends Controller
 
     public function destroy(Tag $tag)
     {
-
-        foreach ($tag->posts() as $post) {
+        foreach ($tag->posts as $post) {
             $post->tags()->detach();
         }
 

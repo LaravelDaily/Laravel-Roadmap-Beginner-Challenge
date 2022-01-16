@@ -15,8 +15,8 @@ Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show')
 Route::group(['middleware' => ['auth', 'can:admin'], 'prefix' => 'admin'], function () {
 
     Route::resource('posts', AdminPostController::class);
-    Route::resource('categories', AdminCategoryController::class);
-    Route::resource('tags', AdminTagController::class);
+    Route::resource('categories', AdminCategoryController::class)->except('show');
+    Route::resource('tags', AdminTagController::class)->except('show');
 
 });
 

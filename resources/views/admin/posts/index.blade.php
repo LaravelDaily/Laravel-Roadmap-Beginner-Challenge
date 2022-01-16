@@ -31,7 +31,7 @@
                                         <thead>
                                         <tr>
                                             <th
-                                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                                 Name
                                             </th>
                                             <th
@@ -83,19 +83,28 @@
                                                 </td>
 
 
-                                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                                <td class="px-5 py-7 border-b border-gray-200 bg-white text-sm inline-flex flex-shrink-0">
+
                                                     <a href="{{$post->path()}}/edit"
                                                        class="mr-2 bg-green-600 px-2 py-1 rounded-md text-white font-semibold tracking-wide cursor-pointer">
                                                         Edit
                                                     </a>
-                                                    <button
-                                                        class="mr-2 bg-red-600 px-2 py-1 rounded-md text-white font-semibold tracking-wide cursor-pointer">
-                                                        Delete
-                                                    </button>
+
+
+                                                    <form action="{{ route('posts.destroy', $post) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button
+                                                            class="mr-2 bg-red-600 px-2 py-1 rounded-md text-white font-semibold tracking-wide cursor-pointer">
+                                                            Delete
+                                                        </button>
+                                                    </form>
+
                                                     <a href="{{$post->path()}}"
                                                        class="mr-2 bg-indigo-600 px-2 py-1 rounded-md text-white font-semibold tracking-wide cursor-pointer">
                                                         Show
                                                     </a>
+
                                                 </td>
                                             </tr>
                                         @empty

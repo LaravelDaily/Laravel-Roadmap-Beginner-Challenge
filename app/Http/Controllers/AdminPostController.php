@@ -12,7 +12,7 @@ class AdminPostController extends Controller
 
     public function index()
     {
-        $posts = Post::with('tags', 'category')->simplePaginate(5);
+        $posts = Post::with('tags', 'category')->latest()->simplePaginate(5);
 
         return view('admin.posts.index', compact(['posts']));
     }
@@ -53,7 +53,9 @@ class AdminPostController extends Controller
 
         $tags = [];
         foreach ($request['tags'] as $tag) {
-            $tag = Tag::firstOrCreate(['name' => $tag, 'slug' => $tag]);
+            $tag = Tag::firstOrNew(['name' => $tag]);
+            $tag->slug = $tag->name;
+            $tag->save();
             array_push($tags, $tag->id);
         }
         $post->tags()->sync($tags);

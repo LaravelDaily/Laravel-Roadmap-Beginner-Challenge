@@ -5,13 +5,13 @@
         <div class="w-full">
             <div class="flex items-center justify-between">
                 <h2 class="text-lg font-semibold text-gray-900 -mt-1 hover:font-bold"><a
-                        href="/posts/{{ $post->id }}">{{ $post->title }}</a></h2>
+                        href="/posts/{{ $post->slug }}">{{ $post->title }}</a></h2>
                 <small class="text-sm text-gray-700"> {{ $post->created_at->diffForHumans() }} </small>
             </div>
             <p class="mt-3 text-gray-700 text-sm">
                 {!! $post->excerpt  !!}
                 <span class="">
-                    <a class="text-indigo-600 font-semibold" href="/posts/{{ $post->id }}">Read More</a>
+                    <a class="text-indigo-600 font-semibold" href="/posts/{{ $post->slug }}">Read More</a>
                 </span>
             </p>
 

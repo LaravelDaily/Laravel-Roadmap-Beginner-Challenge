@@ -13,7 +13,12 @@ class Post extends Model
 
     public function path()
     {
-        return route('posts.show', $this);
+        return route('posts.show', $this->slug);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 
     public function category()

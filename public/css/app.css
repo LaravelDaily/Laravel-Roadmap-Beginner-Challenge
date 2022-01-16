@@ -590,7 +590,6 @@ select {
     --tw-backdrop-saturate: ;
     --tw-backdrop-sepia: ;
 }
-
 .container {
     width: 100%;
 }
@@ -629,19 +628,15 @@ select {
         max-width: 1536px;
     }
 }
-
 .fixed {
     position: fixed;
 }
-
 .absolute {
     position: absolute;
 }
-
 .relative {
     position: relative;
 }
-
 .inset-0 {
     top: 0px;
     right: 0px;
@@ -769,15 +764,12 @@ select {
 .h-10 {
     height: 2.5rem;
 }
-
 .h-full {
     height: 100%;
 }
-
 .h-6 {
     height: 1.5rem;
 }
-
 .h-4 {
     height: 1rem;
 }
@@ -793,42 +785,39 @@ select {
 .w-full {
     width: 100%;
 }
+
 .w-48 {
     width: 12rem;
+}
+
+.w-1\/2 {
+    width: 50%;
 }
 
 .w-8 {
     width: 2rem;
 }
-
 .w-auto {
     width: auto;
 }
-
 .w-10 {
     width: 2.5rem;
 }
-
 .w-6 {
     width: 1.5rem;
 }
-
 .w-80 {
     width: 20rem;
 }
-
 .w-4 {
     width: 1rem;
 }
-
 .min-w-full {
     min-width: 100%;
 }
-
 .max-w-7xl {
     max-width: 80rem;
 }
-
 .max-w-xl {
     max-width: 36rem;
 }
@@ -942,15 +931,12 @@ select {
     border-top-left-radius: 0.25rem;
     border-bottom-left-radius: 0.25rem;
 }
-
 .border {
     border-width: 1px;
 }
-
 .border-2 {
     border-width: 2px;
 }
-
 .border-b {
     border-bottom-width: 1px;
 }
@@ -1073,10 +1059,17 @@ select {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
 }
+
 .py-3 {
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
 }
+
+.py-7 {
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+}
+
 .px-3 {
     padding-left: 0.75rem;
     padding-right: 0.75rem;

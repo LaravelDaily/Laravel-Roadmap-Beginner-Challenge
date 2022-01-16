@@ -12,7 +12,7 @@ class AdminCategoryController extends Controller
 
     public function index()
     {
-        $categories = Category::with('posts')->simplePaginate(10);
+        $categories = Category::with('posts')->latest()->simplePaginate(10);
 
         return view('admin.categories.index', compact(['categories']));
     }
