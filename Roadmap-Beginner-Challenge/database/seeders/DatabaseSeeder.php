@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         // Populate the pivot table
         Article::all()->each(function ($article) use ($tags) {
             $article->tags()->attach(
-                $tags->random(rand(1, 10))->pluck('id')->toArray()
+                $tags->random(rand(1, 10))->pluck('id')->toArray(),
             );
         });
     }
