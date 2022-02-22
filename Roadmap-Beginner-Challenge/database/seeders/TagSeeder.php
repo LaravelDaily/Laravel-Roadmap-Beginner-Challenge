@@ -14,6 +14,6 @@ class TagSeeder extends Seeder
      */
     public function run()
     {
-        Tag::create(10);
+        Tag::factory(20)->create();
     }
 }

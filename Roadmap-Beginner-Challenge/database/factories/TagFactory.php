@@ -14,9 +14,9 @@ class TagFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->unique()->word(1, true),
-            'created' => now(),
-            'updated' => now()
+            'name' => $this->faker->unique()->word(1, true),
+            'created_at' => now(),
+            'updated_at' => now()
         ];
     }
 }

@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Model\Category;
+use App\Models\Category;
 
 class ArticleFactory extends Factory
 {
@@ -17,8 +17,9 @@ class ArticleFactory extends Factory
         return [
             'title' => $this->faker->paragraph(1),
             'text' => $this->faker->text(100),
-            'url' => $this->faker->imageUrl(),
-            'category_id' => Category::all()->random(1)->first()->id,
+            // $this->faker->imageUrl('public/storage/articles', 650, 490, null, false),
+            'category_id' => Category::inRandomOrder()
+            ->first()->id,
         ];
     }
 }
