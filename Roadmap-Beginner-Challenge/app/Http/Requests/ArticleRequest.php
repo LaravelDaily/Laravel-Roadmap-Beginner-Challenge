@@ -27,6 +27,7 @@ class ArticleRequest extends FormRequest
             'title' => 'required',
             'text' => 'required',
             'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'array',
             'image' => 'nullable|mimes:jpg,jpeg,bmp,png,gif'
         ];
     }

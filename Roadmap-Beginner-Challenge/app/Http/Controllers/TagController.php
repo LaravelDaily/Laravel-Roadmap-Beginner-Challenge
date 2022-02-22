@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TagRequest;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        $tags = Tag::paginate(10);
+        return view('admin.tag.index', compact('tags'));
     }
 
     /**
@@ -24,7 +26,8 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.tag.create');
+
     }
 
     /**
@@ -33,9 +36,10 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TagRequest $request)
     {
-        //
+        Tag::create($request->validated());
+        return redirect()->route('tags.index')->with('status', 'Tag created successfully!');
     }
 
     /**
@@ -46,7 +50,7 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
-        //
+        return view('admin.tag.show', compact('tag'));
     }
 
     /**
@@ -57,7 +61,7 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        //
+        return view('admin.tag.edit', compact(['tag']));
     }
 
     /**
@@ -67,9 +71,10 @@ class TagController extends Controller
      * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tag $tag)
+    public function update(TagRequest $request, tag $tag)
     {
-        //
+        $tag->update($request->validated());
+        return redirect()->route('tags.index')->with('status', 'Tag updated successfully!');
     }
 
     /**
@@ -80,6 +85,8 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->articles()->detach($tag->id);
+        $tag->delete();
+        return redirect()->route('tags.index')->with('status', 'Tag deleted successfully!');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -14,9 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-      $categories = Category::paginate(10);
-
-      return view('categories.index', compact('categories'));
+        $categories = Category::paginate(10);
+        return view('admin.category.index', compact('categories'));
     }
 
     /**
@@ -26,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        return view('admin.category.create');
     }
 
     /**
@@ -35,9 +35,10 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        Category::create($request->validated());
+        return redirect()->route('categories.index')->with('status', 'Category created successfully!');
     }
 
     /**
@@ -48,7 +49,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return view('category.show', compact('category'));
+        return view('admin.category.show', compact('category'));
     }
 
     /**
@@ -59,7 +60,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('category.edit', compact('category'));
+        return view('admin.category.edit', compact(['category']));
     }
 
     /**
@@ -69,9 +70,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, category $category)
     {
-        //
+        $category->update($request->validated());
+        return redirect()->route('categories.index')->with('status', 'Category updated successfully!');
     }
 
     /**
@@ -82,6 +84,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-
+        $category->delete();
+        return redirect()->route('categories.index')->with('status', 'Category deleted successfully!');
     }
 }
