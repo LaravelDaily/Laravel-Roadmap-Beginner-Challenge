@@ -1,5 +1,7 @@
 # Live Preview
 ### https://ghastly-flesh-43910.herokuapp.com/
+### Admin access admin@gmail.com / 123123
+### User access user@gmail.com / 123123
 
 # Laravel Roadmap: Beginner Level Challenge
 
