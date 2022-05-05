@@ -1,3 +1,8 @@
+# Live Preview
+### https://ghastly-flesh-43910.herokuapp.com/
+### Admin access admin@gmail.com / 123123
+### User access user@gmail.com / 123123
+
 # Laravel Roadmap: Beginner Level Challenge
 
 This is a task for the [Beginner Level of the Laravel Roadmap](https://github.com/LaravelDaily/Laravel-Roadmap-Learning-Path#beginner-level), with the goal to implement as many of its topics as possible.
@@ -24,8 +29,7 @@ Also, there should be a Login mechanism (but no Register) for the author to writ
 **DB Structure:**
 
 - Article has title (required), full text (required) and image to upload (optional)
-- Article may have only one category, but may have multiple tags
-
+- Article may have only one category, but may have multiple tag
 
 -----
 
