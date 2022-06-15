@@ -11,11 +11,11 @@
                             <div class="card p-1" style="width: 25rem;">
                                 <div>
                                     <img class="card-img-top"
-                                        @if ($post->image) src="/storage/images/{{ $post->image }}" 
+                                        @if ($post->image) 
+                                            src="/storage/images/{{ $post->image }}" 
                                         @else
                                             src="{{ asset('image/noimage.jpg') }}" @endif
                                         alt="Card image cap">
-                                    {{-- </a> --}}
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $post->title }}</h5>
