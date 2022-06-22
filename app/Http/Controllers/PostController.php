@@ -9,7 +9,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::with('category', 'tags')->get();
+        $posts = Post::with('category', 'tags')->latest()->get();
 
         return view('posts.index', compact('posts'));
     }
