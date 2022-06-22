@@ -25,13 +25,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('category')->get();
+        $posts = Post::with('category', 'tags')->latest()->get();
 
         return view('pages.home', compact('posts'));
     }
     public function welcome()
     {
-        $posts = Post::with('category')->get();
+        $posts = Post::with('category', 'tags')->latest()->get();
 
         return view('pages.welcome', compact('posts'));
     }
