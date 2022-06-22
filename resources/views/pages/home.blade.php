@@ -6,9 +6,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">{{ __('Dashboard') }}</div>
-                    <div class="d-flex justify-content-start m-1">
+                    <div class="d-flex flex-wrap m-1">
                         @foreach ($posts as $post)
-                            <div class="card p-1" style="width: 25rem;">
+                            <div class="card p-1" style="width: 15rem;">
                                 <div>
                                     <a href="{{ route('posts.show', $post->id) }}">
                                         <img class="card-img-top"

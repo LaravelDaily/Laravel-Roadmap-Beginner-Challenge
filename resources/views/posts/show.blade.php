@@ -22,7 +22,7 @@
                                     <h6 class="card-subtitle mb-2 text-muted">{{ $post->category->name }}</h6>
                                     <p class="card-text">{{ $post->description }}</p>
                                     @foreach ($post->tags as $tag)
-                                        <h6 class="card-subtitle mb-2">{{ $tag->name }}</h6>
+                                        <a href="#"> <span class="inline-flex items-center px-3 py-0.5 rounded-full text-xs font-bold leading-5 text-white font-display mr-2 capitalize bg-dark">#{{ $tag->name }}</span></a>
                                     @endforeach
                                 </div>
                             </div>
