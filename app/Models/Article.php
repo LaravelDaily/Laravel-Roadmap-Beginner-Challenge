@@ -11,6 +11,7 @@ class Article extends Model
 
     protected $fillable = [
         'title',
+        'image',
         'body',
         'category_id',
     ];
@@ -22,6 +23,6 @@ class Article extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class , 'article_tag' , 'article_id' , 'tag_id');
+        return $this->belongsToMany(Tag::class , 'article_tag', 'article_id', 'tag_id');
     }
 }
