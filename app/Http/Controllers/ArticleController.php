@@ -98,7 +98,7 @@ class ArticleController extends Controller
      * @param  Article $article
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $article)
+    public function update(ArticleRequest $request, Article $article)
     {
         $article->update([
             'title' => $request->title,
@@ -112,11 +112,10 @@ class ArticleController extends Controller
             $article->tags()->attach($tagId);
         }
 
-        if ($article->hasMedia()) {
-            $article->getFirstMedia()->delete();
-        } 
-
         if ($request->image) {
+            if ($article->hasMedia()) {
+                $article->getFirstMedia()->delete();
+            } 
             $article->addMediaFromRequest('image')->toMediaCollection();
         }
         return to_route('articles.show', $article->id);
