@@ -14,10 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-// Front-end Routes 
-Route::get('/', function () {
-    return view('index');
-})->name('front.index');
+// Frontend Routes 
+Route::get('/', [App\Http\Controllers\IndexController::class, 'index'])->name('front.index');
+Route::get('/article/{id}', [App\Http\Controllers\IndexController::class, 'show'])->name('front.article');
 
 Route::get('/about', function() {
     return view('about');
@@ -25,4 +24,10 @@ Route::get('/about', function() {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Backend Routes
+Route::group(['middleware' => 'auth'], function() {
+    Route::resource('articles', App\Http\Controllers\ArticleController::class);
+    Route::resource('categories', App\Http\Controllers\CategoryController::class);
+    Route::resource('tags', App\Http\Controllers\TagController::class);
+});
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

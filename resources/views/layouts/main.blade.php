@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('styles')
 </head>
 <body>
     <div id="app">
@@ -39,6 +40,11 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="{{ route('front.about') }}">About</a>
                         </li>
+                        @auth
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{ route('home') }}">Dashboard</a>
+                        </li>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -75,5 +81,6 @@
             @yield('content')
         </main>
     </div>
+    @yield('scripts')
 </body>
 </html>
