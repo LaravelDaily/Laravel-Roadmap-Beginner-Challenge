@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TagController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +17,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [HomeController::class, 'index']);
+Route::get('article/{id}', [HomeController::class, 'article'])->name('article');
+Route::view('/about', 'about')->name('about');
+
+Auth::routes([
+    'register' => false,
+]);
+
+
+Route::group(['middleware' => 'auth'], function(){
+
+    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::resource('categories', CategoryController::class);
+    Route::resource('tags', TagController::class);
+    Route::resource('articles', ArticleController::class);
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+
+

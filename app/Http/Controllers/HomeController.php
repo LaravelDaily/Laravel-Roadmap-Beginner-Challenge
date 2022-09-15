@@ -2,20 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
+    
     /**
      * Show the application dashboard.
      *
@@ -23,6 +15,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $articles = Article::with(['category', 'tags'])->latest()->paginate(2);
+        return view('articles', compact('articles'));
+    }
+
+    public function article($id)
+    {
+        $article = Article::findOrFail($id);
+        return view('article_detail', compact('article'));
     }
 }
