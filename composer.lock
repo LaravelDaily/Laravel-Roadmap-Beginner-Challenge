@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ccbd816a07b206f971042295b899d1ba",
+    "content-hash": "38502997fa55a569457451bc432b924f",
     "packages": [
         {
             "name": "brick/math",
@@ -5609,6 +5609,67 @@
                 "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.0.1"
             },
             "time": "2020-07-09T08:09:16+00:00"
+        },
+        {
+            "name": "laravel/breeze",
+            "version": "v1.13.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/breeze.git",
+                "reference": "1c7592561f5a834eea6c38a77e43ae3c2ee83609"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/breeze/zipball/1c7592561f5a834eea6c38a77e43ae3c2ee83609",
+                "reference": "1c7592561f5a834eea6c38a77e43ae3c2ee83609",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^9.21",
+                "illuminate/filesystem": "^9.21",
+                "illuminate/support": "^9.21",
+                "illuminate/validation": "^9.21",
+                "php": "^8.0.2"
+            },
+            "conflict": {
+                "laravel/framework": "<9.19.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Breeze\\BreezeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Breeze\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Minimal Laravel authentication scaffolding with Blade and Tailwind.",
+            "keywords": [
+                "auth",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/breeze/issues",
+                "source": "https://github.com/laravel/breeze"
+            },
+            "time": "2022-09-19T14:29:29+00:00"
         },
         {
             "name": "laravel/pint",
