@@ -5,6 +5,7 @@
         "build": "vite build"
     },
     "devDependencies": {
+        "@fortawesome/fontawesome-free": "^6.2.0",
         "@tailwindcss/forms": "^0.5.2",
         "alpinejs": "^3.4.2",
         "autoprefixer": "^10.4.2",
