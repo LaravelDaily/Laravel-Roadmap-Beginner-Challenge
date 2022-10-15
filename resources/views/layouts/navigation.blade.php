@@ -17,6 +17,15 @@
                             <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                                 {{ __('Dashboard') }}
                             </x-nav-link>
+                            <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
+                                {{ __('Posts') }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('tags.index')" :active="request()->routeIs('tags.index')">
+                                {{ __('Tags') }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
+                                {{ __('Categories') }}
+                            </x-nav-link>
                         @else
                             <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">Home</x-nav-link>
                         @endauth
@@ -99,6 +108,15 @@
                 @auth
                     <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
+                        {{ __('Posts') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('tags.index')" :active="request()->routeIs('tags.index')">
+                        {{ __('Tags') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
+                        {{ __('Categories') }}
                     </x-responsive-nav-link>
                 @else
                     <x-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">Home</x-responsive-nav-link>
