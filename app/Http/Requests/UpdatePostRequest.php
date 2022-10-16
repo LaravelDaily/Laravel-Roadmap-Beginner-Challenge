@@ -28,7 +28,7 @@ class UpdatePostRequest extends FormRequest
             'title'     => 'required',
             'image'     => 'nullable|mimes:png,jpg,jpeg|image|dimensions:max_width=1000,max_height=1000',
             'post'      => 'required',
-            'category'  => 'integer',
+            'category'  => 'required|integer|exists:categories,id',
             'tags'      => 'required'
         ];
     }

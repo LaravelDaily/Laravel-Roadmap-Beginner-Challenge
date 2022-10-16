@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\PostController as HomePostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,20 +19,15 @@ use App\Http\Controllers\Admin\TagController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
 
-Route::get('/article', function () {
-    return view('article');
-})->name('article');
 
+Route::get('/', [HomePostController::class, 'index'])->name('home');
+Route::get('posts/byTag-{tagName}', [HomePostController::class, 'showByTagName'])->name('showByTagName');
+Route::get('posts/byCategory-{categoryId}', [HomePostController::class, 'showByCategoriesId'])->name('showByCategoriesId');
+Route::get('post/{id}', [HomePostController::class, 'show'])->name('post');
 
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
-    // Route::get('/dashboard', function () {
-    //     return view('admin.dashboard');
-    // })->name('dashboard');
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
     Route::resource('tags',TagController::class);
     Route::resource('categories',CategoryController::class);

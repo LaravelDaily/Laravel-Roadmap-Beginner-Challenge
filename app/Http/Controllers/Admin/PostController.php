@@ -58,20 +58,18 @@ class PostController extends Controller
         if ($request->has('image')) {
             $filename = time() . '_' . $request->file('image')->getClientOriginalName();
             $request->file('image')->storeAs('uploads', $filename, 'public');
-        } else {
-            $filename = "";
         }
 
         $post = auth()->user()->posts()->create([
             'title' => $request->title,
-            'image' => $filename, 
+            'image' => $filename ?? null, 
             'post' => $request->post,
             'category_id' => $request->category
         ]);
 
         foreach ($tags as $tagName) {
             $tag = Tag::firstOrCreate(['name' => $tagName]);
-            $post->tag()->attach($tag);
+            $post->tags()->attach($tag);
         }
 
         return redirect()->route('posts.index');
@@ -99,7 +97,7 @@ class PostController extends Controller
         //
         // 
         $categories = Category::all();
-        $tags = $post->tag->implode('name', ',');
+        $tags = $post->tags->implode('name', ',');
         
         // dd($tags);
         return view('admin.posts.edit', compact('post', 'tags', 'categories'));
@@ -135,7 +133,7 @@ class PostController extends Controller
             $tags[] = Tag::firstOrCreate(['name' => $tagName])->id;   
         }
 
-        $post->tag()->sync($tags);
+        $post->tags()->sync($tags);
 
         return redirect()->route('posts.index');
     }
@@ -153,7 +151,7 @@ class PostController extends Controller
             Storage::delete('public/uploads/' . $post->image);
         }
 
-        $post->tag()->detach();
+        $post->tags()->detach();
         $post->delete();
 
         return redirect()->route('posts.index');

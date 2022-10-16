@@ -17,7 +17,10 @@
                                     <label for="name" class="block text-sm font-medium text-gray-700">Tag
                                         name :</label>
                                     <input type="text" name="name" id="name" autocomplete="given-name"
-                                        class="mt-1 block  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                        class="@error('name') border-red-600 @enderror mt-1 block  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                    @error('name')
+                                        <div class="font-medium text-red-600" role="alert">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

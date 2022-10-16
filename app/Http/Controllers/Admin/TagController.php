@@ -97,7 +97,14 @@ class TagController extends Controller
     public function destroy(Tag $tag)
     {
         //
-        $tag->delete();
+        foreach ($tag->posts as $post) {
+            $post->tags()->detach($tag->id);
+        }
+
+        if (!$tag->posts()->count()) {
+            $tag->delete();
+        }
+        
 
         return redirect()->route('tags.index');
     }

@@ -20,7 +20,7 @@
                                         Title :</label>
                                     <input type="text" placeholder="Post title" name="title" id="title"
                                         autocomplete="given-title" value="{{ old('title', $post->title) }}"
-                                        class="mt-1 block  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                        class="@error('title') border-red-600 @enderror mt-1 block  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                     @error('title')
                                         <span class="font-medium text-red-600" role="alert">{{ $message }}</span>
                                     @enderror
@@ -33,7 +33,7 @@
                                     <label for="image" class="block text-sm font-medium text-gray-700">Image
                                         :</label>
                                     <input
-                                        class="mt-1 block  rounded-md  border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm "
+                                        class="@error('image') border-red-600 @enderror mt-1 block  rounded-md  border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm "
                                         id="image" name="image" type="file">
                                     @error('image')
                                         <span class="font-medium text-red-600" role="alert">{{ $message }}</span>
@@ -48,8 +48,11 @@
                                         :</label>
                                     <input type="text" placeholder="Post tags" name="tags" id="tags"
                                         autocomplete="given-title" value="{{ old('tags', $tags) }}"
-                                        class="mt-1 block  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                        class="@error('tags') border-red-600 @enderror mt-1 block  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                     <span class="text-xs text-gray-400">Separated by comma</span>
+                                    @error('tags')
+                                        <span class="font-medium text-red-600" role="alert">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -59,7 +62,7 @@
                                     <label for="category" class="block text-sm font-medium text-gray-700">Category
                                         :</label>
                                     <select name="category" id="category" autocomplete="given-title"
-                                        class="mt-1 block  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                        class=" @error('category') border-red-600 @enderror mt-1 block  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                         <option value="#">--- SELECT CATEGORY ---</option>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}"
@@ -68,6 +71,9 @@
                                             </option>
                                         @endforeach
                                     </select>
+                                    @error('category')
+                                        <span class="font-medium text-red-600" role="alert">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -78,9 +84,12 @@
                                     <label for="post" class="block text-sm font-medium text-gray-700">
                                         Post :</label>
                                     <textarea type="text" placeholder="Post text" name="post" id="post" autocomplete="given-title"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                        class="@error('post') border-red-600 @enderror mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                         {{ old('post', $post->post) }}
                                     </textarea>
+                                    @error('post')
+                                        <span class="font-medium text-red-600" role="alert">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
