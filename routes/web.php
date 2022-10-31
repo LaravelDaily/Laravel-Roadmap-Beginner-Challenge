@@ -18,11 +18,11 @@ use App\Http\Controllers\CategoryController;
 |
 */
 
-Route::view('/aboutme', 'welcome');
+Route::view('/aboutme', 'aboutme')->name('aboutme');
 
 Auth::routes();
 
-Route::get('/', HomeController::class, 'index')->name('home');
+Route::get('/', HomeController::class)->name('home');
 
 Route::resource('articles', ArticleController::class);
 Route::resource('tags', TagController::class);
