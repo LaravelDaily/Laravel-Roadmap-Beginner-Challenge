@@ -6,40 +6,26 @@
         <div class="container position-relative px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
-                    <div class="site-heading">
-                        <h1>Personal Blog</h1>
-                        <span class="subheading">A Blog for developers</span>
+                    <div class="page-heading">
+                        <h1>About Me</h1>
+                        <span class="subheading">This is what I do.</span>
                     </div>
                 </div>
             </div>
         </div>
     </header>
     <!-- Main Content-->
-    <div class="container px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7">
-                @for ($i = 0; $i < 5; $i++)
-                    <!-- Post preview-->
-                <div class="post-preview">
-                    <a href="post.html">
-                        <h2 class="post-title">Man must explore, and this is exploration at its greatest</h2>
-                        <h3 class="post-subtitle">Problems look mighty small from 150 miles up</h3>
-                    </a>
-                    <p class="post-meta">
-                        Posted by
-                        <a href="#!">Start Bootstrap</a>
-                        on September 24, 2022
-                    </p>
+    <main class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum ullam eveniet pariatur voluptates odit, fuga atque ea nobis sit soluta odio, adipisci quas excepturi maxime quae totam ducimus consectetur?</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius praesentium recusandae illo eaque architecto error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in officia voluptas voluptatibus, minus!</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequuntur magnam, excepturi aliquid ex itaque esse est vero natus quae optio aperiam soluta voluptatibus corporis atque iste neque sit tempora!</p>
                 </div>
-                <!-- Divider-->
-                <hr class="my-4" />
-                @endfor
-    
-                <!-- Pager-->
-                <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
             </div>
         </div>
-    </div>
+    </main>
     <!-- Footer-->
     <footer class="border-top">
         <div class="container px-4 px-lg-5">
