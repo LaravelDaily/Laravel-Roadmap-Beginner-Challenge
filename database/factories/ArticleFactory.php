@@ -20,6 +20,7 @@ class ArticleFactory extends Factory
             'user_id' => rand(1, 10),
             'category_id' => rand(1, 10),
             'title' => fake()->sentence(),
+            'excerpt'=> fake()->paragraph(),
             'body' => fake()->text(),
             'image_path' => 'home.jpg'
         ];
