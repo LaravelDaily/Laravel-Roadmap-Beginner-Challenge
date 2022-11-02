@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
@@ -35,7 +36,22 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $article = Article::create([
+            'user_id' => auth()->id(),
+            'title' => $request->title,
+            'excerpt' => $request->excerpt,
+            'body' => $request->body
+        ]);
+
+        if ($request->hasFile('image_path')) {
+            $article->update([
+                'image_path' => $this->storeImage($request)
+            ]);
+        }
+
+        return redirect()->route('home');
+
     }
 
     /**
@@ -81,5 +97,19 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * It stores the image to the public storage.
+     *
+     * @param Request $request
+     * @return string The filename that was stored.
+     */
+    private function storeImage(Request $request)
+    {   
+        $path = explode("/", $request->file('image_path')->store('public/images'));
+        $imageName = end($path);
+
+        return $imageName;
     }
 }
