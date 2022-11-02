@@ -38,8 +38,18 @@
                     </p>
                     
                     @if (auth()->user() && auth()->id() === $article->user_id)
-                        <a class="btn btn-success btn-sm rounded-2 text-white" href="{{ route('article.edit', $article)}}">Edit</a>
-                        <a class="btn btn-danger btn-sm rounded-2 text-white">Delete</a> 
+                            <div class="row">
+                                <div class="col-md-1 me-1">
+                                    <a class="btn btn-success btn-sm rounded-2 text-white" href="{{ route('article.edit', $article)}}">Edit</a>
+                                </div>
+                                <div class="col-md-1">
+                                    <form action="{{ route('article.destroy', $article) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm rounded-2 text-white">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
                     @endif
                 </div>
                 <!-- Divider-->
