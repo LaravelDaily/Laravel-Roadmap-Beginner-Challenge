@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -71,21 +72,31 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Article $article)
     {
-        //
+        return view('article.edit', compact('article'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Article $article)
     {
-        //
+        $article->update([
+            'title' => $request->title,
+            'excerpt' => $request->excerpt,
+            'body' => $request->body
+        ]);
+
+        if ($request->hasFile('image_path')) {
+            $this->updateArticleImage($request, $article);
+        }
+
+        return redirect()->route('article.show', compact('article'));
     }
 
     /**
@@ -111,5 +122,23 @@ class ArticleController extends Controller
         $imageName = end($path);
 
         return $imageName;
+    }
+
+    /**
+     * Update article image and remove old image from storage.
+     *
+     * @param Request $request
+     * @param Article $article
+     * @return void
+     */
+    private function updateArticleImage(Request $request, Article $article)
+    {
+        if (Storage::disk('public')->exists('images/'.$article->image_path)) {
+            Storage::disk('public')->delete('images/'.$article->image_path);
+        }
+
+        $article->update([
+            'image_path' => $this->storeImage($request)
+        ]);
     }
 }
