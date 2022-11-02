@@ -24,6 +24,6 @@ Auth::routes();
 
 Route::get('/', HomeController::class)->name('home');
 
-Route::resource('articles', ArticleController::class);
+Route::resource('article', ArticleController::class);
 Route::resource('tags', TagController::class);
 Route::resource('categories', CategoryController::class);
