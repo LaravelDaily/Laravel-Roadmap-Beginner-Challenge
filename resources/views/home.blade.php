@@ -13,7 +13,9 @@
                         <h1>Personal blog</h1>
                         @endauth
                         <span class="subheading">A Blog for developers</span>
-                        <a href="{{ route('article.create') }}" class="btn btn-lg mt-4 text-white" style="background-color: #575A57">CREATE ARTICLE</a>
+                        @auth
+                            <a href="{{ route('article.create') }}" class="btn btn-lg mt-4 text-white" style="background-color: #575A57">CREATE ARTICLE</a>
+                        @endauth
                     </div>
                 </div>
             </div>
@@ -34,6 +36,11 @@
                         <a href="#!">{{ $article->user->name }}</a>
                         on {{ $article->created_at->format('F d, Y') }}
                     </p>
+                    
+                    @if (auth()->user() && auth()->id() === $article->user_id)
+                        <a class="btn btn-success btn-sm rounded-2 text-white" href="{{ route('article.edit', $article)}}">Edit</a>
+                        <a class="btn btn-danger btn-sm rounded-2 text-white">Delete</a> 
+                    @endif
                 </div>
                 <!-- Divider-->
                 <hr class="my-4" />
