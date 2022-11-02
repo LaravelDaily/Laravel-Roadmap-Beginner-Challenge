@@ -16,6 +16,6 @@ class HomeController extends Controller
     public function __invoke()
     {
 
-        return view('home')->with('articles', Article::with('tags')->get());
+        return view('home')->with('articles', Article::with('tags')->orderBy('created_at', 'desc')->get());
     }
 }
