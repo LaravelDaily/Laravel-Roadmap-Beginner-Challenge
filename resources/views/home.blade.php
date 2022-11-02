@@ -13,7 +13,7 @@
                         <h1>Personal blog</h1>
                         @endauth
                         <span class="subheading">A Blog for developers</span>
-                        <a href="{{ route('article.create') }}" class="btn btn-dark btn-lg mt-4">CREATE ARTICLE</a>
+                        <a href="{{ route('article.create') }}" class="btn btn-lg mt-4 text-white" style="background-color: #575A57">CREATE ARTICLE</a>
                     </div>
                 </div>
             </div>
