@@ -30,11 +30,15 @@
                     <ul class="navbar-nav ms-auto py-4 py-lg-0">
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-white" href="{{ route('home') }}">Home</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-white" href="{{ route('aboutme') }}">About</a></li>
-                        @guest
-                            <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-white" href="{{ route('login') }}">Login</a></li>
-                        @endguest
                         @auth
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-white" href="{{ route('logout') }}">Logout</a></li>
+                            <li class="nav-item">
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button class="btn px-lg-3 py-3 py-lg-4 text-white">Logout</button>
+                                </form>
+                            </li>
+                        @else
+                            <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-white" href="{{ route('login') }}">Login</a></li>
                         @endauth
                     </ul>
                 </div>
@@ -44,5 +48,7 @@
             @yield('content')
         </main>
     </div>
+    <script type="text/javascript" src="js/jquery-1.8.0.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
 </body>
 </html>
