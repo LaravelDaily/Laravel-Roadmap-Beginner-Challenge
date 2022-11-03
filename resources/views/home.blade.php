@@ -7,11 +7,7 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="site-heading">
-                        @auth
-                        <h1>{{ auth()->user()->name }}</h1>
-                        @else
                         <h1>Personal blog</h1>
-                        @endauth
                         <span class="subheading">A Blog for developers</span>
                         @auth
                             <a href="{{ route('article.create') }}" class="btn btn-lg mt-4 text-white" style="background-color: #575A57">CREATE ARTICLE</a>
