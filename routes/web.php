@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TagController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 
 
 /*
@@ -24,7 +25,10 @@ Route::view('/aboutme', 'aboutme')->name('aboutme');
 Auth::routes(['register' => false]);
 
 Route::get('/', HomeController::class)->name('home');
+Route::get('article/{article}', [ArticleController::class, 'show'])->name('article.show');
 
-Route::resource('article', ArticleController::class);
-Route::resource('tags', TagController::class);
-Route::resource('categories', CategoryController::class);
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
+    Route::resource('article', AdminArticleController::class)->except(['show']);
+    Route::resource('tags', TagController::class)->except(['show']);
+    Route::resource('categories', CategoryController::class);
+});
