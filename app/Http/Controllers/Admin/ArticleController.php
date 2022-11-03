@@ -19,7 +19,7 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::with('tags')->get();
-        return view('admin.index', compact('articles'));
+        return view('admin.article.index', compact('articles'));
     }
 
     /**
@@ -76,7 +76,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        return view('admin.edit', compact('article'));
+        return view('admin.article.edit', compact('article'));
     }
 
     /**
