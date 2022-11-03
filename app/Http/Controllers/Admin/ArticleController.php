@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Tag;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -29,7 +30,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('admin.create');
+        return view('admin.article.create');
     }
 
     /**
@@ -48,6 +49,16 @@ class ArticleController extends Controller
             'body' => $request->body
         ]);
 
+        $tags = explode(',', $request->tag);
+        
+        foreach ($tags as $tag) {
+            $newTag = Tag::create([
+                'name' => $tag
+            ]);
+            
+            $article->tags()->attach($newTag->id);
+        }
+
         if ($request->hasFile('image_path')) {
             $article->update([
                 'image_path' => $this->storeImage($request)
@@ -65,7 +76,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        return view('admin.show', compact('article'));
+        return view('admin.article.show', compact('article'));
     }
 
     /**
