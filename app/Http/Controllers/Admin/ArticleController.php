@@ -1,32 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
-    /**
-     * Instantiate a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth')->except('show');
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -62,17 +45,6 @@ class ArticleController extends Controller
 
         return redirect()->route('home');
 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  Article $article
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Article $article)
-    {
-        return view('article.show')->with('article', $article);
     }
 
     /**
