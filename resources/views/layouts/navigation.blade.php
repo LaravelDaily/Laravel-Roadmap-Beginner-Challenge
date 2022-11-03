@@ -16,9 +16,9 @@
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">{{ auth()->user()->name }}</a>
                             <div class="dropdown-menu">
-                                <a href="#" class="dropdown-item">Inbox</a>
+                                <a href="{{ route('article.index') }}" class="dropdown-item">Articles</a>
                                 <a href="#" class="dropdown-item">Drafts</a>
-                                <a href="#" class="dropdown-item">Sent Items</a>
+                                <a href="{{ route('tags.index') }}" class="dropdown-item">Tags</a>
                                 <div class="dropdown-divider"></div>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
