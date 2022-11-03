@@ -9,9 +9,6 @@
                     <div class="site-heading">
                         <h1>Personal blog</h1>
                         <span class="subheading">A Blog for developers</span>
-                        @auth
-                            <a href="{{ route('article.create') }}" class="btn btn-lg mt-4 text-white" style="background-color: #575A57">CREATE ARTICLE</a>
-                        @endauth
                     </div>
                 </div>
             </div>
@@ -32,21 +29,6 @@
                         <a href="#!">{{ $article->user->name }}</a>
                         on {{ $article->created_at->format('F d, Y') }}
                     </p>
-                    
-                    @if (auth()->user() && auth()->id() === $article->user_id)
-                            <div class="row">
-                                <div class="col-md-1 me-1">
-                                    <a class="btn btn-success btn-sm rounded-2 text-white" href="{{ route('article.edit', $article)}}">Edit</a>
-                                </div>
-                                <div class="col-md-1">
-                                    <form action="{{ route('article.destroy', $article) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm rounded-2 text-white">Delete</button>
-                                    </form>
-                                </div>
-                            </div>
-                    @endif
                 </div>
                 <!-- Divider-->
                 <hr class="my-4" />
@@ -91,8 +73,4 @@
             </div>
         </div>
     </footer>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
 @endsection
