@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +21,7 @@ use App\Http\Controllers\CategoryController;
 
 Route::view('/aboutme', 'aboutme')->name('aboutme');
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/', HomeController::class)->name('home');
 
