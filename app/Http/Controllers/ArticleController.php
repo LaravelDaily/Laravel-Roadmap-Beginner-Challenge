@@ -9,6 +9,6 @@ class ArticleController extends Controller
 {
     public function show(Article $article) {
         
-        return view('admin.show', compact('article'));
+        return view('admin.article.show', compact('article'));
     }
 }
