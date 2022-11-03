@@ -12,13 +12,24 @@ class ArticleController extends Controller
 {
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $articles = Article::with('tags')->get();
+        return view('admin.index', compact('articles'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        return view('article.create');
+        return view('admin.create');
     }
 
     /**
@@ -43,8 +54,18 @@ class ArticleController extends Controller
             ]);
         }
 
-        return redirect()->route('home');
+        return redirect()->route('article.index');
+    }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  Article
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Article $article)
+    {
+        return view('admin.show', compact('article'));
     }
 
     /**
@@ -55,7 +76,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        return view('article.edit', compact('article'));
+        return view('admin.edit', compact('article'));
     }
 
     /**
@@ -90,7 +111,7 @@ class ArticleController extends Controller
     {
         $article->delete();
 
-        return redirect()->route('home');
+        return redirect()->route('article.index');
     }
 
     /**
