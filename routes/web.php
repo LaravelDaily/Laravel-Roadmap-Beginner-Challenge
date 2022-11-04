@@ -28,7 +28,11 @@ Route::get('/', HomeController::class)->name('home');
 Route::get('article/{article}', [ArticleController::class, 'show'])->name('article.show');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
-    Route::resource('article', AdminArticleController::class)->except(['show']);
-    Route::resource('tags', TagController::class)->except(['show']);
-    Route::resource('categories', CategoryController::class);
+    Route::resources([
+        'article' => AdminArticleController::class,
+        'tags'=> TagController::class,
+        'categories' => CategoryController::class
+    ], [
+        'except' => ['show']
+    ]);
 });
