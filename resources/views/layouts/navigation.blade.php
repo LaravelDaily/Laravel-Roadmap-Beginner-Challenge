@@ -17,7 +17,7 @@
                             <a href="#" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">{{ auth()->user()->name }}</a>
                             <div class="dropdown-menu">
                                 <a href="{{ route('article.index') }}" class="dropdown-item">Articles</a>
-                                <a href="#" class="dropdown-item">Drafts</a>
+                                <a href="{{ route('categories.index') }}" class="dropdown-item">Categories</a>
                                 <a href="{{ route('tags.index') }}" class="dropdown-item">Tags</a>
                                 <div class="dropdown-divider"></div>
                                 <form action="{{ route('logout') }}" method="POST">
