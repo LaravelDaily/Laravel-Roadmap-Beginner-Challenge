@@ -27,7 +27,7 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="row mb-2">
                             <label for="body" class="col-md-4 col-form-label text-md-end">Body</label>
 
                             <div class="col-md-6">
@@ -44,9 +44,24 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3 mx-auto">
-                            <label for="image_path" class="form-label">Article Image</label>
-                            <input class="form-control" type="file" id="formFile" name="image_path">
+                        <div class="d-flex justify-content-center ms-3 pe-2 mb-3">
+                            <div class="col-md-4">
+                                <select class="form-select"  aria-label="Default select example">
+                                    <option selected>Select Category</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-row justify-content-center mb-3">
+                            <div class="p-2 pe-2 me-2">
+                                <label for="image_path" class="form-label">Article Image</label>
+                            </div>
+                            <div class="p-2 me-5 pe-0">
+                                <input class="form-control" type="file" id="formFile" name="image_path">
+                            </div>
                         </div>
 
                         <div class="row mb-0">
