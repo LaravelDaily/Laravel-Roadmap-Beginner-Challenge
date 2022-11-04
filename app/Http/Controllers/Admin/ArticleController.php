@@ -52,11 +52,9 @@ class ArticleController extends Controller
         $tags = explode(',', $request->tag);
         
         foreach ($tags as $tag) {
-            $newTag = Tag::create([
+            $article->tags()->create([
                 'name' => $tag
             ]);
-            
-            $article->tags()->attach($newTag->id);
         }
 
         if ($request->hasFile('image_path')) {
