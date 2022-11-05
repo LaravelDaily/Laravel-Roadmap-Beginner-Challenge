@@ -6,6 +6,7 @@ use App\Models\Tag;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,7 +31,9 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('admin.article.create');
+        $categories = Category::all();
+
+        return view('admin.article.create', compact('categories'));
     }
 
     /**
@@ -41,20 +44,24 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
+        $category = Category::where('name', $request->category)->first();
 
         $article = Article::create([
             'user_id' => auth()->id(),
+            'category_id' => $category->id,
             'title' => $request->title,
             'excerpt' => $request->excerpt,
             'body' => $request->body
         ]);
 
-        $tags = explode(',', $request->tag);
-        
-        foreach ($tags as $tag) {
-            $article->tags()->create([
-                'name' => $tag
-            ]);
+        if ($request->filled('tag')) {
+            $tags = explode(',', $request->tag);
+
+            foreach ($tags as $tag) {
+                $article->tags()->create([
+                    'name' => $tag
+                ]);
+            }
         }
 
         if ($request->hasFile('image_path')) {
@@ -85,7 +92,9 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        return view('admin.article.edit', compact('article'));
+        $categories = Category::all();
+
+        return view('admin.article.edit', compact(['article', 'categories']));
     }
 
     /**
@@ -97,7 +106,10 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
+        $category = Category::where('name', $request->category)->first();
+
         $article->update([
+            'category_id' => $category->id,
             'title' => $request->title,
             'excerpt' => $request->excerpt,
             'body' => $request->body
