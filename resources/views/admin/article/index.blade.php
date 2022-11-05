@@ -6,7 +6,7 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Title</th>
+                <th>Article</th>
                 <th class="text-center">Action</th>
             </tr>
         </thead>
