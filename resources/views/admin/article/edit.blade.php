@@ -39,7 +39,7 @@
                         <div class="d-flex justify-content-center ms-3 pe-2 mb-3">
                             <div class="col-md-4">
                                 <select class="form-select"  aria-label="Default select example" name="category">
-                                    <option selected>Select Category</option>
+                                    <option value="{{ $article->category->name }}" selected>{{ $article->category->name  }}</option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->name }}">{{ $category->name }}</option>
                                     @endforeach
