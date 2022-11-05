@@ -36,9 +36,24 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3 mx-auto">
-                            <label for="image_path" class="form-label">Article Image</label>
-                            <input class="form-control" type="file" id="formFile" name="image_path">
+                        <div class="d-flex justify-content-center ms-3 pe-2 mb-3">
+                            <div class="col-md-4">
+                                <select class="form-select"  aria-label="Default select example" name="category">
+                                    <option selected>Select Category</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->name }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-row justify-content-center mb-3 me-5 pe-3">
+                            <div class="p-2">
+                                <label for="image_path" class="form-label">Article Image</label>
+                            </div>
+                            <div class="p-2">
+                                <input class="form-control" type="file" id="formFile" name="image_path">
+                            </div>
                         </div>
 
                         <div class="row mb-0">
