@@ -29,6 +29,13 @@
                         <a href="#!">{{ $article->user->name }}</a>
                         on {{ $article->created_at->format('F d, Y') }}
                     </p>
+                    <div class="d-flex gap-1">
+                        @foreach ($article->tags as $tag)
+                        <div class="btn btn-outline-secondary rounded-2 btn-sm">
+                            {{ $tag->name }}
+                        </div>
+                        @endforeach
+                    </div>
                 </div>
                 <!-- Divider-->
                 <hr class="my-4" />

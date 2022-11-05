@@ -13,6 +13,13 @@
                             <a href="#!">{{ $article->user->name }}</a>
                             on {{ $article->created_at->format('F d, Y') }}
                         </span>
+                        <div class="d-flex gap-1 mt-3">
+                            @foreach ($article->tags as $tag)
+                            <div class="btn btn-outline-light rounded-2 btn-sm">
+                                {{ $tag->name }}
+                            </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
