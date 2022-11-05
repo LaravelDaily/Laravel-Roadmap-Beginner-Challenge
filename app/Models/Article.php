@@ -13,7 +13,7 @@ class Article extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'title', 'excerpt', 'body', 'image_path'
+        'user_id', 'category_id', 'title', 'excerpt', 'body', 'image_path'
     ];
 
     /**
