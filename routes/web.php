@@ -24,9 +24,11 @@ Route::view('/aboutme', 'aboutme')->name('aboutme');
 
 Auth::routes(['register' => false]);
 
+// Guest
 Route::get('/', HomeController::class)->name('home');
 Route::get('article/{article}', [ArticleController::class, 'show'])->name('article.show');
 
+// Admin
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::resources([
         'article' => AdminArticleController::class,
