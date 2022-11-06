@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Tag;
 use App\Models\Article;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Category;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Admin\StoreArticleRequest;
+use App\Http\Requests\Admin\UpdateArticleRequest;
 
 class ArticleController extends Controller
 {
@@ -35,24 +34,22 @@ class ArticleController extends Controller
 
         return view('admin.article.create', compact('categories'));
     }
-
+    
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreArticleRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreArticleRequest $request)
     {
-        $category = Category::where('name', $request->category)->first();
-
-        $article = Article::create([
-            'user_id' => auth()->id(),
-            'category_id' => $category->id,
-            'title' => $request->title,
-            'excerpt' => $request->excerpt,
-            'body' => $request->body
+        $validated = $request->safe()->merge([
+            'user_id' => auth()->id()
         ]);
+
+        $category = Category::where('name', $validated->category)->first();
+        $article = Article::create($validated->toArray());
+        $article->category()->associate($category);
 
         if ($request->filled('tag')) {
             $tags = explode(',', $request->tag);
@@ -100,26 +97,22 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  UpdateArticleRequest  $request
      * @param  Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $article)
+    public function update(UpdateArticleRequest $request, Article $article)
     {
-        $category = Category::where('name', $request->category)->first();
 
-        $article->update([
-            'category_id' => $category->id,
-            'title' => $request->title,
-            'excerpt' => $request->excerpt,
-            'body' => $request->body
-        ]);
+        $validated = $request->validated();
+        $category = Category::where('name', $request->category)->first();
+        $article->update($validated);
 
         if ($request->hasFile('image_path')) {
             $this->updateArticleImage($request, $article);
         }
 
-        return redirect()->route('article.show', compact('article'));
+        return redirect()->route('article.index', compact('article'));
     }
 
     /**
@@ -130,6 +123,9 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
+        if ($this->imageExists($article->image_path)) {
+            Storage::disk('public')->delete('images/'.$article->image_path);
+        }
         $article->delete();
 
         return redirect()->route('article.index');
@@ -138,10 +134,10 @@ class ArticleController extends Controller
     /**
      * It stores the image to the public storage.
      *
-     * @param Request $request
+     * @param StoreArticleRequest|UpdateArticleRequest $request
      * @return string The filename that was stored.
      */
-    private function storeImage(Request $request)
+    private function storeImage(StoreArticleRequest|UpdateArticleRequest $request)
     {   
         $path = explode("/", $request->file('image_path')->store('public/images'));
         $imageName = end($path);
@@ -152,18 +148,29 @@ class ArticleController extends Controller
     /**
      * Update article image and remove old image from storage.
      *
-     * @param Request $request
+     * @param UpdateArticleRequest $request
      * @param Article $article
      * @return void
      */
-    private function updateArticleImage(Request $request, Article $article)
+    private function updateArticleImage(UpdateArticleRequest $request, Article $article)
     {
-        if (Storage::disk('public')->exists('images/'.$article->image_path)) {
+        if ($this->imageExists($article->image_path)) {
             Storage::disk('public')->delete('images/'.$article->image_path);
         }
 
         $article->update([
             'image_path' => $this->storeImage($request)
         ]);
+    }
+
+    /**
+     * Check if image exists in public storage
+     *
+     * @param string $imagePath
+     * @return bool
+     */
+    private function imageExists($imagePath)
+    {
+        return Storage::disk('public')->exists('images/'.$imagePath);
     }
 }
