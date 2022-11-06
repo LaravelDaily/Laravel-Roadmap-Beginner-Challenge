@@ -7,6 +7,8 @@
             <div class="card">
                 <div class="card-header text-white" style="background-color: #575A57;">Create Tag</div>
 
+                @include('layouts.validation_error')
+
                 <div class="card-body">
                     <form method="POST" action="{{ route('tags.update', $tag) }}" enctype="multipart/form-data">
                         @csrf

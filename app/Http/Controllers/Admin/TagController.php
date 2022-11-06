@@ -6,6 +6,7 @@ use App\Models\Tag;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\TagRequest;
 
 class TagController extends Controller
 {
@@ -34,15 +35,13 @@ class TagController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  TagRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TagRequest $request)
     {
         
-        Tag::create([
-            'name' => $request->name
-        ]);
+        Tag::create($request->validated());
         
         return redirect()->route('tags.index');
     }
@@ -62,15 +61,13 @@ class TagController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  TagRequest  $request
      * @param  Tag $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tag $tag)
+    public function update(TagRequest $request, Tag $tag)
     {
-        $tag->update([
-            'name' => $request->name
-        ]);
+        $tag->update($request->validated());
 
         return redirect()->route('tags.index');
     }
