@@ -17,7 +17,7 @@
                             <label for="title" class="col-md-4 col-form-label text-md-end">Title</label>
 
                             <div class="col-md-6">
-                                <input id="title" type="text" class="form-control" name="title" autofocus>
+                                <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}" autofocus>
                             </div>
                         </div>
 
@@ -25,7 +25,7 @@
                             <label for="excerpt" class="col-md-4 col-form-label text-md-end">Excerpt</label>
 
                             <div class="col-md-6">
-                                <textarea name="excerpt" id="excerpt" cols="40" rows="2"></textarea>
+                                <textarea name="excerpt" id="excerpt" cols="40" rows="2">{{ old('excerpt') }}</textarea>
                             </div>
                         </div>
 
@@ -33,7 +33,7 @@
                             <label for="body" class="col-md-4 col-form-label text-md-end">Body</label>
 
                             <div class="col-md-6">
-                                <textarea name="body" id="body" cols="40" rows="5"></textarea>
+                                <textarea name="body" id="body" cols="40" rows="5">{{ old('body') }}</textarea>
                             </div>
                         </div>
 
@@ -41,7 +41,7 @@
                             <label for="tag" class="col-md-4 col-form-label text-md-end">Tags</label>
 
                             <div class="col-md-6">
-                                <input id="tag" type="text" class="form-control" name="tag" placeholder="By multiple tags: tag,tag,tag " autofocus>
+                                <input id="tag" type="text" class="form-control" name="tag" placeholder="By multiple tags: tag,tag,tag " value="{{ old('tag') }}" autofocus>
                                 <div class="ms-2" style="font-size: 14px; color: grey">Comma separated sentence</div>
                             </div>
                         </div>
