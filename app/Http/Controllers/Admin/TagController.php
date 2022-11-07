@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Tag;
-use App\Models\Article;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\TagRequest;
 
@@ -39,8 +37,7 @@ class TagController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(TagRequest $request)
-    {
-        
+    { 
         Tag::create($request->validated());
         
         return redirect()->route('tags.index');

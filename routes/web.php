@@ -32,7 +32,7 @@ Route::get('article/{article}', [ArticleController::class, 'show'])->name('artic
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::resources([
         'article' => AdminArticleController::class,
-        'tags'=> TagController::class,
+        'tags' => TagController::class,
         'categories' => CategoryController::class
     ], [
         'except' => ['show']
