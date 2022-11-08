@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Page Header-->
-    <header class="masthead" style="background-image: url('{{ asset('storage/images/home.jpg') }}')">
+    <header class="masthead" style="background-image: url('https://pixabay.com/get/gd14f83fc2fb0eccf27e704c7ece96cff05c69b12968c927fa5ccd7414bdd588d6bdbd461fa1be11c4b5d084a04b4789b30a59db8b83f96dbaf4efc6a291231c2dc92c5b9037e9addf84d75cf88f94a03_1920.jpg')">
         <div class="container position-relative px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
@@ -16,7 +16,6 @@
     </header>
     <!-- Main Content-->
     <div class="container px-4 px-lg-5">
-        <x-error_validation/>
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 @foreach ($articles as $article)
