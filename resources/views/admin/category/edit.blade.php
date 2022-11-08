@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header text-white" style="background-color: #575A57;">Edit Category</div>
 
-                @include('layouts.validation_error')
+                <x-error_validation/>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('categories.update', $category) }}" enctype="multipart/form-data">

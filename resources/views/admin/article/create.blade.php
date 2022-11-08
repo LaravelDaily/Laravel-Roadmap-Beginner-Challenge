@@ -6,8 +6,8 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header text-white" style="background-color: #575A57;">Create Article</div>
-                
-                @include('layouts.validation_error')
+
+                <x-error_validation/>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('article.store') }}" enctype="multipart/form-data">
