@@ -47,7 +47,7 @@ class PostController extends Controller
     {
         if ($request->has('image')) {
             $filename = time(). '-' . $request->file('image')->getClientOriginalName();
-            $request->file('image')->storeAs('posts_img', $filename);
+            $request->file('image')->storeAs('posts_img', $filename, 'public');
         }
 
         $post = auth()->user()->posts()->create([
@@ -104,7 +104,7 @@ class PostController extends Controller
         if ($request->has('image')) {
             Storage::delete('posts_img' . $post->image);
             $filename = time(). '-' . $request->file('image')->getClientOriginalName();
-            $request->file('image')->storeAs('posts_img', $filename);
+            $request->file('image')->storeAs('posts_img', $filename, 'public');
         }
 
         $post->update([
