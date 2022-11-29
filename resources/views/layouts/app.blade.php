@@ -8,12 +8,19 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
+        {{-- <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap"> --}}
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
+
+        @if(session()->has('success'))
+            <section class="h-10 bg-green-300 flex items-center" x-data="{ show: true }" x-show="show">
+                {{ session('success') }} <button x-on:click.prevent="show=false" class="text-2xl p-1 text-red-700 ml-10">&times</button>
+            </section>
+        @endif
+
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             @include('layouts.navigation')
 
