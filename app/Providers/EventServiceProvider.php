@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+use App\Events\CategoryDeletedEvent;
+use App\Events\CategorySavedEvent;
+use App\Events\TagDeletedEvent;
+use App\Events\TagSavedEvent;
+use App\Listeners\ClearCachedModelItemsListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -17,6 +22,18 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        TagSavedEvent::class => [
+            ClearCachedModelItemsListener::class
+        ],
+        TagDeletedEvent::class => [
+            ClearCachedModelItemsListener::class
+        ],
+        CategoryDeletedEvent::class => [
+            ClearCachedModelItemsListener::class
+        ],
+        CategorySavedEvent::class => [
+            ClearCachedModelItemsListener::class
         ],
     ];
 

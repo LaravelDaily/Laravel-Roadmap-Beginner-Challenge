@@ -9,10 +9,9 @@ class ClearCachedModelItemsListener
      *
      * @return void
      */
-    public function __construct($model)
+    public function __construct()
     {
-        $cacheKey = str(get_class($model))->afterLast('\\')->lower();
-        cache()->forget("all-{$cacheKey}");
+        //
     }
 
     /**
@@ -23,5 +22,7 @@ class ClearCachedModelItemsListener
      */
     public function handle($event)
     {
+        $cacheKey = str(get_class($event->model))->afterLast('\\')->lower();
+        cache()->forget("all-{$cacheKey}");
     }
 }
