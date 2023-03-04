@@ -42,8 +42,19 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{{ route('articles.index') }}">Home</a>
                         </li>
+                        @auth
+                            @if (auth()->user()->is_admin)
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page"
+                                        href="{{ route('categories.index') }}">Categories</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="{{ route('tags.index') }}">Tags</a>
+                                </li>
+                            @endif
+                        @endauth
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Contact Us</a>
+                            <a class="nav-link" href="{{ route('about') }}">About</a>
                         </li>
                     </ul>
 
