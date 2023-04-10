@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\TagController;
+use App\Http\Controllers\{
+    ArticleController,
+    CategoryController,
+    TagController
+};
 use App\Models\Article;
 use Illuminate\Support\Facades\Route;
 
