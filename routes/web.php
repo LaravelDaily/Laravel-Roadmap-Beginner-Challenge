@@ -25,6 +25,9 @@ Route::get('/', function (Post $post) {
     return view('welcome', compact(['posts', 'category']));
 })->name('welcome');
 
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
 
 Route::resource('posts', PostController::class);
 Route::group(['middleware' => ['auth']], function () {

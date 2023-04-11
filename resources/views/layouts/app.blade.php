@@ -38,11 +38,11 @@
                             @auth
                                 <a href={{ route('posts.index') }} class="nav-link active">My Posts</a>
                             @else
-                                <a href="/" class="nav-link active">Home</a>
+                                <a href={{ route('welcome') }} class="nav-link active">Home</a>
                             @endauth
                         </li>
                         <li class="nav-item">
-                            <a href="/" class="nav-link active">About Me</a>
+                            <a href={{ route('about') }} class="nav-link active">About Me</a>
                         </li>
                     </ul>
 
