@@ -1,10 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="d-flex justify-content-between align-items-center">
-        <select name="category" class="form-select w-50">
-            <option value="category goes here">Categories</option>
-        </select>
+    <div class="text-end">
         <a href="{{ route('posts.create') }}" class="btn btn-warning btn-lg">Add Post</a>
     </div>
     <div class="mycontainer mt-5">
