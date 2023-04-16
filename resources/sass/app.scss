@@ -1,0 +1,27 @@
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+.form-container {
+    max-width: 700px;
+    margin: 2rem auto;
+}
+
+.form-control {
+    background: #fff;
+}
+
+
+article .card {
+    height: 850px;
+}
+
+.mycontainer {
+    max-width: 900px;
+    margin: 0 auto;
+}
