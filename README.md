@@ -1,87 +1,32 @@
-# Laravel Roadmap: Beginner Level Challenge
+# Blogger's Home Page
 
-This is a task for the [Beginner Level of the Laravel Roadmap](https://github.com/LaravelDaily/Laravel-Roadmap-Learning-Path#beginner-level), with the goal to implement as many of its topics as possible.
+![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white)
+![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![DigitalOcean](https://img.shields.io/badge/DigitalOcean-%230167ff.svg?style=for-the-badge&logo=digitalOcean&logoColor=white)
 
-This repository is intentionally empty, with only a Readme file. Your task if to submit a Pull Request with your version of implementing the task, and your PR may be reviewed by someone on our team, or other volunteers.
+This is a blogger web app for only one registered user who is both the blogger and admin. Public users can read the articles posted, and select which article he/she wishes to read by navigating on the main page. The admin and blogger can manage categories, tags as well as the articles themselves.
 
-## The Task: Simple Personal Blog
+This project is an answer to the **[Laravel Roadmap: Beginner Level Challenge](https://github.com/LaravelDaily/Laravel-Roadmap-Beginner-Challenge)**.
 
-You need to create a personal blog with just three pages:
+This project is currently on-line **[here](http://164.92.151.30)**. [![Forge](https://img.shields.io/endpoint?url=https%3A%2F%2Fforge.laravel.com%2Fsite-badges%2F5c4984a9-45f6-43b8-a956-8e1521d2f41e&style=plastic)](https://forge.laravel.com/servers/723372/sites/2121842). The server is minimal: 10GB SSD, 0.5GB RAM. Yet the queries are performant. Images below:
 
-- Homepage: List of articles
-- Article page
-- Some static text page like "About me"
+![main page](/gitimages/image01.png)
 
+![article editing page](/gitimages/image02.png)
 
-Also, there should be a Login mechanism (but no Register) for the author to write articles:
+## Instalation
 
-- Manage (meaning, create/update/delete) categories
-- Manage tags
-- Manage articles 
-- For Auth Starter Kit, use [Laravel Breeze](https://github.com/laravel/breeze) (Tailwind) or [Laravel UI](https://github.com/laravel/ui) (Bootstrap) - that starter kit will have some design, which is enough: the design is irrelevant for accomplishing the task
+### Forge Install
 
+Deploy the server and the code. Run the command `php artisan db:seed`. Schedule the unused image cleansing job with this command (or similar): `php /home/forge/default/artisan app:purge-garbage-images` to run every minute or whenever.
 
-**DB Structure:**
+### Local Install
 
-- Article has title (required), full text (required) and image to upload (optional)
-- Article may have only one category, but may have multiple tags
+Create a new MySQL schema. Name it according to your .env file. Run the command `php artisan migrate --seed`. Optional: Schedule the unused image cleansing command with `php artisan app:purge-garbage-files` to run every minute or whenever. Run this app as usual.
 
+*It is crucial to run at least the UserSeeder, to seed the database with the only user.* That user is described in the `.env` / `.env.example` file.
 
------
-
-## Features to implement
-
-Here's the [list of Roadmap features](https://github.com/LaravelDaily/Laravel-Roadmap-Learning-Path#beginner-level) you need to try to implement in your code:
-
-**Routing and Controllers: Basics**	
-
-- Callback Functions and Route::view()
-- Routing to a Single Controller Method	
-- Route Parameters
-- Route Naming	
-- Route Groups	
-
-
-**Blade Basics**
-
-- Displaying Variables in Blade
-- Blade If-Else and Loop Structures
-- Blade Loops
-- Layout: @include, @extends, @section, @yield
-- Blade Components
-
-
-**Auth Basics**	
-
-- Default Auth Model and Access its Fields from Anywhere
-- Check Auth in Controller / Blade
-- Auth Middleware
-
-
-**Database Basics**	
-
-- Database Migrations
-- Basic Eloquent Model and MVC: Controller -> Model -> View
-- Eloquent Relationships: belongsTo / hasMany / belongsToMany
-- Eager Loading and N+1 Query Problem
-
-
-**Full Simple CRUD**	
-
-- Route Resource and Resourceful Controllers
-- Forms, Validation and Form Requests
-- File Uploads and Storage Folder Basics
-- Table Pagination
-
-
------ 
-
-## Example Solutions
-
-If you need help, or you want to compare your version with our simple version, here are two public repositories with the solution:
-
-- [Laravel Roadmap Beginner: Breeze](https://github.com/LaravelDaily/Laravel-Roadmap-Beginner-Roadmap-Breeze)
-- [Laravel Roadmap Beginner: UI](https://github.com/LaravelDaily/Laravel-Roadmap-Beginner-Blog-UI)
-
-
-**Notice**: please look at those repositories only AFTER you've accomplished the task yourself, or if you're confident about your Laravel beginner skills and you think you don't need to practice this task.
+*It is not necessary to run the command* `php artisan storage:link`*.*
