@@ -11,7 +11,7 @@ This is a blogger web app for only one registered user who is both the blogger a
 
 This project is an answer to the **[Laravel Roadmap: Beginner Level Challenge](https://github.com/LaravelDaily/Laravel-Roadmap-Beginner-Challenge)**.
 
-This project is currently on-line **[here](http://164.92.151.30)**. [![Forge](https://img.shields.io/endpoint?url=https%3A%2F%2Fforge.laravel.com%2Fsite-badges%2F5c4984a9-45f6-43b8-a956-8e1521d2f41e&style=plastic)](https://forge.laravel.com/servers/723372/sites/2121842). The server is minimal: 10GB SSD, 0.5GB RAM. Yet the queries are performant. Images below:
+This project has been taken offline on Oct. 17th, 2023. The server is minimal: 10GB SSD, 0.5GB RAM. Yet the queries are performant. Images below:
 
 ![main page](/gitimages/image01.png)
 
