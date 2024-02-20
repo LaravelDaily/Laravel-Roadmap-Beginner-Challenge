@@ -13,7 +13,7 @@
             <x-text-input name="tags"  placeholder="{{ __('Tags coma seperated!') }}" class="flex-1 mb-4 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"></x-text-input>
             <x-input-error :messages="$errors->get('tags')" class="mt-2" />
             </div>
-            <select name="category_id" id="category_id" class="form-control block mb-4  border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mb-12">
+            <select name="category_id" id="category_id" class="form-control block mb-4  border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
                 @foreach ($categories as $category)
                     <option value="{{$category->id}}">
                         {{$category->name}}
