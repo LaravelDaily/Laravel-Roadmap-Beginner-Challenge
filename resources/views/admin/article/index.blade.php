@@ -3,14 +3,11 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight text-center">
             {{ __('Articles') }}
         </h2>
-
     </x-slot>
- 
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <form method="POST" action="{{ route('articles.store') }}" enctype="multipart/form-data">
             @csrf
-            <div class="flex my-3 mb-4" >
-                
+            <div class="flex my-3 mb-4" > 
             <x-text-input name="title"  placeholder="{{ __('Title text?') }}" class="mr-3 mb-4 flex-1" style="margin-right: 3rem"></x-text-input>
             <x-input-error :messages="$errors->get('title')" class="mt-2" />
             <x-text-input name="tags"  placeholder="{{ __('Tags coma seperated!') }}" class="flex-1 mb-4 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"></x-text-input>
@@ -24,7 +21,6 @@
                 @endforeach
             </select>
             <x-picture-input/>
-            
                 <textarea
                     name="full_text"
                     placeholder="{{ __('Article text?') }}"
@@ -34,7 +30,6 @@
             <x-input-success :messages="session('status')" class="mt-2" />
             <x-primary-button class="mt-4">{{ __('Article') }}</x-primary-button>
         </form>
-         
         <div class="mt-6  shadow-sm rounded-lg">
             @foreach ($articles as $article)
                 <div class="p-6 bg-white mb-4">
@@ -61,8 +56,6 @@
                             <x-secondary-button>Edit article</x-secondary-button>
                         </a>
                         <small class="ml-2 text-sm text-gray-600 float-end">{{ $article->created_at->format('j M Y, g:i a') }}</small>
-
-
                 </div>
             @endforeach
         </div>

@@ -1,11 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight text-center">
-            {{ __('categorys') }}
+            {{ __('Categories') }}
         </h2>
 
     </x-slot>
- 
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <form method="POST" action="{{ route('category.store') }}" enctype="multipart/form-data">
             @csrf
@@ -18,7 +17,6 @@
             <x-primary-button class="flex-1 mt-4">{{ __('category') }}</x-primary-button>
             </div>
         </form>
-         
         <div class="mt-6  shadow-sm rounded-lg">
             @foreach ($categorys as $category)
                 <div class="p-6 bg-white mb-4">

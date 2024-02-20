@@ -3,7 +3,6 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight text-center">
             {{ __('Articles') }}
         </h2>
-    
     </x-slot>
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
     <div class="mt-6  shadow-sm rounded-lg">
@@ -28,10 +27,7 @@
                     <a href="{{ route('articles.show', $article) }}"
                     <x-secondary-button>Read more</x-secondary-button>
                     </a>
-                
                     <small class="ml-2 text-sm text-gray-600 float-end">{{ $article->created_at->format('j M Y, g:i a') }}</small>
-
-
             </div>
         @endforeach
     </div>

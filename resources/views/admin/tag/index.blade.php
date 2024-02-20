@@ -10,12 +10,10 @@
         <form method="POST" action="{{ route('tag.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="flex-1 my-3 mb-4" >
-                
-            <x-text-input name="name"  placeholder="{{ __('New tag') }}" class="mr-3 mb-4 flex-1" style="margin-right: 3rem"></x-text-input>
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        
-            <x-input-success :messages="session('status')" class="mt-2" />
-            <x-primary-button class="flex-1 mt-4">{{ __('Tag') }}</x-primary-button>
+                <x-text-input name="name"  placeholder="{{ __('New tag') }}" class="mr-3 mb-4 flex-1" style="margin-right: 3rem"></x-text-input>
+                <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                <x-input-success :messages="session('status')" class="mt-2" />
+                <x-primary-button class="flex-1 mt-4">{{ __('Tag') }}</x-primary-button>
             </div>
         </form>
          

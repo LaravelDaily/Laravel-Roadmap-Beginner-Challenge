@@ -12,8 +12,17 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * ArticleController
+ */
 class ArticleController extends Controller
-{
+{    
+    /**
+     * indexGuest
+     *
+     * @param  mixed $request
+     * @return View
+     */
     public function indexGuest(Request $request): View
     {
         $articles = Article::with('tags','category')->where($request->query())->latest()->paginate(10);
@@ -23,7 +32,12 @@ class ArticleController extends Controller
             'categories' => Category::latest()->get()
         ]);
     }
-
+    
+    /**
+     * index
+     *
+     * @return View
+     */
     public function index(): View
     {
     
@@ -32,12 +46,25 @@ class ArticleController extends Controller
             'categories' => Category::latest()->paginate(10)
         ]);
     }
-
+        
+    /**
+     * show
+     *
+     * @param  mixed $article
+     * @return View
+     */
     public function show(Article $article): View
     {
         return view('article.show', ['article' => $article]);
     }
-
+    
+    /**
+     * store
+     *
+     * @param  mixed $request
+     * @param  mixed $article
+     * @return void
+     */
     public function store(StoreArticleRequest $request, Article $article)
     {
         $file = $request->file('image');
@@ -55,8 +82,14 @@ class ArticleController extends Controller
 
         return redirect(route('article.store'))->with(['status' => 'Article Created!']);
     }
-
-    public function edit(Article $article)
+    
+    /**
+     * edit
+     *
+     * @param  mixed $article
+     * @return View
+     */
+    public function edit(Article $article): View
     {
         $tags = implode(',', $article->tags->pluck('name')->toArray());
 
@@ -67,6 +100,14 @@ class ArticleController extends Controller
         ]);
     }
 
+        
+    /**
+     * update
+     *
+     * @param  mixed $request
+     * @param  mixed $article
+     * @return void
+     */
     public function update(UpdateArticleRequest $request, Article $article)
     {
         $file = $request->file('image');

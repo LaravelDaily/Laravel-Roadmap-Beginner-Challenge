@@ -4,7 +4,6 @@
     <div class="flex justify-between items-center">
         <span class="text-gray-800">category:{{ $category->name }}</span>
     </div>
-
     <small class="ml-2 text-sm text-gray-600 float-end">{{ $category->created_at->format('j M Y, g:i a') }}</small>
     <x-input-success :messages="session('status')" class="mt-2" />
     @auth
@@ -12,6 +11,5 @@
     <x-secondary-button>Edit category</x-secondary-button>
     </a> 
     @endauth
-
 </div>
 </x-app-layout>

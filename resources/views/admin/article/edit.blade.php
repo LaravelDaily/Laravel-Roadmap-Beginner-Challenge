@@ -19,13 +19,12 @@
             @endforeach
         </select>
         <x-picture-input :image="old('image', $article->image)"/>
-        
-            <textarea
-                name="full_text"
-                placeholder="{{ __('Article text?') }}"
-                class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" 
-            >{{ old('full_text', $article->full_text) }}</textarea>
-            <x-input-error :messages="$errors->get('full_text')" class="mt-2" />
+        <textarea
+            name="full_text"
+            placeholder="{{ __('Article text?') }}"
+            class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" 
+        >{{ old('full_text', $article->full_text) }}</textarea>
+        <x-input-error :messages="$errors->get('full_text')" class="mt-2" />
         <x-input-success :messages="session('status')" class="mt-2" />
         <x-primary-button class="mt-4">{{ __('Edit article!') }}</x-primary-button>
     </form>

@@ -23,11 +23,12 @@ class Article extends Model
         'category_id',
         'image'
     ];
+    
     protected $casts = [
         'category_id' => 'int',
     ];
 
-       
+     
     /**
      * category
      *
@@ -37,7 +38,12 @@ class Article extends Model
     {
         return $this->belongsTo(Category::class);
     }
-
+    
+    /**
+     * tags
+     *
+     * @return BelongsToMany
+     */
     public function tags() : BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
