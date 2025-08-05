@@ -85,3 +85,4 @@ If you need help, or you want to compare your version with our simple version, h
 
 
 **Notice**: please look at those repositories only AFTER you've accomplished the task yourself, or if you're confident about your Laravel beginner skills and you think you don't need to practice this task.
+
