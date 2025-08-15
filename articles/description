@@ -1,0 +1,17 @@
+
+
+tag
+in form we have
+id name
+
+post
+in post form we have
+title
+image
+tags
+select category
+description
+
+categories
+id
+category
